@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ryancampisi.com/static/css/main.f855e6bc.css",
-    "main.js": "/ryancampisi.com/static/js/main.dfa0606f.js",
-    "static/js/453.bb828c5d.chunk.js": "/ryancampisi.com/static/js/453.bb828c5d.chunk.js",
-    "index.html": "/ryancampisi.com/index.html",
-    "main.f855e6bc.css.map": "/ryancampisi.com/static/css/main.f855e6bc.css.map",
-    "main.dfa0606f.js.map": "/ryancampisi.com/static/js/main.dfa0606f.js.map",
-    "453.bb828c5d.chunk.js.map": "/ryancampisi.com/static/js/453.bb828c5d.chunk.js.map"
+    "main.css": "/static/css/main.f855e6bc.css",
+    "main.js": "/static/js/main.3294c2ee.js",
+    "static/js/453.bb828c5d.chunk.js": "/static/js/453.bb828c5d.chunk.js",
+    "index.html": "/index.html",
+    "main.f855e6bc.css.map": "/static/css/main.f855e6bc.css.map",
+    "main.3294c2ee.js.map": "/static/js/main.3294c2ee.js.map",
+    "453.bb828c5d.chunk.js.map": "/static/js/453.bb828c5d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f855e6bc.css",
-    "static/js/main.dfa0606f.js"
+    "static/js/main.3294c2ee.js"
   ]
 }
