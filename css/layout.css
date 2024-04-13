@@ -43,13 +43,12 @@ header {
    position: absolute;
    right: 0;
    bottom: 0;
-   width: 100%; /* Adjust width and height to change how the video fits */
+   width: 100%;
    height: 100%;
-   object-fit: cover; /* This will ensure the video covers the area without stretching */
-   z-index: -1; /* Ensures the video stays in the background */
+   object-fit: cover; 
+   z-index: -1; 
  }
 
-/* vertically center banner section */
 header:before {
    content: '';
    display: inline-block;
@@ -73,8 +72,9 @@ header .banner-text h1 {
    margin: 0 auto 18px auto;
    text-shadow: 0px 1px 3px rgba(0, 0, 0, .8);
 }
+
 header .banner-text h3 {
-   font: 18px/1.9em 'librebaskerville-regular', serif;
+   font: bold 18px/1.9em 'librebaskerville-regular', serif;
    color: #A8A8A8;
    margin: 0 auto;
    width: 70%;
