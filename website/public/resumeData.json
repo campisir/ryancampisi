@@ -37,8 +37,196 @@
         "graduated":"May 2024",
         "description": [
           "GPA: 4.0 / 4.0",
-          "Technologies: JavaScript, TypeScript, XML, JSON, MySQL, SQLite, CSS, HTML, Unity, Angular, React, Visual Studio, Flask, Python, C++, Java, Kotlin, MongoDB, Adobe Creative Cloud"
-        ]
+          {
+            "technologies": [
+                {
+                  "name": "JavaScript",
+                  "about": "JavaScript is a versatile programming language commonly used for web development.",
+                  "projects": [
+                    {
+                      "title": "SoundSpace",
+                      "description": "A web application that allows users to share music and connect with other musicians.",
+                      "course": "CEN3031 - Introduction to Software Engineering"
+                    },
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "Python",
+                  "projects": [
+                    {
+                      "title": "WeatherViz",
+                      "description": "A web application used for real-time rendering and analysis of historical weather data.",
+                      "course": "CEN4990 - Performant Programming"
+                    }
+                  ]
+                },
+                {
+                  "name": "C++",
+                  "projects": [
+                    {
+                      "title": "Largest Subarray - Algorithm Analysis",
+                      "description": "to do",
+                      "course": "COP4533 - Algorithm Abstraction & Design"
+                    },
+                    {
+                      "title": "Custom File System",
+                      "description": "to do",
+                      "course": "COP4600 - Operating Systems"
+                    }
+                  ]
+                },
+                {
+                  "name": "Java",
+                  "projects": [
+                    {
+                      "title": "Custom Programming Language",
+                      "description": "to do",
+                      "course": "COP4020 - Programming Language Concepts"
+                    }
+                  ]
+                },
+                {
+                  "name": "Kotlin",
+                  "projects": [
+                    {
+                      "title": "I forgot the name",
+                      "description": "to do",
+                      "course": "to do"
+                    }
+                  ]
+                },
+                {
+                  "name": "TypeScript",
+                  "projects": [
+                    {
+                      "title": "SoundSpace",
+                      "description": "A web application that allows users to share music and connect with other musicians.",
+                      "course": "CEN3031 - Introduction to Software Engineering"
+                    }
+                  ]
+                },
+                {
+                  "name": "SQLite",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "MySQL",
+                  "projects": [
+                    {
+                      "title": "SoundSpace",
+                      "description": "A web application that allows users to share music and connect with other musicians.",
+                      "course": "CEN3031 - Introduction to Software Engineering"
+                    }
+                  ]
+                },
+                {
+                  "name": "Angular",
+                  "projects": [
+                    {
+                      "title": "SoundSpace",
+                      "description": "A web application that allows users to share music and connect with other musicians.",
+                      "course": "CEN3031 - Introduction to Software Engineering"
+                    }
+                  ]
+                },
+                {
+                  "name": "React",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "Flask",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "HTML",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "CSS",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "JSON",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "Git",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "Colab",
+                  "projects": [
+                    {
+                      "title": "to do",
+                      "description": "to do",
+                      "course": "to do"
+                    }
+                  ]
+                },
+                {
+                  "name": "Adobe",
+                  "projects": [
+                    {
+                      "title": "to do",
+                      "description": "to do",
+                      "course": "to do"
+                    }
+                  ]
+                }
+            ]
+          }
+        ],
+        "publication": {
+          "title": "Burnside's Lemma for Analysis of Error-Correcting Codes",
+          "url": "https://ufdc.ufl.edu/aa00098533/00001"
+        }
       },
       {
         "school":"University of West Florida",

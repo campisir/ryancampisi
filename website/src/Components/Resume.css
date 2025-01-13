@@ -1,0 +1,74 @@
+.button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 2px solid black !important;
+    color: black !important; /* Change text color to black */
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .button:link,
+  .button:visited,
+  .button:active,
+  .button:focus {
+    color: black; /* Ensure all link states are black */
+  }
+  
+  .button:hover {
+    background-color: grey;
+    color: white;
+  }
+  
+  .technologies-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .technologies-list li {
+    margin-right: 10px;
+    color: black; /* Ensure text color is black */
+  }
+  
+  .modal {
+    display: block; /* Show the modal */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal-content h4 {
+    font-size: 1.2em; /* Make project titles smaller */
+  }
