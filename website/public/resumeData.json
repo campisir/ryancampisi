@@ -336,6 +336,23 @@
       }
     ]
   },
+  "moreAboutMe": [
+    {
+      "title": "Hobby 1",
+      "image": "images/hobby1.jpg",
+      "text": "Description of hobby 1."
+    },
+    {
+      "title": "Hobby 2",
+      "image": "images/hobby2.jpg",
+      "text": "Description of hobby 2."
+    },
+    {
+      "title": "Hobby 3",
+      "image": "images/hobby3.jpg",
+      "text": "Description of hobby 3."
+    }
+  ],
   "testimonials":{
     "testimonials":[
       {
