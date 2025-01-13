@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import './Resume.css'; // Import the CSS file
 
 class Resume extends Component {

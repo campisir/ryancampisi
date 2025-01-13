@@ -12,7 +12,7 @@ class MoreAboutMe extends Component {
 
   componentDidMount() {
     window.addEventListener('resize', this.updateSlideWidth);
-    this.updateSlideWidth();
+    setTimeout(this.updateSlideWidth, 10); // Delay the call to updateSlideWidth by 1 second
   }
 
   componentWillUnmount() {
@@ -20,7 +20,13 @@ class MoreAboutMe extends Component {
   }
 
   updateSlideWidth = () => {
-    this.setState({ slideWidth: window.innerWidth });
+    console.log("Updating slide width");
+    const slider = document.querySelector('.slider');
+    const slideWidth = slider ? slider.clientWidth : window.innerWidth;
+    this.setState({ slideWidth }, () => {
+      // Ensure the slides are centered after setting the slide width
+      this.forceUpdate();
+    });
   };
 
   goToPreviousSlide = () => {
@@ -33,6 +39,7 @@ class MoreAboutMe extends Component {
     this.setState({
       currentIndex: index
     });
+    this.updateSlideWidth();
   };
 
   goToNextSlide = () => {
@@ -45,6 +52,7 @@ class MoreAboutMe extends Component {
     this.setState({
       currentIndex: index
     });
+    this.updateSlideWidth();
   };
 
   render() {
