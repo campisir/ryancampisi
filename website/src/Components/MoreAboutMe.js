@@ -11,13 +11,17 @@ class MoreAboutMe extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.updateSlideWidth);
-    setTimeout(this.updateSlideWidth, 10); // Delay the call to updateSlideWidth by 1 second
+    window.addEventListener('resize', this.handleResize);
+    setTimeout(this.updateSlideWidth, 300); // Delay the call to updateSlideWidth by 25 milliseconds
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.updateSlideWidth);
+    window.removeEventListener('resize', this.handleResize);
   }
+
+  handleResize = () => {
+    setTimeout(this.updateSlideWidth, 100); // Delay the call to updateSlideWidth by 100 milliseconds
+  };
 
   updateSlideWidth = () => {
     console.log("Updating slide width");
@@ -39,7 +43,7 @@ class MoreAboutMe extends Component {
     this.setState({
       currentIndex: index
     });
-    this.updateSlideWidth();
+    this.handleResize();
   };
 
   goToNextSlide = () => {
@@ -52,7 +56,7 @@ class MoreAboutMe extends Component {
     this.setState({
       currentIndex: index
     });
-    this.updateSlideWidth();
+    this.handleResize();
   };
 
   render() {

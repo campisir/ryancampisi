@@ -54,15 +54,15 @@ class App extends Component {
         <section id="resume">
           <Resume data={this.state.resumeData.resume}/>
         </section>
-        <section id="more-about-me">
-          <MoreAboutMe data={this.state.resumeData.moreAboutMe}/> {/* Add the new component */}
-        </section>
-        {/* <section id="portfolio">
+        { <section id="portfolio">
           <Portfolio data={this.state.resumeData.portfolio}/>
-        </section> */}
+        </section> }
         {/* <section id="testimonials">
           <Testimonials data={this.state.resumeData.testimonials}/>
         </section> */}
+        <section id="more-about-me">
+          <MoreAboutMe data={this.state.resumeData.moreAboutMe}/> {/* Add the new component */}
+        </section>
         <section id="contact">
           <Contact data={this.state.resumeData.main}/>
         </section>
