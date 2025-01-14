@@ -4,8 +4,8 @@
     "occupation":"software engineer",
     "description":"",
     "image":"profilepic.jpg",
-    "bio":"I am a 22 year old student from the University of Florida, looking to get more involved in software engineering. I have a passion for education and technology and hope to one day contribute to the field of computer science in a meaningful way. I am currently looking for a full-time position in software engineering, and am open to any opportunities that may come my way.",
-    "contactmessage":"Feel free to contact me for any questions are concerns. I am always open to new opportunities and am looking to get more involved in the field of software engineering.",
+    "bio":"I am a 23 year old recent graduate from the University of Florida. I have a passion for education and technology and aim to contribute to the field of computer science in a meaningful way.",
+    "contactmessage":"Feel free to contact me for any questions or concerns.",
     "email": "campisiry@gmail.com",
     "phone": "727-253-1397",
     "address":{
@@ -44,20 +44,31 @@
                   "about": "JavaScript is a versatile programming language commonly used for web development.",
                   "projects": [
                     {
-                      "title": "SoundSpace",
-                      "description": "A web application that allows users to share music and connect with other musicians.",
-                      "course": "CEN3031 - Introduction to Software Engineering"
-                    },
-                    {
                       "title": "Flame Picks",
                       "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
                       "course": "CIS4914 - Senior Project"
+                    },
+                    {
+                      "title": "SoundSpace",
+                      "description": "A web application that allows users to share music and connect with other musicians.",
+                      "course": "CEN3031 - Introduction to Software Engineering"
                     }
                   ]
                 },
                 {
                   "name": "Python",
+                  "about": "Python is a high-level, interpreted programming language known for its readability and versatility.",
                   "projects": [
+                    {
+                      "title": "Isomap Algorithm Analysis",
+                      "description": "An implementation and analysis of the Isomap algorithm and its applications in data science.",
+                      "course": "MAS4115 - Linear Algebra for Data Science"
+                    },
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    },
                     {
                       "title": "WeatherViz",
                       "description": "A web application used for real-time rendering and analysis of historical weather data.",
@@ -67,6 +78,7 @@
                 },
                 {
                   "name": "C++",
+                  "about": "C++ is a powerful, high-performance programming language widely used for system/software development and game programming.",
                   "projects": [
                     {
                       "title": "Largest Subarray - Algorithm Analysis",
@@ -82,6 +94,7 @@
                 },
                 {
                   "name": "Java",
+                  "about": "Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.",
                   "projects": [
                     {
                       "title": "Custom Programming Language",
@@ -92,6 +105,7 @@
                 },
                 {
                   "name": "Kotlin",
+                  "about": "Kotlin is a modern, statically typed programming language that is fully interoperable with Java and is used for Android development, server-side development, and more.",
                   "projects": [
                     {
                       "title": "I forgot the name",
@@ -102,6 +116,7 @@
                 },
                 {
                   "name": "TypeScript",
+                  "about": "TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.",
                   "projects": [
                     {
                       "title": "SoundSpace",
@@ -112,6 +127,7 @@
                 },
                 {
                   "name": "SQLite",
+                  "about": "SQLite is a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine.",
                   "projects": [
                     {
                       "title": "Flame Picks",
@@ -122,6 +138,7 @@
                 },
                 {
                   "name": "MySQL",
+                  "about": "MySQL is an open-source relational database management system based on SQL (Structured Query Language). It is widely used for database-driven web applications and is known for its reliability, performance, and ease of use.",
                   "projects": [
                     {
                       "title": "SoundSpace",
@@ -132,6 +149,7 @@
                 },
                 {
                   "name": "Angular",
+                  "about": "Angular is a platform and framework for building single-page client applications using HTML and TypeScript. It is maintained by Google and offers a robust set of tools for building scalable web applications.",
                   "projects": [
                     {
                       "title": "SoundSpace",
@@ -142,6 +160,7 @@
                 },
                 {
                   "name": "React",
+                  "about": "React is a JavaScript library for building user interfaces, maintained by Facebook and a community of individual developers and companies. It is widely used for building single-page applications and mobile apps.",
                   "projects": [
                     {
                       "title": "Flame Picks",
@@ -152,6 +171,7 @@
                 },
                 {
                   "name": "Flask",
+                  "about": "Flask is a lightweight WSGI web application framework in Python. It is designed with simplicity and flexibility in mind, making it easy to build web applications quickly.",
                   "projects": [
                     {
                       "title": "Flame Picks",
@@ -162,6 +182,7 @@
                 },
                 {
                   "name": "HTML",
+                  "about": "HTML (HyperText Markup Language) is the standard markup language used to create web pages. It provides the structure of a webpage, allowing the inclusion of text, images, links, and other elements.",
                   "projects": [
                     {
                       "title": "Flame Picks",
@@ -172,6 +193,7 @@
                 },
                 {
                   "name": "CSS",
+                  "about": "CSS (Cascading Style Sheets) is a style sheet language used for describing the presentation of a document written in HTML or XML. It controls the layout, colors, fonts, and overall visual appearance of web pages.",
                   "projects": [
                     {
                       "title": "Flame Picks",
@@ -182,6 +204,7 @@
                 },
                 {
                   "name": "JSON",
+                  "about": "JSON (JavaScript Object Notation) is a lightweight data interchange format that is easy for humans to read and write, and easy for machines to parse and generate.",
                   "projects": [
                     {
                       "title": "Flame Picks",
@@ -192,6 +215,7 @@
                 },
                 {
                   "name": "Git",
+                  "about": "Git is a distributed version control system designed to handle everything from small to very large projects with speed and efficiency.",
                   "projects": [
                     {
                       "title": "Flame Picks",
@@ -202,6 +226,7 @@
                 },
                 {
                   "name": "Colab",
+                  "about": "Google Colab is a free, cloud-based platform that allows users to write and execute Python code in a Jupyter notebook environment. It is widely used for machine learning, data analysis, and education.",
                   "projects": [
                     {
                       "title": "to do",
@@ -212,6 +237,7 @@
                 },
                 {
                   "name": "Adobe",
+                  "about": "Adobe products are a suite of software applications used for graphic design, video editing, web development, photography, and more. They are widely recognized for their powerful features and industry-standard tools.",
                   "projects": [
                     {
                       "title": "to do",

@@ -1,5 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, forwardRef } from 'react';
+import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
+import { useSwipeable } from 'react-swipeable';
 import './MoreAboutMe.css'; // Import the CSS file
+
+const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
 
 class MoreAboutMe extends Component {
   constructor(props) {
@@ -12,7 +16,7 @@ class MoreAboutMe extends Component {
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
-    setTimeout(this.updateSlideWidth, 300); // Delay the call to updateSlideWidth by 25 milliseconds
+    setTimeout(this.updateSlideWidth, 300); // Delay the call to updateSlideWidth by 300 milliseconds
   }
 
   componentWillUnmount() {
@@ -59,8 +63,28 @@ class MoreAboutMe extends Component {
     this.handleResize();
   };
 
+  handleCountryClick = (geo) => {
+    alert(`You clicked on ${geo.properties.name}`);
+  };
+
+  getCountryColor = (geo) => {
+    const countryName = geo.properties.name;
+    // Define custom colors for specific countries
+    const countryColors = {
+      "United States of America": "#90EE90", // Light green
+      "Israel": "#90EE90", // Light green
+      "Japan": "#90EE90", // Light green
+      "Italy": "#90EE90", // Light green
+      "Greece": "#90EE90", // Light green
+      "Montenegro": "#90EE90", // Light green
+      "Norway": "#90EE90", // Light green
+      // Add more countries and their colors here
+    };
+    return countryColors[countryName] || "#D6D6DA"; // Default color
+  };
+
   render() {
-    const { data = [] } = this.props; // Provide a default value for data
+    const { data = [], handlers } = this.props; // Provide a default value for data
     const { currentIndex, slideWidth } = this.state;
 
     if (data.length === 0) {
@@ -70,12 +94,33 @@ class MoreAboutMe extends Component {
     const translateX = -currentIndex * slideWidth;
 
     return (
-      <section id="more-about-me"> {/* Ensure the ID matches */}
+      <section id="more-about-me" {...handlers}> {/* Ensure the ID matches */}
         <div className="slider">
           <button className="arrow left-arrow" onClick={this.goToPreviousSlide}>
             &#10094;
           </button>
           <div className="slides-container" style={{ transform: `translateX(${translateX}px)` }}>
+            <div className="slide" style={{ width: `${slideWidth}px` }}>
+              <h2>World Map</h2>
+              <ComposableMap projection="geoMercator">
+                <Geographies geography={geoUrl}>
+                  {({ geographies }) =>
+                    geographies.map(geo => (
+                      <Geography
+                        key={geo.rsmKey}
+                        geography={geo}
+                        onClick={() => this.handleCountryClick(geo)}
+                        style={{
+                          default: { fill: this.getCountryColor(geo), outline: "none" },
+                          hover: { fill: "#F53", outline: "none" },
+                          pressed: { fill: "#E42", outline: "none" }
+                        }}
+                      />
+                    ))
+                  }
+                </Geographies>
+              </ComposableMap>
+            </div>
             {data.map((item, index) => (
               <div className="slide" key={index} style={{ width: `${slideWidth}px` }}>
                 <h2>{item.title}</h2>
@@ -93,4 +138,40 @@ class MoreAboutMe extends Component {
   }
 }
 
-export default MoreAboutMe;
+const MoreAboutMeWithSwipe = forwardRef((props, ref) => {
+  const handlers = useSwipeable({
+    onSwipedLeft: props.goToNextSlide,
+    onSwipedRight: props.goToPreviousSlide,
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  });
+
+  return <MoreAboutMe {...props} handlers={handlers} ref={ref} />;
+});
+
+const MoreAboutMeContainer = (props) => {
+  const moreAboutMeRef = React.createRef();
+
+  const goToPreviousSlide = () => {
+    if (moreAboutMeRef.current) {
+      moreAboutMeRef.current.goToPreviousSlide();
+    }
+  };
+
+  const goToNextSlide = () => {
+    if (moreAboutMeRef.current) {
+      moreAboutMeRef.current.goToNextSlide();
+    }
+  };
+
+  return (
+    <MoreAboutMeWithSwipe
+      {...props}
+      goToPreviousSlide={goToPreviousSlide}
+      goToNextSlide={goToNextSlide}
+      ref={moreAboutMeRef}
+    />
+  );
+};
+
+export default MoreAboutMeContainer;
