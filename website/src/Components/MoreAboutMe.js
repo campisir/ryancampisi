@@ -5,13 +5,69 @@ import './MoreAboutMe.css'; // Import the CSS file
 
 const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
 
+// Data structure to hold country details
+const countryDetails = {
+  "United States of America": {
+    name: "United States of America",
+    description: "I was born here.",
+    dateVisited: "Date first visited: December 3, 2001",
+    photo: "path/to/usa_photo.jpg",
+    caption: "Guys, I swear it counts!"
+  },
+  "Israel": {
+    name: "Israel",
+    description: "This is the first country I visited internationally. They really like olives here.",
+    dateVisited: "Date first visited: July X, 2019",
+    photo: "path/to/israel_photo.jpg",
+    caption: "Me, in 11th grade, rolling down a slope in Nazereth using Heelys."
+  },
+  "Japan": {
+    name: "Japan",
+    description: "I studied abroad here during the Summer 2023 semester. Don't ask me to speak Japanese, though.",
+    dateVisited: "Date first visited: May 31, 2023",
+    photo: "path/to/japan_photo.jpg",
+    caption: "A funny souvenir image I got from a candy cafe in Kyoto."
+  },
+  "Italy": {
+    name: "Italy",
+    description: "I visited here as part of a cruise I took in 2024. Surprisingly, this trip was unrelated from my Italian heritage (you may have thought from my last name).",
+    dateVisited: "Date first visited: June X, 2024",
+    photo: "path/to/italy_photo.jpg",
+    caption: "By pure coincidence, I got to see the Tour De France come through Bologna the day I was staying there."
+  },
+  "Greece": {
+    name: "Greece",
+    description: "I visited here as part of a cruise I took in 2024.",
+    dateVisited: "Date first visited: June X, 2024",
+    photo: "path/to/greece_photo.jpg",
+    caption: "I walked up all of the stairs in Santorini. Where's my medal?"
+  },
+  "Montenegro": {
+    name: "Montenegro",
+    description: "I visited here as part of a cruise I took in 2024.",
+    dateVisited: "Date first visited: June X, 2024",
+    photo: "path/to/montenegro_photo.jpg",
+    caption: "A boat ride in Montenegro."
+  },
+  "Norway": {
+    name: "Norway",
+    description: "This was the second country I visited.",
+    dateVisited: "Date first visited: December X, 2022",
+    photo: "path/to/norway_photo.jpg",
+    caption: "Me with a goat at the top of a mountain in Burgen."
+  }
+  // Add more countries and their details here
+};
+
 class MoreAboutMe extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentIndex: 0,
       slideWidth: window.innerWidth,
-      isBlurred: true
+      isBlurred: true,
+      showPopup: false,
+      selectedCountry: null
     };
   }
 
@@ -65,7 +121,15 @@ class MoreAboutMe extends Component {
   };
 
   handleCountryClick = (geo) => {
-    alert(`You clicked on ${geo.properties.name}`);
+    const countryName = geo.properties.name;
+    const details = countryDetails[countryName];
+    if (details) {
+      this.setState({ showPopup: true, selectedCountry: details });
+    }
+  };
+
+  closePopup = () => {
+    this.setState({ showPopup: false, selectedCountry: null });
   };
 
   getCountryColor = (geo) => {
@@ -90,7 +154,7 @@ class MoreAboutMe extends Component {
 
   render() {
     const { data = [], handlers } = this.props; // Provide a default value for data
-    const { currentIndex, slideWidth, isBlurred } = this.state;
+    const { currentIndex, slideWidth, isBlurred, showPopup, selectedCountry } = this.state;
 
     if (data.length === 0) {
       return <div>No data available</div>;
@@ -119,7 +183,7 @@ class MoreAboutMe extends Component {
           </button>
           <div className="slides-container" style={{ transform: `translateX(${translateX}px)` }}>
             <div className="slide" style={{ width: `${slideWidth}px` }}>
-              <h2></h2>
+              <h2>My Travels</h2>
               {isBlurred && (
                 <div className="blur-overlay">
                   <p className="blur-message">
@@ -161,6 +225,18 @@ class MoreAboutMe extends Component {
             &#10095;
           </button>
         </div>
+        {showPopup && selectedCountry && (
+          <div className="popup">
+            <div className="popup-content">
+              <span className="close" onClick={this.closePopup}>&times;</span>
+              <h2>{selectedCountry.name}</h2>
+              <p>{selectedCountry.description}</p>
+              <p>{selectedCountry.dateVisited}</p>
+              <img src={selectedCountry.photo} alt={selectedCountry.name} />
+              <p className="caption">{selectedCountry.caption}</p>
+            </div>
+          </div>
+        )}
       </section>
     );
   }
