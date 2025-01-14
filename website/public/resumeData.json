@@ -273,6 +273,12 @@
     ],
     "work":[
       {
+        "company":"United States Department of Defense",
+        "title":"Software Developer",
+        "years":"September 2024 - Present",
+        "description":"Facilitating the development and management of courseware for the United States Navy."
+      },
+      {
         "company":"Invisible Technologies",
         "title":"Expert AI Data Trainer",
         "years":"March 2024 - Present",
@@ -281,8 +287,8 @@
       {
         "company":"UF Academic Resources",
         "title":"Mathematics Tutor",
-        "years":"August 2023 - Present",
-        "description":"Responsible for conducting private appointment tutoring for various calculus and algebra courses such as Calculus 1, 2, and 3, Linear Algebra, and Differential Equations."
+        "years":"August 2023 - May 2024",
+        "description":"Responsible for conducting private appointment tutoring for various math courses, including Calculus, Linear Algebra, and Differential Equations. I also led weekly Calculus review sessions for NROTC students."
       },
       {
         "company":"UF Herbert Wertheim College of Engineering",

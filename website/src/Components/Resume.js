@@ -66,7 +66,7 @@ class Resume extends Component {
                   <i className="fa fa-arrow-down" style={{ fontSize: '1.5em', margin: '0 5px' }}></i>
                   <i className="fa fa-arrow-down" style={{ fontSize: '1.5em', margin: '0 5px' }}></i>
                 </div>
-                <a href={education.publication.url} className="button" target="_blank" rel="noopener noreferrer">
+                <a href={education.publication.url} className="resumebutton" target="_blank" rel="noopener noreferrer">
                   <i className="fa fa-file-text-o"></i> {education.publication.title}
                 </a>
               </div>

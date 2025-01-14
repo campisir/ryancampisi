@@ -10,7 +10,8 @@ class MoreAboutMe extends Component {
     super(props);
     this.state = {
       currentIndex: 0,
-      slideWidth: window.innerWidth
+      slideWidth: window.innerWidth,
+      isBlurred: true
     };
   }
 
@@ -83,9 +84,13 @@ class MoreAboutMe extends Component {
     return countryColors[countryName] || "#D6D6DA"; // Default color
   };
 
+  removeBlur = () => {
+    this.setState({ isBlurred: false });
+  };
+
   render() {
     const { data = [], handlers } = this.props; // Provide a default value for data
-    const { currentIndex, slideWidth } = this.state;
+    const { currentIndex, slideWidth, isBlurred } = this.state;
 
     if (data.length === 0) {
       return <div>No data available</div>;
@@ -93,33 +98,56 @@ class MoreAboutMe extends Component {
 
     const translateX = -currentIndex * slideWidth;
 
+    // List of clickable countries
+    const clickableCountries = [
+      "United States of America",
+      "Israel",
+      "Japan",
+      "Italy",
+      "Greece",
+      "Montenegro",
+      "Norway"
+      // Add more countries here
+    ];
+
     return (
       <section id="more-about-me" {...handlers}> {/* Ensure the ID matches */}
+        <h1 className="section-title">More About Me</h1>
         <div className="slider">
           <button className="arrow left-arrow" onClick={this.goToPreviousSlide}>
             &#10094;
           </button>
           <div className="slides-container" style={{ transform: `translateX(${translateX}px)` }}>
             <div className="slide" style={{ width: `${slideWidth}px` }}>
-              <h2>World Map</h2>
-              <ComposableMap projection="geoMercator">
-                <Geographies geography={geoUrl}>
-                  {({ geographies }) =>
-                    geographies.map(geo => (
-                      <Geography
-                        key={geo.rsmKey}
-                        geography={geo}
-                        onClick={() => this.handleCountryClick(geo)}
-                        style={{
-                          default: { fill: this.getCountryColor(geo), outline: "none" },
-                          hover: { fill: "#F53", outline: "none" },
-                          pressed: { fill: "#E42", outline: "none" }
-                        }}
-                      />
-                    ))
-                  }
-                </Geographies>
-              </ComposableMap>
+              <h2></h2>
+              {isBlurred && (
+                <div className="blur-overlay">
+                  <p className="blur-message">
+                    I love to travel. Currently, I have only traveled internationally a handful of times. My life goal is to visit at least fifty countries. Click to see my interactive travel map.
+                  </p>
+                  <button className="unblur-button" onClick={this.removeBlur}>See Map</button>
+                </div>
+              )}
+              <div className={`map-container ${isBlurred ? 'blurred' : ''}`}>
+                <ComposableMap projection="geoMercator">
+                  <Geographies geography={geoUrl}>
+                    {({ geographies }) =>
+                      geographies.map(geo => (
+                        <Geography
+                          key={geo.rsmKey}
+                          geography={geo}
+                          onClick={clickableCountries.includes(geo.properties.name) ? () => this.handleCountryClick(geo) : null}
+                          style={{
+                            default: { fill: this.getCountryColor(geo), outline: "none" },
+                            hover: { fill: clickableCountries.includes(geo.properties.name) ? "#F53" : this.getCountryColor(geo), outline: "none" },
+                            pressed: { fill: clickableCountries.includes(geo.properties.name) ? "#E42" : this.getCountryColor(geo), outline: "none" }
+                          }}
+                        />
+                      ))
+                    }
+                  </Geographies>
+                </ComposableMap>
+              </div>
             </div>
             {data.map((item, index) => (
               <div className="slide" key={index} style={{ width: `${slideWidth}px` }}>

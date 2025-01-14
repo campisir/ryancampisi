@@ -4,6 +4,28 @@
   background-color: #2B2B2B; /* Update background color to a lighter shade */
 }
 
+.section-title {
+  font: 48px/56px 'opensans-bold', sans-serif; /* Increase font size and match the theme font */
+  color: #fff; /* Lighter color for better readability */
+  margin: 20px 0; /* Add top and bottom margin */
+  padding: 20px 0; /* Add padding on top and bottom */
+  text-transform: uppercase; /* Make the text uppercase */
+  letter-spacing: 2px; /* Add letter spacing for better readability */
+  position: relative; /* Position relative for the pseudo-element */
+  display: inline-block; /* Ensure the title is inline-block to fit the text width */
+}
+
+.section-title::after {
+  content: '';
+  display: inline-block;
+  width: 100%; /* Underline spans the width of the text */
+  height: 3px; /* Height of the underline */
+  background-color: #19b6ff; /* Color of the underline */
+  position: absolute;
+  bottom: -5px; /* Position slightly below the text */
+  left: 0; /* Align with the start of the text */
+}
+
 .slider {
   position: relative;
   width: 100%;
@@ -38,9 +60,11 @@
 }
 
 .slide h2 {
-  font: 22px/30px 'opensans-bold', sans-serif; /* Match the theme font */
+  font: 36px/44px 'opensans-bold', sans-serif; /* Increase font size and match the theme font */
   color: #fff; /* Lighter color for better readability */
-  margin-bottom: 12px;
+  margin-bottom: 20px; /* Increase bottom margin for better spacing */
+  text-transform: uppercase; /* Make the text uppercase */
+  letter-spacing: 2px; /* Add letter spacing for better readability */
 }
 
 .slide p {
@@ -72,4 +96,51 @@
 
 .slide .rsm-geography {
   cursor: pointer;
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 500px; /* Ensure the map container has a height */
+}
+
+.blurred {
+  filter: blur(8px);
+  pointer-events: none; /* Disable interactions while blurred */
+}
+
+.blur-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 5; /* Ensure overlay is above the map */
+}
+
+.blur-message {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.unblur-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.unblur-button:hover {
+  background-color: #0056b3;
 }
