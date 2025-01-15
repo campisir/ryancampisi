@@ -213,3 +213,11 @@
   text-align: center;
   font-style: italic; /* Italicize the caption */
 }
+
+.slide .caption {
+  font-size: 14px;
+  color: #A8A8A8;
+  margin-top: 5px;
+  text-align: center;
+  font-style: italic;
+}

@@ -337,34 +337,28 @@
   "portfolio":{
     "projects": [
       {
-        "title":"Canadian Wanderlust",
-        "category":"My Travel Blog for my post-university travels",
-        "image":"canadian-wanderlust.jpg",
-        "url":"https://www.canadianwanderlust.com"
+        "title":"WeatherViz",
+        "category":"Real-time rendering and analysis of historical weather data.",
+        "image":"weatherviz.png",
+        "url":"https://github.com/aidan-winney/WeatherViz"
       },
       {
-        "title":"Fury Fighting Gear",
-        "category":"(offline now) A fighting gear company I started",
-        "image":"fury-fighting-gear.jpg",
-        "url":"http://www.timbakerdev.com"
+        "title":"YTPicks",
+        "category":"Progressive side-by-side comparisons between videos, in a bracket-style game.",
+        "image":"YTPicks.png",
+        "url":"http://www.google.com"
       },
       {
-        "title":"Original Thai Food",
-        "category":"Website I built for a restaurant I like in Thailand",
-        "image":"original-thai-food.jpg",
-        "url":"http://www.timbakerdev.com/originalthaifood.github.io"
+        "title":"Flame Picks",
+        "category":"Make picks on upcoming sports games without the use of real money.",
+        "image":"flamepicks.png",
+        "url":"https://www.flamepicks.com"
       },
       {
-        "title":"Resume Website",
-        "category":"A React based resume website template",
-        "image":"resume-website.jpg",
-        "url":"http://www.timbakerdev.com"
-      },
-      {
-        "title":"Smirkspace",
-        "category":"(MVP Only) A React and Meteor based chat University project.",
-        "image":"smirkspace.jpg",
-        "url":"http://www.smirkspace.com"
+        "title":"RyanCampisi.com",
+        "category":"My Personal Website",
+        "image":"ryancampisi.png",
+        "url":"https://www.ryancampisi.com"
       }
     ]
   },

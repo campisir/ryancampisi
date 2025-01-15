@@ -222,6 +222,25 @@ class MoreAboutMe extends Component {
                 </ComposableMap>
               </div>
             </div>
+
+            {/* New Chess Slide */}
+            <div className="slide" style={{ width: `${slideWidth}px` }}>
+              <h2>Chess</h2>
+              <img src="images/chess.png" alt="Chess" />
+              <p className="caption">A shirt signed by GM Sam Shankland and a book signed by IM Levy Rozman that I won during my time at the UF chess club.</p>
+              <p>
+                I picked up chess a few years ago and it is now one of my favorite hobbies. As of recently, I have been playing a lot of the 2v2 variant called "Bughouse." I have never played in an offical over-the-board tournament, but I plan to one day.
+              </p>
+              <p>
+                <strong>Goal:</strong> Reach an online rating of 2000 in any chess format.
+              </p>
+              <p>
+                <a href="https://www.chess.com/member/GrowHome" target="_blank" rel="noopener noreferrer">
+                  Visit my Chess.com profile
+                </a>
+              </p>
+            </div>
+
             {data.map((item, index) => (
               <div className="slide" key={index} style={{ width: `${slideWidth}px` }}>
                 <h2>{item.title}</h2>
