@@ -103,8 +103,7 @@ class MoreAboutMe extends Component {
 
   goToPreviousSlide = () => {
     const { currentIndex } = this.state;
-    const { data } = this.props;
-    const lastIndex = data.length - 1;
+    const lastIndex = 2; // Update to reflect the number of prebuilt slides
     const shouldResetIndex = currentIndex === 0;
     const index = shouldResetIndex ? lastIndex : currentIndex - 1;
 
@@ -116,8 +115,7 @@ class MoreAboutMe extends Component {
 
   goToNextSlide = () => {
     const { currentIndex } = this.state;
-    const { data } = this.props;
-    const lastIndex = data.length - 1;
+    const lastIndex = 2; // Update to reflect the number of prebuilt slides
     const shouldResetIndex = currentIndex === lastIndex;
     const index = shouldResetIndex ? 0 : currentIndex + 1;
 
@@ -161,12 +159,8 @@ class MoreAboutMe extends Component {
   };
 
   render() {
-    const { data = [], handlers } = this.props; // Provide a default value for data
+    const { handlers } = this.props;
     const { currentIndex, slideWidth, isBlurred, showPopup, selectedCountry } = this.state;
-
-    if (data.length === 0) {
-      return <div>No data available</div>;
-    }
 
     const translateX = -currentIndex * slideWidth;
 
@@ -241,13 +235,20 @@ class MoreAboutMe extends Component {
               </p>
             </div>
 
-            {data.map((item, index) => (
-              <div className="slide" key={index} style={{ width: `${slideWidth}px` }}>
-                <h2>{item.title}</h2>
-                <img src={item.image} alt={item.title} />
-                <p>{item.text}</p>
+            {/* New Video Editing Slide */}
+            <div className="slide video-editing-slide" style={{ width: `${slideWidth}px` }}>
+              <div className="video-editing-background">
+                <img src="images/video1.gif" alt="Video 1" className="video-gif" />
+                <img src="images/video2.gif" alt="Video 2" className="video-gif" />
+                <img src="images/video3.gif" alt="Video 3" className="video-gif" />
+                <div className="video-editing-overlay">
+                  <h2>Video Editing</h2>
+                  <p>
+                    I like to record/edit videos when I get the chance. I have extensive experience with Vegas Pro, Premiere Pro, After Effects, and Photoshop.
+                  </p>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
           <button className="arrow right-arrow" onClick={this.goToNextSlide}>
             &#10095;

@@ -221,3 +221,60 @@
   text-align: center;
   font-style: italic;
 }
+
+
+.video-editing-slide {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.video-editing-background {
+  position: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column; /* Change to column to stack gifs vertically */
+  overflow: hidden;
+}
+
+.video-gif {
+  width: 100%;
+  height: 33.33%; /* Each gif takes up a third of the height */
+  object-fit: cover;
+}
+
+.video-editing-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.video-editing-overlay h2 {
+  font: 36px/44px 'opensans-bold', sans-serif;
+  color: #fff;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.video-editing-overlay p {
+  font: 18px/24px 'opensans-regular', sans-serif;
+  color: #A8A8A8;
+  line-height: 1.6;
+}
