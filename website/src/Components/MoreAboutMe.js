@@ -244,6 +244,8 @@ class MoreAboutMe extends Component {
 
     const translateX = -currentIndex * slideWidth;
 
+    const chessboardWidth = Math.min(slideWidth * 0.8, 400); // 80% of slide width or max 400px
+
     // List of clickable countries
     const clickableCountries = [
       "United States of America",
@@ -303,7 +305,7 @@ class MoreAboutMe extends Component {
               <Chessboard
                 position={chessGame.fen()}
                 onDrop={this.onDrop}
-                width={400}
+                width={chessboardWidth}
               />
               <p className="caption"></p>
               <p>
