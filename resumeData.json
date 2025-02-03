@@ -4,8 +4,8 @@
     "occupation":"software engineer",
     "description":"",
     "image":"profilepic.jpg",
-    "bio":"I am a 22 year old student from the University of Florida, looking to get more involved in software engineering. I have a passion for education and technology and hope to one day contribute to the field of computer science in a meaningful way. I am currently looking for a full-time position in software engineering, and am open to any opportunities that may come my way.",
-    "contactmessage":"Feel free to contact me for any questions are concerns. I am always open to new opportunities and am looking to get more involved in the field of software engineering.",
+    "bio":"I am a 23 year old recent graduate from the University of Florida. I have a passion for education and technology and aim to contribute to the field of computer science in a meaningful way.",
+    "contactmessage":"Feel free to contact me for any questions or concerns.",
     "email": "campisiry@gmail.com",
     "phone": "727-253-1397",
     "address":{
@@ -37,8 +37,222 @@
         "graduated":"May 2024",
         "description": [
           "GPA: 4.0 / 4.0",
-          "Technologies: JavaScript, TypeScript, XML, JSON, MySQL, SQLite, CSS, HTML, Unity, Angular, React, Visual Studio, Flask, Python, C++, Java, Kotlin, MongoDB, Adobe Creative Cloud"
-        ]
+          {
+            "technologies": [
+                {
+                  "name": "JavaScript",
+                  "about": "JavaScript is a versatile programming language commonly used for web development.",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    },
+                    {
+                      "title": "SoundSpace",
+                      "description": "A web application that allows users to share music and connect with other musicians.",
+                      "course": "CEN3031 - Introduction to Software Engineering"
+                    }
+                  ]
+                },
+                {
+                  "name": "Python",
+                  "about": "Python is a high-level, interpreted programming language known for its readability and versatility.",
+                  "projects": [
+                    {
+                      "title": "Isomap Algorithm Analysis",
+                      "description": "An implementation and analysis of the Isomap algorithm and its applications in data science.",
+                      "course": "MAS4115 - Linear Algebra for Data Science"
+                    },
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    },
+                    {
+                      "title": "WeatherViz",
+                      "description": "A web application used for real-time rendering and analysis of historical weather data.",
+                      "course": "CEN4990 - Performant Programming"
+                    }
+                  ]
+                },
+                {
+                  "name": "C++",
+                  "about": "C++ is a powerful, high-performance programming language widely used for system/software development and game programming.",
+                  "projects": [
+                    {
+                      "title": "Largest Subarray - Algorithm Analysis",
+                      "description": "to do",
+                      "course": "COP4533 - Algorithm Abstraction & Design"
+                    },
+                    {
+                      "title": "Custom File System",
+                      "description": "to do",
+                      "course": "COP4600 - Operating Systems"
+                    }
+                  ]
+                },
+                {
+                  "name": "Java",
+                  "about": "Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.",
+                  "projects": [
+                    {
+                      "title": "Custom Programming Language",
+                      "description": "to do",
+                      "course": "COP4020 - Programming Language Concepts"
+                    }
+                  ]
+                },
+                {
+                  "name": "Kotlin",
+                  "about": "Kotlin is a modern, statically typed programming language that is fully interoperable with Java and is used for Android development, server-side development, and more.",
+                  "projects": [
+                    {
+                      "title": "I forgot the name",
+                      "description": "to do",
+                      "course": "to do"
+                    }
+                  ]
+                },
+                {
+                  "name": "TypeScript",
+                  "about": "TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.",
+                  "projects": [
+                    {
+                      "title": "SoundSpace",
+                      "description": "A web application that allows users to share music and connect with other musicians.",
+                      "course": "CEN3031 - Introduction to Software Engineering"
+                    }
+                  ]
+                },
+                {
+                  "name": "SQLite",
+                  "about": "SQLite is a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine.",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "MySQL",
+                  "about": "MySQL is an open-source relational database management system based on SQL (Structured Query Language). It is widely used for database-driven web applications and is known for its reliability, performance, and ease of use.",
+                  "projects": [
+                    {
+                      "title": "SoundSpace",
+                      "description": "A web application that allows users to share music and connect with other musicians.",
+                      "course": "CEN3031 - Introduction to Software Engineering"
+                    }
+                  ]
+                },
+                {
+                  "name": "Angular",
+                  "about": "Angular is a platform and framework for building single-page client applications using HTML and TypeScript. It is maintained by Google and offers a robust set of tools for building scalable web applications.",
+                  "projects": [
+                    {
+                      "title": "SoundSpace",
+                      "description": "A web application that allows users to share music and connect with other musicians.",
+                      "course": "CEN3031 - Introduction to Software Engineering"
+                    }
+                  ]
+                },
+                {
+                  "name": "React",
+                  "about": "React is a JavaScript library for building user interfaces, maintained by Facebook and a community of individual developers and companies. It is widely used for building single-page applications and mobile apps.",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "Flask",
+                  "about": "Flask is a lightweight WSGI web application framework in Python. It is designed with simplicity and flexibility in mind, making it easy to build web applications quickly.",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "HTML",
+                  "about": "HTML (HyperText Markup Language) is the standard markup language used to create web pages. It provides the structure of a webpage, allowing the inclusion of text, images, links, and other elements.",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "CSS",
+                  "about": "CSS (Cascading Style Sheets) is a style sheet language used for describing the presentation of a document written in HTML or XML. It controls the layout, colors, fonts, and overall visual appearance of web pages.",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "JSON",
+                  "about": "JSON (JavaScript Object Notation) is a lightweight data interchange format that is easy for humans to read and write, and easy for machines to parse and generate.",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "Git",
+                  "about": "Git is a distributed version control system designed to handle everything from small to very large projects with speed and efficiency.",
+                  "projects": [
+                    {
+                      "title": "Flame Picks",
+                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
+                      "course": "CIS4914 - Senior Project"
+                    }
+                  ]
+                },
+                {
+                  "name": "Colab",
+                  "about": "Google Colab is a free, cloud-based platform that allows users to write and execute Python code in a Jupyter notebook environment. It is widely used for machine learning, data analysis, and education.",
+                  "projects": [
+                    {
+                      "title": "Multilingual Semantic Role Labeling",
+                      "description": "",
+                      "course": "CAP4641"
+                    }
+                  ]
+                },
+                {
+                  "name": "Adobe",
+                  "about": "Adobe products are a suite of software applications used for graphic design, video editing, web development, photography, and more. They are widely recognized for their powerful features and industry-standard tools.",
+                  "projects": [
+                    {
+                      "title": "to do",
+                      "description": "to do",
+                      "course": "to do"
+                    }
+                  ]
+                }
+            ]
+          }
+        ],
+        "publication": {
+          "title": "Burnside's Lemma for Analysis of Error-Correcting Codes",
+          "url": "https://ufdc.ufl.edu/aa00098533/00001"
+        }
       },
       {
         "school":"University of West Florida",
@@ -59,6 +273,12 @@
     ],
     "work":[
       {
+        "company":"United States Department of Defense",
+        "title":"Software Developer",
+        "years":"September 2024 - Present",
+        "description":"Facilitating the development and management of courseware for the United States Navy."
+      },
+      {
         "company":"Invisible Technologies",
         "title":"Expert AI Data Trainer",
         "years":"March 2024 - Present",
@@ -67,8 +287,8 @@
       {
         "company":"UF Academic Resources",
         "title":"Mathematics Tutor",
-        "years":"August 2023 - Present",
-        "description":"Responsible for conducting private appointment tutoring for various calculus and algebra courses such as Calculus 1, 2, and 3, Linear Algebra, and Differential Equations."
+        "years":"August 2023 - May 2024",
+        "description":"Responsible for conducting private appointment tutoring for various math courses, including Calculus, Linear Algebra, and Differential Equations. I also led weekly Calculus review sessions for NROTC students."
       },
       {
         "company":"UF Herbert Wertheim College of Engineering",
@@ -117,37 +337,48 @@
   "portfolio":{
     "projects": [
       {
-        "title":"Canadian Wanderlust",
-        "category":"My Travel Blog for my post-university travels",
-        "image":"canadian-wanderlust.jpg",
-        "url":"https://www.canadianwanderlust.com"
+        "title":"WeatherViz",
+        "category":"Real-time rendering and analysis of historical weather data.",
+        "image":"weatherviz.png",
+        "url":"https://github.com/aidan-winney/WeatherViz"
       },
       {
-        "title":"Fury Fighting Gear",
-        "category":"(offline now) A fighting gear company I started",
-        "image":"fury-fighting-gear.jpg",
-        "url":"http://www.timbakerdev.com"
+        "title":"YTPicks",
+        "category":"Progressive side-by-side comparisons between videos, in a bracket-style game.",
+        "image":"YTPicks.png",
+        "url":"http://www.ytpicks.com"
       },
       {
-        "title":"Original Thai Food",
-        "category":"Website I built for a restaurant I like in Thailand",
-        "image":"original-thai-food.jpg",
-        "url":"http://www.timbakerdev.com/originalthaifood.github.io"
+        "title":"Flame Picks",
+        "category":"Make picks on upcoming sports games without the use of real money.",
+        "image":"flamepicks.png",
+        "url":"https://www.flamepicks.com"
       },
       {
-        "title":"Resume Website",
-        "category":"A React based resume website template",
-        "image":"resume-website.jpg",
-        "url":"http://www.timbakerdev.com"
-      },
-      {
-        "title":"Smirkspace",
-        "category":"(MVP Only) A React and Meteor based chat University project.",
-        "image":"smirkspace.jpg",
-        "url":"http://www.smirkspace.com"
+        "title":"RyanCampisi.com",
+        "category":"My Personal Website",
+        "image":"ryancampisi.png",
+        "url":"https://www.ryancampisi.com"
       }
     ]
   },
+  "moreAboutMe": [
+    {
+      "title": "Hobby 1",
+      "image": "images/hobby1.jpg",
+      "text": "Description of hobby 1."
+    },
+    {
+      "title": "Hobby 2",
+      "image": "images/hobby2.jpg",
+      "text": "Description of hobby 2."
+    },
+    {
+      "title": "Hobby 3",
+      "image": "images/hobby3.jpg",
+      "text": "Description of hobby 3."
+    }
+  ],
   "testimonials":{
     "testimonials":[
       {
