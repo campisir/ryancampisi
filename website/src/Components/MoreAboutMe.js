@@ -92,7 +92,10 @@ class MoreAboutMe extends Component {
       selectedCountry: null,
       chessGame: new Chess(),
       philosophyMessage: this.getRandomPhilosophyMessage(),
-      questionMarks: this.generateQuestionMarks()
+      questionMarks: this.generateQuestionMarks(),
+      isSubmitting: false,
+      showPhilosophyMessage: false,
+      specialMessage: "Will you be heard?"
     };
   }
 
@@ -238,14 +241,33 @@ class MoreAboutMe extends Component {
     this.setState({ questionMarks: this.generateQuestionMarks() });
   };
 
+  handlePhilosophySubmit = (event) => {
+    event.preventDefault();
+    const answer = event.target.elements.answer.value.trim().toLowerCase();
+    console.log("User's answer:", answer);
+  
+    let specialMessage = "Interesting.";
+    if (!answer || answer === "idk" || answer === "i don't know" || answer === "i dont know") {
+      specialMessage = "I don't know either.";
+    }
+  
+    // Trigger fade-out effect
+    this.setState({ isSubmitting: true, specialMessage });
+  
+    // After the fade-out effect, update the state to show the new message
+    setTimeout(() => {
+      this.setState({ showPhilosophyMessage: true });
+    }, 500); // Match the duration of the fade-out effect
+  };
+
   render() {
     const { handlers } = this.props;
-    const { currentIndex, slideWidth, isBlurred, showPopup, selectedCountry, chessGame, philosophyMessage, questionMarks } = this.state;
-
+    const { currentIndex, slideWidth, isBlurred, showPopup, selectedCountry, chessGame, philosophyMessage, questionMarks, isSubmitting, showPhilosophyMessage, specialMessage } = this.state;
+  
     const translateX = -currentIndex * slideWidth;
-
+  
     const chessboardWidth = Math.min(slideWidth * 0.8, 400); // 80% of slide width or max 400px
-
+  
     // List of clickable countries
     const clickableCountries = [
       "United States of America",
@@ -258,7 +280,7 @@ class MoreAboutMe extends Component {
       "Croatia"
       // Add more countries here
     ];
-
+  
     return (
       <section id="more-about-me" {...handlers}> {/* Ensure the ID matches */}
         <h1 className="section-title">More About Me</h1>
@@ -298,7 +320,7 @@ class MoreAboutMe extends Component {
                 </ComposableMap>
               </div>
             </div>
-
+  
             {/* New Chess Slide */}
             <div className="slide" style={{ width: `${slideWidth}px` }}>
               <h2>Chess</h2>
@@ -320,7 +342,7 @@ class MoreAboutMe extends Component {
                 </a>
               </p>
             </div>
-
+  
             {/* New Philosophy Slide */}
             <div className="slide philosophy-slide" style={{ width: `${slideWidth}px` }}>
               <div className="philosophy-background">
@@ -328,11 +350,17 @@ class MoreAboutMe extends Component {
                 <p className="philosophy-caption">I enjoy reading philosophy and am always interested in the perspective of others.</p>
                 <p></p>
                 <p></p>
-                <p className="philosophy-message">{philosophyMessage}</p>
-                <form onSubmit={this.handlePhilosophySubmit}>
-                  <input type="text" name="answer" placeholder="Your answer..." className="philosophy-input" />
-                  <button type="submit" className="philosophy-submit">Submit</button>
-                </form>
+                {showPhilosophyMessage ? (
+                  <p className="philosophy-message fade-in">{specialMessage}</p>
+                ) : (
+                  <div className={`philosophy-form ${isSubmitting ? 'fade-out' : ''}`}>
+                    <p className="philosophy-message">{philosophyMessage}</p>
+                    <form onSubmit={this.handlePhilosophySubmit}>
+                      <input type="text" name="answer" placeholder="Your answer..." className="philosophy-input" />
+                      <button type="submit" className="philosophy-submit">Submit</button>
+                    </form>
+                  </div>
+                )}
               </div>
               <div className="question-marks">
                 {questionMarks.map((mark, index) => (

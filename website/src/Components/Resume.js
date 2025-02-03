@@ -42,7 +42,7 @@ class Resume extends Component {
                 Technologies:
                 <ul className="technologies-list">
                   {point.technologies.map((tech, techIndex) => (
-                    <li key={techIndex} onClick={() => this.handleTechnologyClick(tech)} style={{ cursor: 'pointer', color: 'black' }}>
+                    <li key={techIndex} /* onClick={() => this.handleTechnologyClick(tech)} */ style={{ cursor: 'pointer', color: 'black' }}>
                       {tech.name}
                     </li>
                   ))}
@@ -60,11 +60,11 @@ class Resume extends Component {
             <ul className="education-description">{descriptionPoints}</ul>
             {education.publication && (
               <div className="publication">
-                <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold', fontSize: '1.2em' }}>
+                <div style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold', fontSize: '1em' }}>
                   <p style={{ margin: 0, marginRight: '10px' }}>Check out my honors thesis</p>
-                  <i className="fa fa-arrow-down" style={{ fontSize: '1.5em', margin: '0 5px' }}></i>
-                  <i className="fa fa-arrow-down" style={{ fontSize: '1.5em', margin: '0 5px' }}></i>
-                  <i className="fa fa-arrow-down" style={{ fontSize: '1.5em', margin: '0 5px' }}></i>
+                  <i className="fa fa-arrow-down" style={{ fontSize: '1.3em', margin: '0 5px' }}></i>
+                  <i className="fa fa-arrow-down" style={{ fontSize: '1.3em', margin: '0 5px' }}></i>
+                  <i className="fa fa-arrow-down" style={{ fontSize: '1.3em', margin: '0 5px' }}></i>
                 </div>
                 <a href={education.publication.url} className="resumebutton" target="_blank" rel="noopener noreferrer">
                   <i className="fa fa-file-text-o"></i> {education.publication.title}

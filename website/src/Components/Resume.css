@@ -75,5 +75,6 @@
 }
 
 .publication .resumebutton {
-  font-size: 0.9em; /* Make the text on the publication button slightly smaller */
+  font-size: 0.8em; /* Make the text on the publication button slightly smaller */
+  padding: 5px 10px; /* Reduce padding on the publication button */
 }

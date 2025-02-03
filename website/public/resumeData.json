@@ -229,9 +229,9 @@
                   "about": "Google Colab is a free, cloud-based platform that allows users to write and execute Python code in a Jupyter notebook environment. It is widely used for machine learning, data analysis, and education.",
                   "projects": [
                     {
-                      "title": "to do",
-                      "description": "to do",
-                      "course": "to do"
+                      "title": "Multilingual Semantic Role Labeling",
+                      "description": "",
+                      "course": "CAP4641"
                     }
                   ]
                 },
