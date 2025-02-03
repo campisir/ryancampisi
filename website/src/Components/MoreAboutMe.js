@@ -1,6 +1,8 @@
 import React, { Component, forwardRef } from 'react';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { useSwipeable } from 'react-swipeable';
+import Chessboard from 'chessboardjsx';
+import { Chess } from 'chess.js'; // Correct import statement
 import './MoreAboutMe.css'; // Import the CSS file
 
 const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
@@ -25,7 +27,7 @@ const countryDetails = {
     name: "Japan",
     description: "I studied abroad here during the Summer 2023 semester. Don't ask me to speak Japanese, though.",
     dateVisited: "May 31, 2023",
-    photo: "images/japan_photo.png",
+    photo: "images/japan_photo.jpg",
     caption: "A funny souvenir image I got from a maid cafe in Kyoto."
   },
   "Italy": {
@@ -46,7 +48,7 @@ const countryDetails = {
     name: "Montenegro",
     description: "I visited here as part of a cruise I took in 2024. It was raining.",
     dateVisited: "June 27 2024",
-    photo: "images/montenegro_photo.png",
+    photo: "images/montenegro_photo.jpg",
     caption: "A rainy day in Montenegro."
   },
   "Norway": {
@@ -66,6 +68,19 @@ const countryDetails = {
   // Add more countries and their details here
 };
 
+const philosophyMessages = [
+  "Why are we here?",
+  "Is this real life?",
+  "What is the meaning of life?",
+  "Do we have free will?",
+  "What is consciousness?",
+  "Is there life after death?",
+  "What is the nature of reality?",
+  "Are we alone in the universe?",
+  "What is truth?",
+  "Is there a point to all this?"
+];
+
 class MoreAboutMe extends Component {
   constructor(props) {
     super(props);
@@ -74,18 +89,35 @@ class MoreAboutMe extends Component {
       slideWidth: window.innerWidth,
       isBlurred: true,
       showPopup: false,
-      selectedCountry: null
+      selectedCountry: null,
+      chessGame: new Chess(),
+      philosophyMessage: this.getRandomPhilosophyMessage(),
+      questionMarks: this.generateQuestionMarks()
     };
   }
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
     setTimeout(this.updateSlideWidth, 300); // Delay the call to updateSlideWidth by 300 milliseconds
+
+    // Preload images
+    this.preloadImages();
+
+    // Update question marks positions periodically
+    this.questionMarkInterval = setInterval(this.updateQuestionMarks, 3000);
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
+    clearInterval(this.questionMarkInterval); // Clear the interval when the component unmounts
   }
+
+  preloadImages = () => {
+    Object.values(countryDetails).forEach(country => {
+      const img = new Image();
+      img.src = country.photo;
+    });
+  };
 
   handleResize = () => {
     setTimeout(this.updateSlideWidth, 100); // Delay the call to updateSlideWidth by 100 milliseconds
@@ -158,9 +190,57 @@ class MoreAboutMe extends Component {
     this.setState({ isBlurred: false });
   };
 
+  onDrop = ({ sourceSquare, targetSquare }) => {
+    try {
+      const move = this.state.chessGame.move({
+        from: sourceSquare,
+        to: targetSquare,
+        promotion: 'q'
+      });
+  
+      // If chess.js returns 'null', it's invalid, so just exit.
+      // Chessboard will snap the piece back automatically.
+      if (move === null) return;
+  
+      // Otherwise, move is valid: update state to reflect the new position.
+      this.setState({ chessGame: this.state.chessGame });
+    } catch (error) {
+      // If chess.js threw an error, ignore it and let the piece snap back.
+      console.warn("Caught invalid move:", error);
+    }
+  };
+  
+
+  getRandomPhilosophyMessage = () => {
+    const randomIndex = Math.floor(Math.random() * philosophyMessages.length);
+    return philosophyMessages[randomIndex];
+  };
+
+  handlePhilosophySubmit = (event) => {
+    event.preventDefault();
+    const answer = event.target.elements.answer.value;
+    console.log("User's answer:", answer);
+    // Call a function to handle the answer (for now, just log it)
+  };
+
+  generateQuestionMarks = () => {
+    const questionMarks = [];
+    for (let i = 0; i < 10; i++) {
+      const size = Math.random() * 20 + 40; // Random size between 40px and 60px
+      const top = Math.random() * 100; // Random top position between 0% and 100%
+      const left = Math.random() * 100; // Random left position between 0% and 100%
+      questionMarks.push({ size, top, left });
+    }
+    return questionMarks;
+  };
+
+  updateQuestionMarks = () => {
+    this.setState({ questionMarks: this.generateQuestionMarks() });
+  };
+
   render() {
     const { handlers } = this.props;
-    const { currentIndex, slideWidth, isBlurred, showPopup, selectedCountry } = this.state;
+    const { currentIndex, slideWidth, isBlurred, showPopup, selectedCountry, chessGame, philosophyMessage, questionMarks } = this.state;
 
     const translateX = -currentIndex * slideWidth;
 
@@ -220,8 +300,12 @@ class MoreAboutMe extends Component {
             {/* New Chess Slide */}
             <div className="slide" style={{ width: `${slideWidth}px` }}>
               <h2>Chess</h2>
-              <img src="images/chess.png" alt="Chess" />
-              <p className="caption">A shirt signed by GM Sam Shankland and a book signed by IM Levy Rozman that I won during my time at the UF chess club.</p>
+              <Chessboard
+                position={chessGame.fen()}
+                onDrop={this.onDrop}
+                width={400}
+              />
+              <p className="caption"></p>
               <p>
                 I picked up chess a few years ago and it is now one of my favorite hobbies. As of recently, I have been playing a lot of the 2v2 variant called "Bughouse." I have never played in an offical over-the-board tournament, but I plan to one day.
               </p>
@@ -235,18 +319,33 @@ class MoreAboutMe extends Component {
               </p>
             </div>
 
-            {/* New Video Editing Slide */}
-            <div className="slide video-editing-slide" style={{ width: `${slideWidth}px` }}>
-              <div className="video-editing-background">
-                <img src="images/video1.gif" alt="Video 1" className="video-gif" />
-                <img src="images/video2.gif" alt="Video 2" className="video-gif" />
-                <img src="images/video3.gif" alt="Video 3" className="video-gif" />
-                <div className="video-editing-overlay">
-                  <h2>Video Editing</h2>
-                  <p>
-                    I like to record/edit videos when I get the chance. I have extensive experience with Vegas Pro, Premiere Pro, After Effects, and Photoshop.
-                  </p>
-                </div>
+            {/* New Philosophy Slide */}
+            <div className="slide philosophy-slide" style={{ width: `${slideWidth}px` }}>
+              <div className="philosophy-background">
+                <h2>Philosophy</h2>
+                <p className="philosophy-caption">I enjoy reading philosophy and am always interested in the perspective of others.</p>
+                <p></p>
+                <p></p>
+                <p className="philosophy-message">{philosophyMessage}</p>
+                <form onSubmit={this.handlePhilosophySubmit}>
+                  <input type="text" name="answer" placeholder="Your answer..." className="philosophy-input" />
+                  <button type="submit" className="philosophy-submit">Submit</button>
+                </form>
+              </div>
+              <div className="question-marks">
+                {questionMarks.map((mark, index) => (
+                  <div
+                    key={index}
+                    className="question-mark"
+                    style={{
+                      top: `${mark.top}%`,
+                      left: `${mark.left}%`,
+                      fontSize: `${mark.size}px`
+                    }}
+                  >
+                    ?
+                  </div>
+                ))}
               </div>
             </div>
           </div>
