@@ -101,7 +101,23 @@
 .map-container {
   position: relative;
   width: 100%;
-  height: 500px; /* Ensure the map container has a height */
+  height: 600px; /* Larger default height */
+  min-height: 400px; /* Minimum height to ensure it's not too small */
+  overflow: hidden; /* Hide overflow to prevent map from spilling over */
+  border:rgba(0, 0, 0, 0.3) solid 5px; /* Add border for visual separation */
+}
+
+.map-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: grab; /* Indicate draggable area */
+}
+
+.map-inner:active {
+  cursor: grabbing; /* Change cursor when dragging */
 }
 
 .blurred {
@@ -383,4 +399,16 @@
 @keyframes fadeInOut {
   0%, 100% { opacity: 0; }
   50% { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    height: 500px; /* Adjust height for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .map-container {
+    height: 400px; /* Further adjust height for very small screens */
+  }
 }

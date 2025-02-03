@@ -3,6 +3,7 @@ import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { useSwipeable } from 'react-swipeable';
 import Chessboard from 'chessboardjsx';
 import { Chess } from 'chess.js'; // Correct import statement
+import { ZoomableGroup } from 'react-simple-maps';
 import './MoreAboutMe.css'; // Import the CSS file
 
 const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
@@ -95,13 +96,18 @@ class MoreAboutMe extends Component {
       questionMarks: this.generateQuestionMarks(),
       isSubmitting: false,
       showPhilosophyMessage: false,
-      specialMessage: "Will you be heard?"
+      specialMessage: "Will you be heard?",
+      mapPosition: { x: 0, y: 0 },
+      mapScale: 1
     };
   }
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
-    setTimeout(this.updateSlideWidth, 300); // Delay the call to updateSlideWidth by 300 milliseconds
+    setTimeout(() => {
+      this.updateSlideWidth();
+      this.updateMapSize();
+    }, 300); // Delay the call to updateSlideWidth by 300 milliseconds
 
     // Preload images
     this.preloadImages();
@@ -123,7 +129,24 @@ class MoreAboutMe extends Component {
   };
 
   handleResize = () => {
-    setTimeout(this.updateSlideWidth, 100); // Delay the call to updateSlideWidth by 100 milliseconds
+    setTimeout(() => {
+      this.updateSlideWidth();
+      this.updateMapSize();
+    }, 100); // Delay the call to updateSlideWidth by 100 milliseconds
+  };
+
+  updateMapSize = () => {
+    const mapContainer = document.querySelector('.map-container');
+    if (mapContainer) {
+      const width = mapContainer.clientWidth;
+      const height = mapContainer.clientHeight;
+      const mapInner = mapContainer.querySelector('.map-inner');
+      if (mapInner) {
+        // Adjust the map's size based on the container's dimensions
+        mapInner.style.width = `${width * 2}px`;
+        mapInner.style.height = `${height * 2}px`;
+      }
+    }
   };
 
   updateSlideWidth = () => {
@@ -200,11 +223,11 @@ class MoreAboutMe extends Component {
         to: targetSquare,
         promotion: 'q'
       });
-  
+
       // If chess.js returns 'null', it's invalid, so just exit.
       // Chessboard will snap the piece back automatically.
       if (move === null) return;
-  
+
       // Otherwise, move is valid: update state to reflect the new position.
       this.setState({ chessGame: this.state.chessGame });
     } catch (error) {
@@ -212,7 +235,6 @@ class MoreAboutMe extends Component {
       console.warn("Caught invalid move:", error);
     }
   };
-  
 
   getRandomPhilosophyMessage = () => {
     const randomIndex = Math.floor(Math.random() * philosophyMessages.length);
@@ -245,24 +267,95 @@ class MoreAboutMe extends Component {
     event.preventDefault();
     const answer = event.target.elements.answer.value.trim().toLowerCase();
     console.log("User's answer:", answer);
-  
+
     let specialMessage = "Interesting.";
     if (!answer || answer === "idk" || answer === "i don't know" || answer === "i dont know") {
       specialMessage = "I don't know either.";
     }
-  
+
     // Trigger fade-out effect
     this.setState({ isSubmitting: true, specialMessage });
-  
+
     // After the fade-out effect, update the state to show the new message
     setTimeout(() => {
       this.setState({ showPhilosophyMessage: true });
     }, 500); // Match the duration of the fade-out effect
   };
 
+  handleMapDragStart = (e) => {
+    this.dragStartX = e.clientX;
+    this.dragStartY = e.clientY;
+    this.dragStartMapX = this.state.mapPosition.x;
+    this.dragStartMapY = this.state.mapPosition.y;
+  };
+
+  handleMapDrag = (e) => {
+    if (this.dragStartX !== undefined && this.dragStartY !== undefined) {
+      const deltaX = e.clientX - this.dragStartX;
+      const deltaY = e.clientY - this.dragStartY;
+      this.setState((prevState) => {
+        const newMapPosition = {
+          x: prevState.mapPosition.x + deltaX,
+          y: prevState.mapPosition.y + deltaY
+        };
+        return { mapPosition: this.applyBounds(newMapPosition, prevState.mapScale) };
+      });
+    }
+  };
+
+  handleMapDragEnd = () => {
+    this.dragStartX = undefined;
+    this.dragStartY = undefined;
+  };
+
+  handleMapWheel = (e) => {
+    e.preventDefault();
+    const scaleChange = e.deltaY > 0 ? 0.9 : 1.1;
+    this.setState((prevState) => {
+      const newMapScale = Math.max(1, prevState.mapScale * scaleChange);
+      return { mapScale: newMapScale, mapPosition: this.applyBounds(prevState.mapPosition, newMapScale) };
+    });
+  };
+
+  applyBounds = (position, scale) => {
+    const mapContainer = document.querySelector('.map-container');
+    if (!mapContainer) return position;
+
+    const containerWidth = mapContainer.clientWidth;
+    const containerHeight = mapContainer.clientHeight;
+    const mapWidth = containerWidth * scale;
+    const mapHeight = containerHeight * scale;
+
+    const minX = containerWidth - mapWidth;
+    const minY = containerHeight - mapHeight;
+    const maxX = 0;
+    const maxY = 0;
+
+    return {
+      x: Math.min(Math.max(position.x, minX), maxX),
+      y: Math.min(Math.max(position.y, minY), maxY)
+    };
+  };
+
+  handleMouseOverSquare = (square) => {
+    const piece = document.querySelector(`.square-${square} .piece`);
+    if (piece) {
+      piece.style.position = 'absolute';
+      piece.style.zIndex = 1000;
+    }
+  };
+  
+  handleMouseOutSquare = (square) => {
+    const piece = document.querySelector(`.square-${square} .piece`);
+    if (piece) {
+      piece.style.position = '';
+      piece.style.zIndex = '';
+    }
+  };
+
   render() {
     const { handlers } = this.props;
-    const { currentIndex, slideWidth, isBlurred, showPopup, selectedCountry, chessGame, philosophyMessage, questionMarks, isSubmitting, showPhilosophyMessage, specialMessage } = this.state;
+    const { currentIndex, slideWidth, isBlurred, showPopup, selectedCountry, chessGame, philosophyMessage, questionMarks, isSubmitting, showPhilosophyMessage, specialMessage, mapPosition, mapScale } = this.state;
   
     const translateX = -currentIndex * slideWidth;
   
@@ -300,35 +393,54 @@ class MoreAboutMe extends Component {
                 </div>
               )}
               <div className={`map-container ${isBlurred ? 'blurred' : ''}`}>
-                <ComposableMap projection="geoMercator">
-                  <Geographies geography={geoUrl}>
-                    {({ geographies }) =>
-                      geographies.map(geo => (
-                        <Geography
-                          key={geo.rsmKey}
-                          geography={geo}
-                          onClick={clickableCountries.includes(geo.properties.name) ? () => this.handleCountryClick(geo) : null}
-                          style={{
-                            default: { fill: this.getCountryColor(geo), outline: "none" },
-                            hover: { fill: clickableCountries.includes(geo.properties.name) ? "#F53" : this.getCountryColor(geo), outline: "none" },
-                            pressed: { fill: clickableCountries.includes(geo.properties.name) ? "#E42" : this.getCountryColor(geo), outline: "none" }
-                          }}
-                        />
-                      ))
-                    }
-                  </Geographies>
-                </ComposableMap>
+                <div
+                  className="map-inner"
+                  style={{
+                    transform: `translate(${mapPosition.x}px, ${mapPosition.y}px) scale(${mapScale})`
+                  }}
+                  onMouseDown={this.handleMapDragStart}
+                  onMouseMove={this.handleMapDrag}
+                  onMouseUp={this.handleMapDragEnd}
+                  onMouseLeave={this.handleMapDragEnd}
+                  onWheel={this.handleMapWheel}
+                >
+                  <ComposableMap projection="geoMercator">
+                    <ZoomableGroup>
+                      <Geographies geography={geoUrl}>
+                        {({ geographies }) =>
+                          geographies.map(geo => (
+                            <Geography
+                              key={geo.rsmKey}
+                              geography={geo}
+                              onClick={clickableCountries.includes(geo.properties.name) ? () => this.handleCountryClick(geo) : null}
+                              style={{
+                                default: { fill: this.getCountryColor(geo), outline: "none" },
+                                hover: { fill: clickableCountries.includes(geo.properties.name) ? "#F53" : this.getCountryColor(geo), outline: "none" },
+                                pressed: { fill: clickableCountries.includes(geo.properties.name) ? "#E42" : this.getCountryColor(geo), outline: "none" }
+                              }}
+                            />
+                          ))
+                        }
+                      </Geographies>
+                    </ZoomableGroup>
+                  </ComposableMap>
+                </div>
               </div>
             </div>
   
             {/* New Chess Slide */}
             <div className="slide" style={{ width: `${slideWidth}px` }}>
               <h2>Chess</h2>
-              <Chessboard
-                position={chessGame.fen()}
-                onDrop={this.onDrop}
-                width={chessboardWidth}
-              />
+              <div className="chessboard-container">
+                <Chessboard
+                  position={chessGame.fen()}
+                  onDrop={this.onDrop}
+                  width={chessboardWidth}
+                  draggable={true} // Ensure pieces are draggable
+                  onMouseOverSquare={this.handleMouseOverSquare}
+                  onMouseOutSquare={this.handleMouseOutSquare}
+                />
+              </div>
               <p className="caption"></p>
               <p>
                 I picked up chess a few years ago and it is now one of my favorite hobbies. As of recently, I have been playing a lot of the 2v2 variant called "Bughouse." I have never played in an offical over-the-board tournament, but I plan to one day.
