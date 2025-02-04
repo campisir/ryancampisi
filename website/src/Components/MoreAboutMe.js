@@ -1,7 +1,7 @@
 import React, { Component, forwardRef } from 'react';
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { useSwipeable } from 'react-swipeable';
-import Chessboard from 'chessboardjsx';
+import { Chessboard } from "react-chessboard";
 import { Chess } from 'chess.js'; // Correct import statement
 import { ZoomableGroup } from 'react-simple-maps';
 import './MoreAboutMe.css'; // Import the CSS file
@@ -216,7 +216,7 @@ class MoreAboutMe extends Component {
     this.setState({ isBlurred: false });
   };
 
-  onDrop = ({ sourceSquare, targetSquare }) => {
+  onPieceDrop = (sourceSquare, targetSquare) => {
     try {
       const move = this.state.chessGame.move({
         from: sourceSquare,
@@ -224,14 +224,10 @@ class MoreAboutMe extends Component {
         promotion: 'q'
       });
 
-      // If chess.js returns 'null', it's invalid, so just exit.
-      // Chessboard will snap the piece back automatically.
       if (move === null) return;
 
-      // Otherwise, move is valid: update state to reflect the new position.
       this.setState({ chessGame: this.state.chessGame });
     } catch (error) {
-      // If chess.js threw an error, ignore it and let the piece snap back.
       console.warn("Caught invalid move:", error);
     }
   };
@@ -239,13 +235,6 @@ class MoreAboutMe extends Component {
   getRandomPhilosophyMessage = () => {
     const randomIndex = Math.floor(Math.random() * philosophyMessages.length);
     return philosophyMessages[randomIndex];
-  };
-
-  handlePhilosophySubmit = (event) => {
-    event.preventDefault();
-    const answer = event.target.elements.answer.value;
-    console.log("User's answer:", answer);
-    // Call a function to handle the answer (for now, just log it)
   };
 
   generateQuestionMarks = () => {
@@ -337,27 +326,11 @@ class MoreAboutMe extends Component {
     };
   };
 
-  handleMouseOverSquare = (square) => {
-    const piece = document.querySelector(`.square-${square} .piece`);
-    if (piece) {
-      piece.style.position = 'absolute';
-      piece.style.zIndex = 1000;
-    }
-  };
-  
-  handleMouseOutSquare = (square) => {
-    const piece = document.querySelector(`.square-${square} .piece`);
-    if (piece) {
-      piece.style.position = '';
-      piece.style.zIndex = '';
-    }
-  };
-
   render() {
     const { handlers } = this.props;
     const { currentIndex, slideWidth, isBlurred, showPopup, selectedCountry, chessGame, philosophyMessage, questionMarks, isSubmitting, showPhilosophyMessage, specialMessage, mapPosition, mapScale } = this.state;
   
-    const translateX = -currentIndex * slideWidth;
+    const offset = -currentIndex * slideWidth;
   
     const chessboardWidth = Math.min(slideWidth * 0.8, 400); // 80% of slide width or max 400px
   
@@ -381,7 +354,10 @@ class MoreAboutMe extends Component {
           <button className="arrow left-arrow" onClick={this.goToPreviousSlide}>
             &#10094;
           </button>
-          <div className="slides-container" style={{ transform: `translateX(${translateX}px)` }}>
+          <div 
+              className="slides-container"
+              style={{ marginLeft: `${offset}px` }}
+            >
             <div className="slide" style={{ width: `${slideWidth}px` }}>
               <h2>My Travels</h2>
               {isBlurred && (
@@ -433,12 +409,9 @@ class MoreAboutMe extends Component {
               <h2>Chess</h2>
               <div className="chessboard-container">
                 <Chessboard
-                  position={chessGame.fen()}
-                  onDrop={this.onDrop}
-                  width={chessboardWidth}
-                  draggable={true} // Ensure pieces are draggable
-                  onMouseOverSquare={this.handleMouseOverSquare}
-                  onMouseOutSquare={this.handleMouseOutSquare}
+                  position={this.state.chessGame.fen()}
+                  onPieceDrop={this.onPieceDrop}
+                  boardWidth={chessboardWidth}
                 />
               </div>
               <p className="caption"></p>

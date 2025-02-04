@@ -27,27 +27,33 @@
 }
 
 .slider {
-  position: relative;
-  width: 100%;
-  max-width: 800px; /* Set a maximum width for the slider */
-  margin: 0 auto;
+  /* keeps the same idea: acts as a "window" */
   overflow: hidden;
+  position: relative;
+  width: 100%; /* or whatever your container width is */
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .slides-container {
-  display: flex;
-  transition: transform 0.5s ease-in-out; /* Add transition for smooth sliding */
+  display: flex;              /* or inline-block approach is also possible */
+  width: 300%;                /* if you have exactly 3 slides; or dynamic */
+  transition: margin-left 0.5s ease-in-out; 
+  margin-left: 0;            /* we’ll change this from JS */
 }
 
 .slide {
-  min-width: 100%;
-  box-sizing: border-box;
+  width: 100%;  /* each slide is exactly the viewport/container width */
   flex-shrink: 0;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center; /* Center content vertically */
   padding: 20px; /* Add padding for consistent spacing */
+  position: relative;
+  overflow: hidden;
+  /* no transform needed! */
 }
 
 .slide img {
@@ -82,7 +88,7 @@
   border: none;
   padding: 10px;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 34px;
   z-index: 10; /* Ensure arrows are in front of slide content */
 }
 
@@ -105,6 +111,7 @@
   min-height: 400px; /* Minimum height to ensure it's not too small */
   overflow: hidden; /* Hide overflow to prevent map from spilling over */
   border:rgba(0, 0, 0, 0.3) solid 5px; /* Add border for visual separation */
+  background: #1b1b1b;
 }
 
 .map-inner {
@@ -218,7 +225,7 @@
 .popup-content img {
   width: 100%; /* Ensure the image takes the full width of the container */
   height: auto; /* Maintain aspect ratio */
-  max-height: 250px; /* Set a maximum height for the image */
+  max-height: 350px; /* Set a maximum height for the image */
   object-fit: cover; /* Ensure the image covers the container without distortion */
   margin-top: 10px;
   border-radius: 5px;
