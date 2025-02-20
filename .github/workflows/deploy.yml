@@ -23,10 +23,7 @@ jobs:
 
     - name: Build the project
       run: |
-        echo "Building the project..."
-        npm run build
-        echo "Build completed"
-
+        CI=false npm run build
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
