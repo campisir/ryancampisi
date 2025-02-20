@@ -252,14 +252,38 @@ class MoreAboutMe extends Component {
     this.setState({ questionMarks: this.generateQuestionMarks() });
   };
 
-  handlePhilosophySubmit = (event) => {
+  handlePhilosophySubmit = async (event) => {
     event.preventDefault();
+    const { philosophyMessage } = this.state;
+    const apiKey = process.env.CHATGPT_API_KEY;
     const answer = event.target.elements.answer.value.trim().toLowerCase();
-    console.log("User's answer:", answer);
+    console.log(`Sending the prompt: Respond to the answer to this question in five words or less. Question: "${philosophyMessage}", Answer: "${answer}"`);
 
     let specialMessage = "Interesting.";
     if (!answer || answer === "idk" || answer === "i don't know" || answer === "i dont know") {
       specialMessage = "I don't know either.";
+    } else {
+      // Call the AI language model API
+      try {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: "gpt-4o-mini",
+            messages: [
+              { role: "user", content: `Respond to the answer to this question in five words or less. Question: "${philosophyMessage}", Answer: "${answer}"` }
+            ]
+          })
+        });
+        const data = await response.json();
+        specialMessage = data.choices[0].message.content.trim();
+      } catch (error) {
+        console.error('Error calling AI language model:', error);
+        specialMessage = "Interesting.";
+      }
     }
 
     // Trigger fade-out effect
