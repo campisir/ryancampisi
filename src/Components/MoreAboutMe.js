@@ -87,6 +87,7 @@ class MoreAboutMe extends Component {
     super(props);
     this.state = {
       currentIndex: 0,
+      isLoading: false,
       slideWidth: window.innerWidth,
       isBlurred: true,
       showPopup: false,
@@ -255,44 +256,34 @@ class MoreAboutMe extends Component {
   handlePhilosophySubmit = async (event) => {
     event.preventDefault();
     const { philosophyMessage } = this.state;
-    const apiKey = process.env.CHATGPT_API_KEY;
     const answer = event.target.elements.answer.value.trim().toLowerCase();
     console.log(`Sending the prompt: Respond to the answer to this question in five words or less. Question: "${philosophyMessage}", Answer: "${answer}"`);
-
+  
     let specialMessage = "Interesting.";
     if (!answer || answer === "idk" || answer === "i don't know" || answer === "i dont know") {
       specialMessage = "I don't know either.";
     } else {
-      // Call the AI language model API
+      // Call the backend function
+      this.setState({ isLoading: true, isSubmitting: true });
       try {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        const response = await fetch('https://flame-picks-production-api.onrender.com/data/chatgpt', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            model: "gpt-4o-mini",
-            messages: [
-              { role: "user", content: `Respond to the answer to this question in five words or less. Question: "${philosophyMessage}", Answer: "${answer}"` }
-            ]
+            message: `Respond to the answer to this question in five words or less. Question: "${philosophyMessage}", Answer: "${answer}"`
           })
         });
         const data = await response.json();
-        specialMessage = data.choices[0].message.content.trim();
+        specialMessage = data.message.trim();
       } catch (error) {
-        console.error('Error calling AI language model:', error);
+        console.error('Error calling backend function:', error);
         specialMessage = "Interesting.";
+      } finally {
+        this.setState({ isLoading: false, specialMessage, showPhilosophyMessage: true });
       }
     }
-
-    // Trigger fade-out effect
-    this.setState({ isSubmitting: true, specialMessage });
-
-    // After the fade-out effect, update the state to show the new message
-    setTimeout(() => {
-      this.setState({ showPhilosophyMessage: true });
-    }, 500); // Match the duration of the fade-out effect
   };
 
   handleMapDragStart = (e) => {
@@ -352,7 +343,7 @@ class MoreAboutMe extends Component {
 
   render() {
     const { handlers } = this.props;
-    const { currentIndex, slideWidth, isBlurred, showPopup, selectedCountry, chessGame, philosophyMessage, questionMarks, isSubmitting, showPhilosophyMessage, specialMessage, mapPosition, mapScale } = this.state;
+    const { currentIndex, slideWidth, isBlurred, showPopup, selectedCountry, chessGame, philosophyMessage, questionMarks, isSubmitting, showPhilosophyMessage, specialMessage, mapPosition, mapScale, isLoading } = this.state;
   
     const offset = -currentIndex * slideWidth;
   
@@ -464,10 +455,14 @@ class MoreAboutMe extends Component {
                 ) : (
                   <div className={`philosophy-form ${isSubmitting ? 'fade-out' : ''}`}>
                     <p className="philosophy-message">{philosophyMessage}</p>
-                    <form onSubmit={this.handlePhilosophySubmit}>
-                      <input type="text" name="answer" placeholder="Your answer..." className="philosophy-input" />
-                      <button type="submit" className="philosophy-submit">Submit</button>
-                    </form>
+                    {isLoading ? (
+                      <div className="loading-spinner fade-in"></div>
+                    ) : (
+                      <form onSubmit={this.handlePhilosophySubmit}>
+                        <input type="text" name="answer" placeholder="Your answer..." className="philosophy-input" maxLength="150" />
+                        <button type="submit" className="philosophy-submit">Submit</button>
+                      </form>
+                    )}
                   </div>
                 )}
               </div>
