@@ -318,6 +318,10 @@
   height: 100vh; /* Full height */
 }
 
+.philosophy-form {
+  padding-top: 20px; /* Add padding on the top */
+}
+
 .philosophy-background {
   background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
   padding: 20px;
@@ -335,6 +339,7 @@
 .philosophy-message {
   font-size: 24px;
   margin-bottom: 20px;
+  padding-top: 20px;
 }
 
 .philosophy-input {
@@ -393,6 +398,13 @@
   border-left-color: #09f;
   animation: spin 1s linear infinite;
   margin: 20px auto;
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 @keyframes spin {

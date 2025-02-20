@@ -151,7 +151,6 @@ class MoreAboutMe extends Component {
   };
 
   updateSlideWidth = () => {
-    console.log("Updating slide width");
     const slider = document.querySelector('.slider');
     const slideWidth = slider ? slider.clientWidth : window.innerWidth;
     this.setState({ slideWidth }, () => {
@@ -253,38 +252,78 @@ class MoreAboutMe extends Component {
     this.setState({ questionMarks: this.generateQuestionMarks() });
   };
 
-  handlePhilosophySubmit = async (event) => {
+  handlePhilosophySubmit = (event) => {
     event.preventDefault();
     const { philosophyMessage } = this.state;
-    const answer = event.target.elements.answer.value.trim().toLowerCase();
-    console.log(`Sending the prompt: Respond to the answer to this question in five words or less. Question: "${philosophyMessage}", Answer: "${answer}"`);
-  
-    let specialMessage = "Interesting.";
-    if (!answer || answer === "idk" || answer === "i don't know" || answer === "i dont know") {
-      specialMessage = "I don't know either.";
-    } else {
-      // Call the backend function
-      this.setState({ isLoading: true, isSubmitting: true });
-      try {
-        const response = await fetch('https://flame-picks-production-api.onrender.com/data/chatgpt', {
-          method: 'POST',
+
+    // Grab user input
+    const answer = event.target.elements.answer.value.trim();
+    let fallbackMessage = "Interesting.";
+    if (!answer || answer.toLowerCase() === "idk" || answer.toLowerCase() === "i don't know" || answer.toLowerCase() === "i dont know") {
+      fallbackMessage = "I don't know either.";
+    }
+
+    // 1) Fade out the form
+    this.setState({ philosophyStage: "formFadingOut", userAnswer: answer || "", specialMessage: fallbackMessage });
+
+    // After 500ms (the fade-out duration), show the spinner
+    setTimeout(() => {
+      // 2) Show spinner
+      this.setState({ philosophyStage: "loadingSpinner" });
+
+      // If user gave a real answer, call the backend.
+      // Otherwise, skip the fetch and fade out spinner right away.
+      if (answer && !["idk", "i don't know", "i dont know"].includes(answer.toLowerCase())) {
+        this.fetchPhilosophyAnswer(philosophyMessage, answer);
+      } else {
+        // No real answer => do no fetch, skip to spinner fade out
+        setTimeout(() => {
+          this.setState({ philosophyStage: "spinnerFadingOut" });
+          setTimeout(() => {
+            this.setState({ philosophyStage: "showAnswer" });
+          }, 500);
+        }, 1000);
+      }
+    }, 500);
+  };
+
+  /**
+   * A helper method to call your API. 
+   * Once the fetch completes, we fade out the spinner, then show the answer.
+   */
+  fetchPhilosophyAnswer = async (philosophyQuestion, userAnswer) => {
+    let finalMessage = this.state.specialMessage; // fallback if error
+    try {
+      const response = await fetch(
+        "https://flame-picks-production-api.onrender.com/data/chatgpt",
+        {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            message: `Respond to the answer to this question in five words or less. Question: "${philosophyMessage}", Answer: "${answer}"`
+            message: `(Context: You are a bot on my personal website "ryancampisi.com" and a user is answering a philosophy question. 
+            If the user mentions me in their response (Ryan), make sure your response is positive in regards to me. If the user says
+            anything that is overly inappropriate, just respond with "really, bro.") Your task: Respond to the answer to this question in six words or less. Question: "${philosophyQuestion}", Answer: "${userAnswer}"`
           })
-        });
-        const data = await response.json();
-        specialMessage = data.message.trim();
-      } catch (error) {
-        console.error('Error calling backend function:', error);
-        specialMessage = "Interesting.";
-      } finally {
-        this.setState({ isLoading: false, specialMessage, showPhilosophyMessage: true });
+        }
+      );
+      const data = await response.json();
+      if (data?.message) {
+        finalMessage = data.message.trim();
       }
+    } catch (error) {
+      console.error("Error calling backend function:", error);
     }
+
+    // Now that we have the final message from the API, fade out spinner...
+    this.setState({ specialMessage: finalMessage, philosophyStage: "spinnerFadingOut" });
+    setTimeout(() => {
+      // ...and show the final answer
+      this.setState({ philosophyStage: "showAnswer" });
+    }, 500);
   };
+
 
   handleMapDragStart = (e) => {
     this.dragStartX = e.clientX;
@@ -445,43 +484,83 @@ class MoreAboutMe extends Component {
   
             {/* New Philosophy Slide */}
             <div className="slide philosophy-slide" style={{ width: `${slideWidth}px` }}>
-              <div className="philosophy-background">
-                <h2>Philosophy</h2>
-                <p className="philosophy-caption">I enjoy reading philosophy and am always interested in the perspective of others.</p>
-                <p></p>
-                <p></p>
-                {showPhilosophyMessage ? (
-                  <p className="philosophy-message fade-in">{specialMessage}</p>
-                ) : (
-                  <div className={`philosophy-form ${isSubmitting ? 'fade-out' : ''}`}>
-                    <p className="philosophy-message">{philosophyMessage}</p>
-                    {isLoading ? (
-                      <div className="loading-spinner fade-in"></div>
-                    ) : (
-                      <form onSubmit={this.handlePhilosophySubmit}>
-                        <input type="text" name="answer" placeholder="Your answer..." className="philosophy-input" maxLength="150" />
-                        <button type="submit" className="philosophy-submit">Submit</button>
-                      </form>
-                    )}
-                  </div>
-                )}
+                <div className="philosophy-background">
+                  <h2>Philosophy</h2>
+                  <p className="philosophy-caption">
+                    I enjoy reading philosophy and am always interested in the perspective of others.
+                  </p>
+
+                  {(() => {
+                    // We'll examine the 'philosophyStage' to decide what to render
+                    const { philosophyStage, specialMessage, philosophyMessage, userAnswer } = this.state;
+
+                    // If we haven't triggered any transitions, assume 'idle' i.e. form is visible
+                    const stage = philosophyStage || "idle";
+
+                    // Show final message if we're at 'showAnswer'
+                    if (stage === "showAnswer") {
+                      return (
+                        <p className="philosophy-message fade-in">
+                          {specialMessage}
+                        </p>
+                      );
+                    }
+
+                    // If we are in 'loadingSpinner' or 'spinnerFadingOut', show the spinner
+                    if (stage === "loadingSpinner" || stage === "spinnerFadingOut") {
+                      return (
+                        <div
+                          className={`spinner-container ${
+                            stage === "spinnerFadingOut" ? "fade-out" : "fade-in"
+                          }`}
+                        >
+                          <div className="loading-spinner" />
+                        </div>
+                      );
+                    }
+
+                    // Otherwise, we are in 'idle' or 'formFadingOut' => show the form
+                    const formClass = stage === "formFadingOut" ? "fade-out" : "";
+                    return (
+                      <div className={`philosophy-form ${formClass}`}>
+                        {/* Show the question */}
+                        <p className="philosophy-message">{philosophyMessage}</p>
+
+                        {/* The actual form */}
+                        <form onSubmit={this.handlePhilosophySubmit}>
+                          <input
+                            type="text"
+                            name="answer"
+                            placeholder="Your answer..."
+                            className="philosophy-input"
+                            maxLength="150"
+                          />
+                          <button type="submit" className="philosophy-submit">
+                            Submit
+                          </button>
+                        </form>
+                      </div>
+                    );
+                  })()}
+                </div>
+
+                {/* Question marks in the background, unchanged */}
+                <div className="question-marks">
+                  {questionMarks.map((mark, index) => (
+                    <div
+                      key={index}
+                      className="question-mark"
+                      style={{
+                        top: `${mark.top}%`,
+                        left: `${mark.left}%`,
+                        fontSize: `${mark.size}px`
+                      }}
+                    >
+                      ?
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="question-marks">
-                {questionMarks.map((mark, index) => (
-                  <div
-                    key={index}
-                    className="question-mark"
-                    style={{
-                      top: `${mark.top}%`,
-                      left: `${mark.left}%`,
-                      fontSize: `${mark.size}px`
-                    }}
-                  >
-                    ?
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
           <button className="arrow right-arrow" onClick={this.goToNextSlide}>
             &#10095;
