@@ -3,6 +3,8 @@ import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { useSwipeable } from 'react-swipeable';
 import { Chessboard } from "react-chessboard";
 import { Chess } from 'chess.js'; // Correct import statement
+import { Terminal } from 'xterm';
+import 'xterm/css/xterm.css';
 import { ZoomableGroup } from 'react-simple-maps';
 import './MoreAboutMe.css'; // Import the CSS file
 
@@ -101,6 +103,7 @@ class MoreAboutMe extends Component {
       mapPosition: { x: 0, y: 0 },
       mapScale: 1
     };
+    this.terminalRef = React.createRef();
   }
 
   componentDidMount() {
@@ -115,12 +118,138 @@ class MoreAboutMe extends Component {
 
     // Update question marks positions periodically
     this.questionMarkInterval = setInterval(this.updateQuestionMarks, 3000);
+
+    // Initialize the terminal
+    this.initTerminal();
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
     clearInterval(this.questionMarkInterval); // Clear the interval when the component unmounts
   }
+
+  initTerminal = () => {
+    this.terminal = new Terminal({
+      cols: 40, // Set the number of columns
+      rows: 10, // Set the number of rows
+    });
+    this.terminal.open(this.terminalRef.current);
+    this.terminal.write('Welcome to the embedded terminal!\r\n');
+  
+    // Define the imports for the WebAssembly module
+    const imports = {
+      env: {
+        __memory_base: 0,
+        __table_base: 0,
+        memory: new WebAssembly.Memory({ initial: 1024 }), // Increase initial memory size
+        table: new WebAssembly.Table({ initial: 0, element: 'anyfunc' }),
+        _emscripten_get_now: Date.now,
+        __cxa_throw: (ptr, type, destructor) => {
+          console.error(`Exception thrown: ${ptr}, type: ${type}, destructor: ${destructor}`);
+        },
+        emscripten_date_now: () => Date.now(),
+        __syscall_openat: () => {
+          console.error('__syscall_openat is not implemented');
+        },
+        emscripten_resize_heap: (size) => {
+          console.error(`emscripten_resize_heap is not implemented. Requested size: ${size}`);
+          return false;
+        },
+        _abort_js: () => {
+          console.error('_abort_js is not implemented');
+        },
+        __syscall_fcntl64: () => {
+          console.error('__syscall_fcntl64 is not implemented');
+        },
+        __syscall_ioctl: () => {
+          console.error('__syscall_ioctl" is not implemented');
+        },
+        _tzset_js: () => {
+          console.error('_tzset_js" is not implemented');
+        },
+        // Add other necessary imports here
+      },
+      wasi_snapshot_preview1: {
+        fd_close: () => {
+          console.error('fd_close is not implemented');
+        },
+        fd_write: () => {
+          console.error('fd_write is not implemented');
+        },
+        fd_seek: () => {
+          console.error('fd_seek is not implemented');
+        },
+        fd_read: () => {
+          console.error('fd_read is not implemented');
+        },
+        environ_sizes_get: () => {
+          console.error('environ_sizes_get is not implemented');
+        },
+        environ_get: () => {
+          console.error('environ_get is not implemented');
+        },
+        // Add other necessary WASI imports here
+      }
+    };
+  
+    // Load the WebAssembly module
+    fetch('main.wasm').then(response =>
+      response.arrayBuffer()
+    ).then(bytes =>
+      WebAssembly.instantiate(bytes, imports)
+    ).then(results => {
+      this.wasmInstance = results.instance;
+      this.terminal.write('WebAssembly module loaded.\r\n');
+    }).catch(error => {
+      console.error('Error loading WebAssembly module:', error);
+    });
+  
+    let inputBuffer = '';
+    // Handle user input
+    this.terminal.onData(data => {
+      if (data === '\u007F') { // Handle backspace (ASCII DEL)
+        if (this.terminal.buffer.active.cursorX > 0) {
+          this.terminal.write('\b \b');
+          inputBuffer = inputBuffer.slice(0, -1);
+        }
+      } else if (data === '\r') { // Handle Enter key
+        this.terminal.write('\r\n');
+        this.handleCommand(inputBuffer.trim());
+        inputBuffer = '';
+      } else {
+        this.terminal.write(data); // Echo the input back to the terminal
+        inputBuffer += data;
+      }
+    });
+  };
+
+handleCommand = (command) => {
+  if (command === 'run') {
+      this.runWasmFunction();
+  } else {
+      this.terminal.write(`Unknown command: ${command}\r\n`);
+  }
+};
+
+runWasmFunction = () => {
+  if (typeof window.Module === 'undefined') {
+    this.terminal.write('Error: Module not defined. Is main.js loaded?\r\n');
+    return;
+  }
+  if (!window.Module.ccall) {
+    this.terminal.write('Error: Module is not fully initialized.\r\n');
+    return;
+  }
+
+  const input = "0 0 0 0 0 e4 e5";
+  const result = window.Module.ccall(
+    'my_main',   // C function name
+    'string',    // return type
+    ['string'],  // argument types
+    [input]      // argument values
+  );
+  this.terminal.write(`Program executed. Result: ${result}\r\n`);
+};
 
   preloadImages = () => {
     Object.values(countryDetails).forEach(country => {
@@ -460,28 +589,32 @@ class MoreAboutMe extends Component {
   
             {/* New Chess Slide */}
             <div className="slide" style={{ width: `${slideWidth}px` }}>
-              <h2>Chess</h2>
-              <div className="chessboard-container">
-                <Chessboard
-                  position={this.state.chessGame.fen()}
-                  onPieceDrop={this.onPieceDrop}
-                  boardWidth={chessboardWidth}
-                />
-              </div>
-              <p className="caption"></p>
-              <p>
-                I picked up chess a few years ago and it is now one of my favorite hobbies. As of recently, I have been playing a lot of the 2v2 variant called "Bughouse." I have never played in an offical over-the-board tournament, but I plan to one day.
-              </p>
-              <p>
-                <strong>Goal:</strong> Reach an online rating of 2000 in any chess format.
-              </p>
-              <p>
-                <a href="https://www.chess.com/member/GrowHome" target="_blank" rel="noopener noreferrer">
-                  Visit my Chess.com profile
-                </a>
-              </p>
+          <h2>Chess</h2>
+          <div className="chessboard-terminal-container">
+            <div className="chessboard-container">
+              <Chessboard
+                position={this.state.chessGame.fen()}
+                onPieceDrop={this.onPieceDrop}
+                boardWidth={chessboardWidth}
+                boardOrientation="black"
+              />
             </div>
-  
+            <div className="terminal-container" ref={this.terminalRef}></div>
+          </div>
+          <p className="caption"></p>
+          <p>
+            I picked up chess a few years ago and it is now one of my favorite hobbies. As of recently, I have been playing a lot of the 2v2 variant called "Bughouse." I have never played in an offical over-the-board tournament, but I plan to one day.
+          </p>
+          <p>
+            <strong>Goal:</strong> Reach an online rating of 2000 in any chess format.
+          </p>
+          <p>
+            <a href="https://www.chess.com/member/GrowHome" target="_blank" rel="noopener noreferrer">
+              Visit my Chess.com profile
+            </a>
+          </p>
+        </div>
+              
             {/* New Philosophy Slide */}
             <div className="slide philosophy-slide" style={{ width: `${slideWidth}px` }}>
                 <div className="philosophy-background">

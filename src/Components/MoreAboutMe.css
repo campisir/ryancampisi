@@ -407,6 +407,18 @@
   margin-top: 20px;
 }
 
+.chessboard-terminal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.terminal-container {
+  width: auto; /* Adjust the width to fit the terminal content */
+  height: auto; /* Adjust the height to fit the terminal content */
+  margin-top: 10px; /* Adjust the space between the chessboard and the terminal */
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
