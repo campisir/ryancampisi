@@ -101,7 +101,8 @@ class MoreAboutMe extends Component {
       showPhilosophyMessage: false,
       specialMessage: "Will you be heard?",
       mapPosition: { x: 0, y: 0 },
-      mapScale: 1
+      mapScale: 1,
+      moves: "0 0 0 0 0"
     };
     this.terminalRef = React.createRef();
   }
@@ -241,14 +242,49 @@ runWasmFunction = () => {
     return;
   }
 
-  const input = "0 0 0 0 0 e4 e5";
+  const { moves } = this.state;
+  console.log("moves: ", moves);
   const result = window.Module.ccall(
     'my_main',   // C function name
     'string',    // return type
     ['string'],  // argument types
-    [input]      // argument values
+    [moves]      // argument values
   );
-  this.terminal.write(`Program executed. Result: ${result}\r\n`);
+
+  // Split the result into lines
+  const lines = result.trim().split('\n');
+  const lastLine = lines.pop(); // Get the last line
+  const officialMove = lastLine.replace('OFFICIAL MOVE: ', '').trim(); // Extract the official move
+
+  // Print all lines except the last one to the terminal
+  lines.forEach(line => {
+    this.terminal.write(`${line}\r\n`);
+  });
+
+  // Make the official move on the chessboard
+  try {
+    if (officialMove) {
+      const move = this.state.chessGame.move({
+        from: officialMove.slice(0, 2),
+        to: officialMove.slice(2, 4),
+        promotion: 'q' // Always promote to a queen for simplicity
+      });
+      if (move !== null) {
+        this.setState(prevState => ({
+          chessGame: this.state.chessGame,
+          moves: `${prevState.moves} ${officialMove}` // Append the move to the moves string
+        }));
+      } else {
+        this.terminal.write('Invalid move.\r\n');
+      }
+    } else {
+      this.terminal.write('No official move found.\r\n');
+    }
+  } catch (error) {
+    this.terminal.write(`Error making move: ${error.message}\r\n`);
+  }
+
+  console.log('Program executed. Result:', result);
 };
 
   preloadImages = () => {
@@ -350,12 +386,23 @@ runWasmFunction = () => {
       const move = this.state.chessGame.move({
         from: sourceSquare,
         to: targetSquare,
-        promotion: 'q'
+        promotion: 'q' // Always promote to a queen for simplicity
       });
 
       if (move === null) return;
 
-      this.setState({ chessGame: this.state.chessGame });
+      const userMove = `${sourceSquare}${targetSquare}`;
+      this.setState(prevState => ({
+        chessGame: this.state.chessGame,
+        moves: `${prevState.moves} ${userMove}` // Append the user's move to the moves string
+      }), () => {
+        // Delay the call to runWasmFunction to ensure the move is rendered first
+        setTimeout(() => {
+          setTimeout(() => {
+            this.runWasmFunction(); // Run the function in the background
+          }, 0);
+        }, 100); // Adjust the delay as needed
+      });
     } catch (error) {
       console.warn("Caught invalid move:", error);
     }
