@@ -102,27 +102,45 @@ class MoreAboutMe extends Component {
       specialMessage: "Will you be heard?",
       mapPosition: { x: 0, y: 0 },
       mapScale: 1,
-      moves: "0 0 0 0 0"
+      moves: "0 0 1 1 0"
     };
     this.terminalRef = React.createRef();
   }
 
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-    setTimeout(() => {
-      this.updateSlideWidth();
-      this.updateMapSize();
-    }, 300); // Delay the call to updateSlideWidth by 300 milliseconds
+  // Add this method to generate a random white move
+  generateRandomWhiteMove = () => {
+    const possibleMoves = this.state.chessGame.moves({ verbose: true });
+    const whiteMoves = possibleMoves.filter(move => move.color === 'w');
+    const randomMove = whiteMoves[Math.floor(Math.random() * whiteMoves.length)];
+    return randomMove;
+  };
 
-    // Preload images
-    this.preloadImages();
+  // Update the componentDidMount method
+componentDidMount() {
+  window.addEventListener('resize', this.handleResize);
+  setTimeout(() => {
+    this.updateSlideWidth();
+    this.updateMapSize();
+  }, 300); // Delay the call to updateSlideWidth by 300 milliseconds
 
-    // Update question marks positions periodically
-    this.questionMarkInterval = setInterval(this.updateQuestionMarks, 3000);
+  // Preload images
+  this.preloadImages();
 
-    // Initialize the terminal
-    this.initTerminal();
+  // Update question marks positions periodically
+  this.questionMarkInterval = setInterval(this.updateQuestionMarks, 3000);
+
+  // Initialize the terminal
+  this.initTerminal();
+
+  // Make a random white move
+  const randomMove = this.generateRandomWhiteMove();
+  if (randomMove) {
+    this.state.chessGame.move(randomMove);
+    this.setState(prevState => ({
+      moves: `${prevState.moves} ${randomMove.from}${randomMove.to}`
+    }));
   }
+}
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
@@ -253,13 +271,20 @@ runWasmFunction = () => {
 
   // Split the result into lines
   const lines = result.trim().split('\n');
-  const lastLine = lines.pop(); // Get the last line
-  const officialMove = lastLine.replace('OFFICIAL MOVE: ', '').trim(); // Extract the official move
+  const lastLine = lines.pop(); // Get the last line (official move)
+  const secondToLastLine = lines.pop(); // Get the second to last line (updated first five integers)
 
-  // Print all lines except the last one to the terminal
+  // Print all lines except the last two to the terminal
   lines.forEach(line => {
     this.terminal.write(`${line}\r\n`);
   });
+
+  // Extract the official move
+  const officialMove = lastLine.replace('OFFICIAL MOVE: ', '').trim();
+
+  // Update the moves state with the new values
+  const updatedMoves = secondToLastLine.trim() + moves.slice(moves.indexOf(' ', 9));
+  this.setState({ moves: updatedMoves });
 
   // Make the official move on the chessboard
   try {
@@ -388,13 +413,21 @@ runWasmFunction = () => {
         to: targetSquare,
         promotion: 'q' // Always promote to a queen for simplicity
       });
-
+  
       if (move === null) return;
-
+  
       const userMove = `${sourceSquare}${targetSquare}`;
+      let { moves } = this.state;
+  
+      // Check if the move is a pawn push of two squares
+      if (move.piece === 'p' && Math.abs(sourceSquare.charCodeAt(1) - targetSquare.charCodeAt(1)) === 2) {
+        const columnIndex = sourceSquare.charCodeAt(0) - 'a'.charCodeAt(0);
+        moves = `1 ${columnIndex} ${moves.split(' ').slice(2).join(' ')}`;
+      }
+  
       this.setState(prevState => ({
         chessGame: this.state.chessGame,
-        moves: `${prevState.moves} ${userMove}` // Append the user's move to the moves string
+        moves: `${moves} ${userMove}` // Append the user's move to the moves string
       }), () => {
         // Delay the call to runWasmFunction to ensure the move is rendered first
         setTimeout(() => {
