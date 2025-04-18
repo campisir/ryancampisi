@@ -102,8 +102,9 @@ class MoreAboutMe extends Component {
       specialMessage: "Will you be heard?",
       mapPosition: { x: 0, y: 0 },
       mapScale: 1,
-      moves: "0 0 1 1 0"
-    };
+      moves: "0 0 1 1 0",
+      disableSwipe: false  // <-- added flag
+  };
     this.terminalRef = React.createRef();
     this.wasmWorker = null;
   }
@@ -441,8 +442,14 @@ handleWasmResult = (result) => {
   
       this.setState(prevState => ({
         chessGame: this.state.chessGame,
-        moves: `${moves} ${userMove}` // Append the user's move to the moves string
+        moves: `${moves} ${userMove}`
       }), () => {
+        // Temporarily disable swipe when a move is made.
+        this.setState({ disableSwipe: true });
+        setTimeout(() => {
+          this.setState({ disableSwipe: false });
+        }, 500);
+  
         // Delay the call to runWasmFunction to ensure the move is rendered first
         setTimeout(() => {
           setTimeout(() => {
@@ -453,7 +460,7 @@ handleWasmResult = (result) => {
     } catch (error) {
       console.warn("Caught invalid move:", error);
     }
-  };
+};
 
   getRandomPhilosophyMessage = () => {
     const randomIndex = Math.floor(Math.random() * philosophyMessages.length);
@@ -683,31 +690,36 @@ handleWasmResult = (result) => {
   
             {/* New Chess Slide */}
             <div className="slide" style={{ width: `${slideWidth}px` }}>
-          <h2>Chess</h2>
-          <div className="chessboard-terminal-container">
-            <div className="chessboard-container">
-              <Chessboard
-                position={this.state.chessGame.fen()}
-                onPieceDrop={this.onPieceDrop}
-                boardWidth={chessboardWidth}
-                boardOrientation="black"
-              />
-            </div>
-            <div className="terminal-container" ref={this.terminalRef}></div>
-          </div>
-          <p className="caption"></p>
-          <p>
-            I picked up chess a few years ago and it is now one of my favorite hobbies. As of recently, I have been playing a lot of the 2v2 variant called "Bughouse." I have never played in an offical over-the-board tournament, but I plan to one day.
-          </p>
-          <p>
-            <strong>Goal:</strong> Reach an online rating of 2000 in any chess format.
-          </p>
-          <p>
-            <a href="https://www.chess.com/member/GrowHome" target="_blank" rel="noopener noreferrer">
-              Visit my Chess.com profile
-            </a>
-          </p>
-        </div>
+  <h2>Chess</h2>
+  <div className="chessboard-terminal-container">
+    <div 
+      className="chessboard-container"
+      onTouchStart={e => e.stopPropagation()}
+      onTouchMove={e => e.stopPropagation()}
+      onTouchEnd={e => e.stopPropagation()}
+    >
+      <Chessboard
+        position={this.state.chessGame.fen()}
+        onPieceDrop={this.onPieceDrop}
+        boardWidth={chessboardWidth}
+        boardOrientation="black"
+      />
+    </div>
+    <div className="terminal-container" ref={this.terminalRef}></div>
+  </div>
+  <p className="caption"></p>
+  <p>
+    I picked up chess a few years ago and it is now one of my favorite hobbies. As of recently, I have been playing a lot of the 2v2 variant called "Bughouse." I have never played in an offical over-the-board tournament, but I plan to one day.
+  </p>
+  <p>
+    <strong>Goal:</strong> Reach an online rating of 2000 in any chess format.
+  </p>
+  <p>
+    <a href="https://www.chess.com/member/GrowHome" target="_blank" rel="noopener noreferrer">
+      Visit my Chess.com profile
+    </a>
+  </p>
+</div>
               
             {/* New Philosophy Slide */}
             <div className="slide philosophy-slide" style={{ width: `${slideWidth}px` }}>
@@ -812,12 +824,24 @@ handleWasmResult = (result) => {
 
 const MoreAboutMeWithSwipe = forwardRef((props, ref) => {
   const handlers = useSwipeable({
-    onSwipedLeft: props.goToNextSlide,
-    onSwipedRight: props.goToPreviousSlide,
+    onSwipedLeft: (eventData) => {
+      // If the swipe starts inside the chessboard container, ignore it.
+      if (eventData.event.target.closest('.chessboard-container')) return;
+      // Also, if swipe is temporarily disabled, do nothing.
+      if (ref && ref.current && ref.current.state.disableSwipe) return;
+  
+      props.goToNextSlide();
+    },
+    onSwipedRight: (eventData) => {
+      if (eventData.event.target.closest('.chessboard-container')) return;
+      if (ref && ref.current && ref.current.state.disableSwipe) return;
+  
+      props.goToPreviousSlide();
+    },
     preventDefaultTouchmoveEvent: true,
     trackMouse: true
   });
-
+  
   return <MoreAboutMe {...props} handlers={handlers} ref={ref} />;
 });
 
