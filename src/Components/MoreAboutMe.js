@@ -103,9 +103,11 @@ class MoreAboutMe extends Component {
       mapPosition: { x: 0, y: 0 },
       mapScale: 1,
       moves: "0 0 1 1 0",
-      disableSwipe: false  // <-- added flag
-  };
-    this.terminalRef = React.createRef();
+      disableSwipe: false,  // <-- added flag
+      dialogue: ""         // <-- new dialogue state (all terminal output goes here)
+    };
+    // Remove terminalRef since not needed anymore.
+    // this.terminalRef = React.createRef();
     this.wasmWorker = null;
   }
 
@@ -117,45 +119,45 @@ class MoreAboutMe extends Component {
     return randomMove;
   };
 
-  // Update the componentDidMount method
-componentDidMount() {
-  window.addEventListener('resize', this.handleResize);
-  setTimeout(() => {
-    this.updateSlideWidth();
-    this.updateMapSize();
-  }, 300); // Delay the call to updateSlideWidth by 300 milliseconds
-
-  // Preload images
-  this.preloadImages();
-
-  // Update question marks positions periodically
-  this.questionMarkInterval = setInterval(this.updateQuestionMarks, 3000);
-
-  // Initialize the terminal
-  this.initTerminal();
-
-  // Initialize the WASM worker
-  this.wasmWorker = new Worker('wasmWorker.js');
-  this.wasmWorker.onmessage = (e) => {
-    const { type, result, message } = e.data;
-    if (type === 'wasmLoaded') {
-      this.terminal.write('WebAssembly module loaded in worker.\r\n');
-    } else if (type === 'result') {
-      this.handleWasmResult(result);
-    } else if (type === 'error') {
-      this.terminal.write(`Error loading WASM: ${message}\r\n`);
-    }
+      // Replace the existing appendDialogue method with the following:
+  appendDialogue = (msg) => {
+    this.setState({ dialogue: msg.replace(/[\r\n]+/g, ' ') });
   };
 
-  // Make a random white move
-  const randomMove = this.generateRandomWhiteMove();
-  if (randomMove) {
-    this.state.chessGame.move(randomMove);
-    this.setState(prevState => ({
-      moves: `${prevState.moves} ${randomMove.from}${randomMove.to}`
-    }));
+  // In componentDidMount, remove or comment out terminal initialization:
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+    setTimeout(() => {
+      this.updateSlideWidth();
+      this.updateMapSize();
+    }, 300);
+    this.preloadImages();
+    this.questionMarkInterval = setInterval(this.updateQuestionMarks, 3000);
+
+    // Remove initTerminal() call since we won't use xterm anymore.
+    // this.initTerminal();
+
+    // Initialize the WASM worker
+    this.wasmWorker = new Worker('wasmWorker.js');
+    this.wasmWorker.onmessage = (e) => {
+      const { type, result, message } = e.data;
+      if (type === 'wasmLoaded') {
+        this.appendDialogue('Let\'s play.\r\n');
+      } else if (type === 'result') {
+        this.handleWasmResult(result);
+      } else if (type === 'error') {
+        this.appendDialogue(`Uh... I can't play right now, sorry.: ${message}\r\n`);
+      }
+    };
+
+    const randomMove = this.generateRandomWhiteMove();
+    if (randomMove) {
+      this.state.chessGame.move(randomMove);
+      this.setState(prevState => ({
+        moves: `${prevState.moves} ${randomMove.from}${randomMove.to}`
+      }));
+    }
   }
-}
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
@@ -164,109 +166,7 @@ componentDidMount() {
       this.wasmWorker.terminate();
     }
   }
-
-  initTerminal = () => {
-    this.terminal = new Terminal({
-      cols: 40, // Set the number of columns
-      rows: 10, // Set the number of rows
-    });
-    this.terminal.open(this.terminalRef.current);
-    this.terminal.write('Welcome to the embedded terminal!\r\n');
   
-    // Define the imports for the WebAssembly module
-    const imports = {
-      env: {
-        __memory_base: 0,
-        __table_base: 0,
-        memory: new WebAssembly.Memory({ initial: 1024 }), // Increase initial memory size
-        table: new WebAssembly.Table({ initial: 0, element: 'anyfunc' }),
-        _emscripten_get_now: Date.now,
-        __cxa_throw: (ptr, type, destructor) => {
-          console.error(`Exception thrown: ${ptr}, type: ${type}, destructor: ${destructor}`);
-        },
-        emscripten_date_now: () => Date.now(),
-        __syscall_openat: () => {
-          console.error('__syscall_openat is not implemented');
-        },
-        emscripten_resize_heap: (size) => {
-          console.error(`emscripten_resize_heap is not implemented. Requested size: ${size}`);
-          return false;
-        },
-        _abort_js: () => {
-          console.error('_abort_js is not implemented');
-        },
-        __syscall_fcntl64: () => {
-          console.error('__syscall_fcntl64 is not implemented');
-        },
-        __syscall_ioctl: () => {
-          console.error('__syscall_ioctl" is not implemented');
-        },
-        _tzset_js: () => {
-          console.error('_tzset_js" is not implemented');
-        },
-        // Add other necessary imports here
-      },
-      wasi_snapshot_preview1: {
-        fd_close: () => {
-          console.error('fd_close is not implemented');
-        },
-        fd_write: () => {
-          console.error('fd_write is not implemented');
-        },
-        fd_seek: () => {
-          console.error('fd_seek is not implemented');
-        },
-        fd_read: () => {
-          console.error('fd_read is not implemented');
-        },
-        environ_sizes_get: () => {
-          console.error('environ_sizes_get is not implemented');
-        },
-        environ_get: () => {
-          console.error('environ_get is not implemented');
-        },
-        // Add other necessary WASI imports here
-      }
-    };
-  
-    // Load the WebAssembly module
-    fetch('main.wasm').then(response =>
-      response.arrayBuffer()
-    ).then(bytes =>
-      WebAssembly.instantiate(bytes, imports)
-    ).then(results => {
-      this.wasmInstance = results.instance;
-      this.terminal.write('WebAssembly module loaded.\r\n');
-    }).catch(error => {
-      console.error('Error loading WebAssembly module:', error);
-    });
-  
-    let inputBuffer = '';
-    // Handle user input
-    this.terminal.onData(data => {
-      if (data === '\u007F') { // Handle backspace (ASCII DEL)
-        if (this.terminal.buffer.active.cursorX > 0) {
-          this.terminal.write('\b \b');
-          inputBuffer = inputBuffer.slice(0, -1);
-        }
-      } else if (data === '\r') { // Handle Enter key
-        this.terminal.write('\r\n');
-        this.handleCommand(inputBuffer.trim());
-        inputBuffer = '';
-      } else {
-        this.terminal.write(data); // Echo the input back to the terminal
-        inputBuffer += data;
-      }
-    });
-  };
-
-handleCommand = (command) => {
-  if (command === 'run') {
-      this.runWasmFunction();
-  } else {
-      this.terminal.write(`Unknown command: ${command}\r\n`);
-  }
-};
 
 runWasmFunction = () => {
   if (!this.wasmWorker) {
@@ -281,28 +181,23 @@ runWasmFunction = () => {
 
 handleWasmResult = (result) => {
   if (typeof result !== 'string' || !result.trim()) {
-    this.terminal.write('Error: Invalid result from WASM worker.\r\n');
+    this.appendDialogue('Error: Invalid result from WASM worker.\r\n');
     return;
   }
-
   const lines = result.trim().split('\n');
   if (lines.length < 2) {
     console.log('Incomplete result:', result);
-    this.terminal.write('Error: Incomplete result from WASM worker.\r\n');
+    this.appendDialogue('Error: Incomplete result from WASM worker.\r\n');
     return;
   }
-
   const lastLine = lines.pop();
   const secondToLastLine = lines.pop();
-
-  this.terminal.write(lines.join('\r\n') + '\r\n');
-
+  this.appendDialogue(lines.join('\r\n') + '\r\n');
   const officialMove = lastLine ? lastLine.replace('OFFICIAL MOVE: ', '').trim() : '';
   const secondLine = secondToLastLine ? secondToLastLine.trim() : '';
   const updatedMoves =
     secondLine + this.state.moves.slice(this.state.moves.indexOf(' ', 9));
   this.setState({ moves: updatedMoves });
-
   try {
     if (officialMove) {
       const move = this.state.chessGame.move({
@@ -316,13 +211,13 @@ handleWasmResult = (result) => {
           moves: `${prevState.moves} ${officialMove}`
         }));
       } else {
-        this.terminal.write('Invalid move.\r\n');
+        this.appendDialogue('Invalid move.\r\n');
       }
     } else {
-      this.terminal.write('No official move found.\r\n');
+      this.appendDialogue('No official move found.\r\n');
     }
   } catch (error) {
-    this.terminal.write(`Error making move: ${error.message}\r\n`);
+    this.appendDialogue(`Error making move: ${error.message}\r\n`);
   }
   console.log('Program executed. Result:', result);
 };
@@ -691,35 +586,45 @@ handleWasmResult = (result) => {
             {/* New Chess Slide */}
             <div className="slide" style={{ width: `${slideWidth}px` }}>
   <h2>Chess</h2>
-  <div className="chessboard-terminal-container">
-    <div 
-      className="chessboard-container"
-      onTouchStart={e => e.stopPropagation()}
-      onTouchMove={e => e.stopPropagation()}
-      onTouchEnd={e => e.stopPropagation()}
-    >
-      <Chessboard
-        position={this.state.chessGame.fen()}
-        onPieceDrop={this.onPieceDrop}
-        boardWidth={chessboardWidth}
-        boardOrientation="black"
-      />
-    </div>
-    <div className="terminal-container" ref={this.terminalRef}></div>
-  </div>
-  <p className="caption"></p>
-  <p>
-    I picked up chess a few years ago and it is now one of my favorite hobbies. As of recently, I have been playing a lot of the 2v2 variant called "Bughouse." I have never played in an offical over-the-board tournament, but I plan to one day.
-  </p>
-  <p>
-    <strong>Goal:</strong> Reach an online rating of 2000 in any chess format.
-  </p>
-  <p>
-    <a href="https://www.chess.com/member/GrowHome" target="_blank" rel="noopener noreferrer">
-      Visit my Chess.com profile
-    </a>
-  </p>
-</div>
+
+  {/* New robot image and dialogue box container */}
+              <div className="robot-dialogue-container">
+                <img 
+                  src="images/robot.png" 
+                  alt="Robot" 
+                  className="robot-image" 
+                />
+                <div className="dialogue-box">
+                  {this.state.dialogue}
+                </div>
+              </div>
+              {/* Chessboard container remains as is */}
+              <div 
+                className="chessboard-container"
+                onTouchStart={e => e.stopPropagation()}
+                onTouchMove={e => e.stopPropagation()}
+                onTouchEnd={e => e.stopPropagation()}
+              >
+                <Chessboard
+                  position={chessGame.fen()}
+                  onPieceDrop={this.onPieceDrop}
+                  boardWidth={chessboardWidth}
+                  boardOrientation="black"
+                />
+              </div>
+              <p className="caption"></p>
+              <p>
+                I picked up chess a few years ago and it is now one of my favorite hobbies. As of recently, I have been playing a lot of the 2v2 variant called "Bughouse." I have never played in an offical over-the-board tournament, but I plan to one day.
+              </p>
+              <p>
+                <strong>Goal:</strong> Reach an online rating of 2000 in any chess format.
+              </p>
+              <p>
+                <a href="https://www.chess.com/member/GrowHome" target="_blank" rel="noopener noreferrer">
+                  Visit my Chess.com profile
+                </a>
+              </p>
+            </div>
               
             {/* New Philosophy Slide */}
             <div className="slide philosophy-slide" style={{ width: `${slideWidth}px` }}>

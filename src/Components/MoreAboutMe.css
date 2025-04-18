@@ -419,6 +419,26 @@
   margin-top: 10px; /* Adjust the space between the chessboard and the terminal */
 }
 
+.robot-dialogue-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.robot-image {
+  width: 80px;
+  height: auto;
+  margin-right: 10px;
+}
+.dialogue-box {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
