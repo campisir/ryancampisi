@@ -105,6 +105,7 @@ class MoreAboutMe extends Component {
       moves: "0 0 1 1 0"
     };
     this.terminalRef = React.createRef();
+    this.wasmWorker = null;
   }
 
   // Add this method to generate a random white move
@@ -132,6 +133,19 @@ componentDidMount() {
   // Initialize the terminal
   this.initTerminal();
 
+  // Initialize the WASM worker
+  this.wasmWorker = new Worker('wasmWorker.js');
+  this.wasmWorker.onmessage = (e) => {
+    const { type, result, message } = e.data;
+    if (type === 'wasmLoaded') {
+      this.terminal.write('WebAssembly module loaded in worker.\r\n');
+    } else if (type === 'result') {
+      this.handleWasmResult(result);
+    } else if (type === 'error') {
+      this.terminal.write(`Error loading WASM: ${message}\r\n`);
+    }
+  };
+
   // Make a random white move
   const randomMove = this.generateRandomWhiteMove();
   if (randomMove) {
@@ -144,7 +158,10 @@ componentDidMount() {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
-    clearInterval(this.questionMarkInterval); // Clear the interval when the component unmounts
+    clearInterval(this.questionMarkInterval);
+    if (this.wasmWorker) {
+      this.wasmWorker.terminate();
+    }
   }
 
   initTerminal = () => {
@@ -251,53 +268,51 @@ handleCommand = (command) => {
 };
 
 runWasmFunction = () => {
-  if (typeof window.Module === 'undefined') {
-    this.terminal.write('Error: Module not defined. Is main.js loaded?\r\n');
+  if (!this.wasmWorker) {
+    this.terminal.write('Error: wasm worker not initialized.\r\n');
     return;
   }
-  if (!window.Module.ccall) {
-    this.terminal.write('Error: Module is not fully initialized.\r\n');
-    return;
-  }
-
   const { moves } = this.state;
   console.log("moves: ", moves);
-  const result = window.Module.ccall(
-    'my_main',   // C function name
-    'string',    // return type
-    ['string'],  // argument types
-    [moves]      // argument values
-  );
+  // Send the moves to the worker
+  this.wasmWorker.postMessage({ type: 'runWasm', moves });
+};
 
-  // Split the result into lines
+handleWasmResult = (result) => {
+  if (typeof result !== 'string' || !result.trim()) {
+    this.terminal.write('Error: Invalid result from WASM worker.\r\n');
+    return;
+  }
+
   const lines = result.trim().split('\n');
-  const lastLine = lines.pop(); // Get the last line (official move)
-  const secondToLastLine = lines.pop(); // Get the second to last line (updated first five integers)
+  if (lines.length < 2) {
+    console.log('Incomplete result:', result);
+    this.terminal.write('Error: Incomplete result from WASM worker.\r\n');
+    return;
+  }
 
-  // Print all lines except the last two to the terminal
-  lines.forEach(line => {
-    this.terminal.write(`${line}\r\n`);
-  });
+  const lastLine = lines.pop();
+  const secondToLastLine = lines.pop();
 
-  // Extract the official move
-  const officialMove = lastLine.replace('OFFICIAL MOVE: ', '').trim();
+  this.terminal.write(lines.join('\r\n') + '\r\n');
 
-  // Update the moves state with the new values
-  const updatedMoves = secondToLastLine.trim() + moves.slice(moves.indexOf(' ', 9));
+  const officialMove = lastLine ? lastLine.replace('OFFICIAL MOVE: ', '').trim() : '';
+  const secondLine = secondToLastLine ? secondToLastLine.trim() : '';
+  const updatedMoves =
+    secondLine + this.state.moves.slice(this.state.moves.indexOf(' ', 9));
   this.setState({ moves: updatedMoves });
 
-  // Make the official move on the chessboard
   try {
     if (officialMove) {
       const move = this.state.chessGame.move({
         from: officialMove.slice(0, 2),
         to: officialMove.slice(2, 4),
-        promotion: 'q' // Always promote to a queen for simplicity
+        promotion: 'q'
       });
       if (move !== null) {
         this.setState(prevState => ({
           chessGame: this.state.chessGame,
-          moves: `${prevState.moves} ${officialMove}` // Append the move to the moves string
+          moves: `${prevState.moves} ${officialMove}`
         }));
       } else {
         this.terminal.write('Invalid move.\r\n');
@@ -308,7 +323,6 @@ runWasmFunction = () => {
   } catch (error) {
     this.terminal.write(`Error making move: ${error.message}\r\n`);
   }
-
   console.log('Program executed. Result:', result);
 };
 
