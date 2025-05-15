@@ -1,0 +1,78 @@
+.mychess-slide {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  background-color: #2B2B2B;
+  color: #fff;
+}
+
+.mychess-slide h2 {
+  font: 36px/44px 'opensans-bold', sans-serif;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.robot-dialogue-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.robot-image {
+  width: 80px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.dialogue-box {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  color: #000;
+}
+
+.chessboard-container {
+  width: 60%;
+  margin: 0 auto 20px auto;
+}
+
+.chessboard-container > * {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.caption {
+  font-size: 14px;
+  color: #A8A8A8;
+  margin-top: 5px;
+  text-align: center;
+  font-style: italic;
+}
+
+.mychess-slide p {
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 600px;
+  margin: 10px 0;
+}
+
+.mychess-slide a {
+  color: #19b6ff;
+  text-decoration: none;
+}
+
+.mychess-slide a:hover {
+  text-decoration: underline;
+}
