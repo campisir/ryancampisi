@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps';
 import './Travel.css';
 
-const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
+const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-50m.json";
 
 const countryDetails = {
   "United States of America": {
@@ -60,6 +60,27 @@ const countryDetails = {
     dateVisited: "June 28, 2024",
     photo: "images/croatia_photo.png",
     caption: "A submarine tour in Croatia."
+  },
+  "Bahamas": {
+    name: "Bahamas",
+    description: "I visited here as part of a cruise I took in 2025.",
+    dateVisited: "June 16, 2025",
+    photo: "images/bahamas_photo.png",
+    caption: "A boat ride near rose island in the Bahamas."
+  },
+  "Dominican Rep.": {
+    name: "Dominican Republic",
+    description: "I visited here as part of a cruise I took in 2025.",
+    dateVisited: "June 21, 2025",
+    photo: "images/dominican_republic_photo.PNG",
+    caption: "Some squirrel monkeys and I in the Dominican Republic."
+  },
+  "Puerto Rico": {
+    name: "Puerto Rico",
+    description: "I visited here as part of a cruise I took in 2025.",
+    dateVisited: "June 20, 2025",
+    photo: "images/puerto_rico_photo.jpg",
+    caption: "My brothers and I at the San Juan National Historic Site (I'm on the right)."
   }
 };
 
@@ -71,7 +92,10 @@ const clickableCountries = [
   "Greece",
   "Montenegro",
   "Norway",
-  "Croatia"
+  "Croatia",
+  "Bahamas",
+  "Dominican Rep.",
+  "Puerto Rico"
 ];
 
 class Travel extends Component {
@@ -181,6 +205,8 @@ closePopup = () => {
   // Return a green color for clickable countries and the default gray otherwise
   getCountryColor = (geo) => {
     const countryName = geo.properties.name;
+    
+    // Debug: Log country names to help identify the correct name for Dominican Republic
     const countryColors = {
       "United States of America": "#90EE90",
       "Israel": "#90EE90",
@@ -189,7 +215,10 @@ closePopup = () => {
       "Greece": "#90EE90",
       "Montenegro": "#90EE90",
       "Norway": "#90EE90",
-      "Croatia": "#90EE90"
+      "Croatia": "#90EE90",
+      "Bahamas": "#90EE90",
+      "Dominican Rep.": "#90EE90",
+      "Puerto Rico": "#90EE90"
     };
     return countryColors[countryName] || "#D6D6DA";
   };

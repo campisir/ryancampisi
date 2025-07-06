@@ -178,15 +178,43 @@ class MyChess extends Component {
     console.log('Program executed. Result:', result);
   };
 
-  onPieceDrop = (sourceSquare, targetSquare) => {
+  onPieceDrop = (sourceSquare, targetSquare, piece) => {
     try {
-      const move = this.state.chessGame.move({
-        from: sourceSquare,
-        to: targetSquare,
-        promotion: 'q'
-      });
+      // Check if this is a promotion move
+      const game = new Chess(this.state.chessGame.fen());
+      const possibleMoves = game.moves({ verbose: true });
+      const promotionMove = possibleMoves.find(m => 
+        m.from === sourceSquare && 
+        m.to === targetSquare && 
+        m.promotion
+      );
+      
+      let move;
+      if (promotionMove) {
+        // This is a promotion move - let the user choose the piece
+        // The piece parameter from react-chessboard contains the chosen piece
+        const promotionPiece = piece ? piece.charAt(1).toLowerCase() : 'q';
+        move = this.state.chessGame.move({
+          from: sourceSquare,
+          to: targetSquare,
+          promotion: promotionPiece
+        });
+      } else {
+        // Regular move
+        move = this.state.chessGame.move({
+          from: sourceSquare,
+          to: targetSquare
+        });
+      }
+      
       if (move === null) return;
-      const userMove = `${sourceSquare}${targetSquare}`;
+      
+      // Construct user move notation with promotion if applicable
+      let userMove = `${sourceSquare}${targetSquare}`;
+      if (move.promotion) {
+        userMove += `=${move.promotion.toUpperCase()}`;
+      }
+      
       let { moves } = this.state;
       // Check for pawn two-square push
       if (move.piece === 'p' && Math.abs(sourceSquare.charCodeAt(1) - targetSquare.charCodeAt(1)) === 2) {
@@ -209,6 +237,12 @@ class MyChess extends Component {
     } catch (error) {
       console.warn("Caught invalid move:", error);
     }
+  };
+
+  // Function to determine if a piece can be dragged (only allow black pieces)
+  isDraggablePiece = ({ piece, sourceSquare }) => {
+    // Only allow dragging black pieces (pieces that start with 'b')
+    return piece.charAt(0) === 'b';
   };
 
   render() {
@@ -264,9 +298,22 @@ class MyChess extends Component {
             onPieceDrop={this.onPieceDrop}
             boardWidth={chessboardWidth}
             boardOrientation="black"
+            promotionToSquare={true}
+            isDraggablePiece={this.isDraggablePiece}
           />
         </div>
-        <p className="caption"></p>
+        <div className="chess-caption">
+          <p className="chess-description">
+            Play my chess bot! Coded in C++ <a 
+              href="https://github.com/campisir/rcchessbot" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="github-link"
+            >
+              completely from scratch
+            </a>!
+          </p>
+        </div>
         <p>
           I picked up chess a few years ago and it is now one of my favorite hobbies. As of recently, I have been playing a lot of the 2v2 variant called "Bughouse." I have never played in an official over-the-board tournament, but I plan to one day.
         </p>

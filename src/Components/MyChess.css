@@ -60,6 +60,48 @@
   font-style: italic;
 }
 
+.chess-caption {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.arrow-pointer {
+  font-size: 24px;
+  color: #19b6ff;
+  margin-bottom: 5px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.chess-description {
+  font-size: 16px;
+  color: #fff;
+  margin: 0;
+  font-weight: bold;
+}
+
+.github-link {
+  color: #19b6ff;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.github-link:hover {
+  color: #4db8ff;
+  text-decoration: underline;
+}
+
 .mychess-slide p {
   font-size: 18px;
   line-height: 1.6;
