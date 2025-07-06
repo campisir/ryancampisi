@@ -31,7 +31,7 @@ fetch('main.wasm')
   .then(bytes => WebAssembly.instantiate(bytes, imports))
   .then(results => {
     wasmInstance = results.instance;
-    console.log("WASM exports:", Object.keys(wasmInstance.exports));
+    //console.log("WASM exports:", Object.keys(wasmInstance.exports));
     if (typeof wasmInstance.exports.my_main !== 'function') {
       postMessage({ type: 'error', message: 'my_main not exported!' });
       return;

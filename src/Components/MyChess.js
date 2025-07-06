@@ -63,7 +63,7 @@ class MyChess extends Component {
       return;
     }
     const { moves } = this.state;
-    console.log("moves: ", moves);
+    //console.log("moves: ", moves);
     // Send the moves to the worker for processing
     this.wasmWorker.postMessage({ type: 'runWasm', moves });
   };
@@ -175,7 +175,7 @@ class MyChess extends Component {
     } catch (error) {
       this.appendDialogue(`Error making move: ${error.message}`);
     }
-    console.log('Program executed. Result:', result);
+    //console.log('Program executed. Result:', result);
   };
 
   onPieceDrop = (sourceSquare, targetSquare, piece) => {
