@@ -15,8 +15,16 @@ class Header extends Component {
 
    return (
      <header id="home">
-      <video autoPlay muted loop playsInline id="myVideo" style={{ position: "absolute", right: 0, bottom: 0, minWidth: "50%", minHeight: "50%" }}>
-      <source src="images/websitedrones.mp4" type="video/mp4" />
+      <video 
+        autoPlay 
+        muted 
+        loop 
+        playsInline 
+        poster="images/video-poster.png"
+        id="myVideo" 
+        style={{ position: "absolute", right: 0, bottom: 0, minWidth: "50%", minHeight: "50%" }}
+      >
+        <source src="images/websitedrones.mp4" type="video/mp4" />
         Your browser does not support HTML5 video.
       </video>
 
