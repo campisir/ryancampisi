@@ -5,11 +5,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 20px 0;
   position: relative;
   overflow: hidden;
   background-color: #2B2B2B;
   color: #fff;
+  margin: 0 auto;
 }
 
 .mychess-slide h2 {
@@ -43,12 +44,11 @@
 }
 
 .chessboard-container {
-  width: 50%;
-  margin: 0 auto 20px auto;
+  display:flex;
+  justify-content: center;
 }
 
 .chessboard-container > * {
-  display: inline-block;
   margin: 0 auto;
 }
 
