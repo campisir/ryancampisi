@@ -10,7 +10,8 @@ class MyChess extends Component {
       chessGame: new Chess(),
       dialogue: "",
       moves: "0 0 1 1 0",
-      disableSwipe: false
+      disableSwipe: false,
+      robotEmotion: "neutral"
     };
     this.wasmWorker = null;
   }
@@ -73,15 +74,72 @@ class MyChess extends Component {
       return;
     }
     const lines = result.trim().split('\n');
-    if (lines.length < 2) {
-      console.log('Incomplete result:', result);
-      this.appendDialogue('Error: Incomplete result from WASM worker.');
-      return;
+    
+    // Extract emotion from the first line
+    const firstLine = lines[0] || '';
+    let emotion = "neutral";
+    if (firstLine.startsWith('!')) {
+      const emotionMatch = firstLine.match(/^!(happy|veryhappy|neutral|sad|verysad|mated)/);
+      if (emotionMatch) {
+        emotion = emotionMatch[1];
+      }
     }
-    const lastLine = lines.pop();
-    const secondToLastLine = lines.pop();
-    this.appendDialogue(lines.join(' ') + ' ');
-    const officialMove = lastLine ? lastLine.replace('OFFICIAL MOVE: ', '').trim() : '';
+    
+    // Determine if this is a normal move response or a game-ending response
+    const hasOfficialMove = lines.some(line => line.includes('OFFICIAL MOVE:'));
+    
+    let updatedState = '';
+    let officialMove = '';
+    let dialogueLines = [];
+    
+    if (hasOfficialMove && lines.length >= 2) {
+      // Normal move response: emotion, dialogue, state, official move
+      const lastLine = lines[lines.length - 1];
+      const secondToLastLine = lines[lines.length - 2];
+      
+      updatedState = secondToLastLine.trim();
+      officialMove = lastLine.replace('OFFICIAL MOVE: ', '').trim();
+      
+      // Get dialogue lines (everything except emotion, state, and official move)
+      dialogueLines = lines.slice(0, -2).filter(line => !line.startsWith('!'));
+    } else {
+      // Game-ending response: just emotion and dialogue
+      dialogueLines = lines.filter(line => !line.startsWith('!'));
+    }
+    
+    let dialogueText = dialogueLines.join(' ').trim();
+    
+    // Check for game-ending scenarios and clean up dialogue
+    if (dialogueText.includes('You win by checkmate!')) {
+      emotion = 'loss'; // Robot loses, player wins
+      dialogueText = 'You win by checkmate!';
+    } else if (dialogueText.includes('I win by checkmate!')) {
+      emotion = 'win'; // Robot wins
+      // Extract only the move and checkmate message
+      const checkmateIndex = dialogueText.indexOf('I win by checkmate!');
+      const textBeforeCheckmate = dialogueText.substring(0, checkmateIndex).trim();
+      
+      // Find the last move (text ending with '!')
+      const sentences = textBeforeCheckmate.split(/[.!]/);
+      let lastMove = '';
+      for (let i = sentences.length - 1; i >= 0; i--) {
+        const sentence = sentences[i].trim();
+        if (sentence && (sentence.includes(' to ') || sentence.includes('castles') || sentence.includes('takes'))) {
+          lastMove = sentence + '!';
+          break;
+        }
+      }
+      
+      dialogueText = lastMove ? `${lastMove} I win by checkmate!` : 'I win by checkmate!';
+    } else if (dialogueText.includes('It\'s a draw by')) {
+      emotion = 'draw'; // Game is a draw
+      // Extract only the draw message
+      const drawIndex = dialogueText.indexOf('It\'s a draw by');
+      const drawMessage = dialogueText.substring(drawIndex);
+      const drawEnd = drawMessage.indexOf('!') + 1;
+      dialogueText = drawMessage.substring(0, drawEnd);
+    }
+    
     try {
       if (officialMove) {
         const move = this.state.chessGame.move({
@@ -90,16 +148,30 @@ class MyChess extends Component {
           promotion: 'q'
         });
         if (move !== null) {
+          // Update the moves string with the new state and the official move
+          const currentMoves = this.state.moves;
+          const moveHistory = currentMoves.split(' ').slice(5); // Get all moves after the state
+          const newMovesString = `${updatedState} ${moveHistory.join(' ')} ${officialMove}`;
+          
           this.setState(prevState => ({
             chessGame: prevState.chessGame,
-            moves: `${prevState.moves} ${officialMove}`
+            moves: newMovesString,
+            robotEmotion: emotion
           }));
         } else {
           this.appendDialogue('Invalid move.');
+          return;
         }
       } else {
-        this.appendDialogue('No official move found.');
+        // No official move - this happens in checkmate/draw scenarios
+        this.setState(prevState => ({
+          robotEmotion: emotion
+        }));
       }
+      
+      // Update dialogue
+      this.appendDialogue(dialogueText);
+      
     } catch (error) {
       this.appendDialogue(`Error making move: ${error.message}`);
     }
@@ -142,12 +214,38 @@ class MyChess extends Component {
   render() {
     const { slideWidth } = this.props; // Parent should pass slideWidth
     const chessboardWidth = Math.min(slideWidth * 0.8, 400);
+    
+    // Map emotion to robot image
+    const getRobotImage = () => {
+      switch (this.state.robotEmotion) {
+        case 'win':
+          return 'images/robot_win.png';
+        case 'loss':
+          return 'images/robot_loss.png';
+        case 'draw':
+          return 'images/robot_draw.png';
+        case 'happy':
+          return 'images/robot_happy.png';
+        case 'veryhappy':
+          return 'images/robot_veryhappy.png';
+        case 'sad':
+          return 'images/robot_sad.png';
+        case 'verysad':
+          return 'images/robot_verysad.png';
+        case 'mated':
+          return 'images/robot_mated.png';
+        case 'neutral':
+        default:
+          return 'images/robot_neutral.png';
+      }
+    };
+    
     return (
       <div className="slide mychess-slide" style={{ width: `${slideWidth}px` }}>
         <h2>Chess</h2>
         <div className="robot-dialogue-container">
           <img 
-            src="images/robot.png" 
+            src={getRobotImage()} 
             alt="Robot" 
             className="robot-image" 
           />
