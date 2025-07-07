@@ -28,6 +28,15 @@ class MoreAboutMe extends Component {
   };
 
   goToPreviousSlide = () => {
+    // Track navigation
+    if (window.gtag) {
+      window.gtag('event', 'navigation_click', {
+        event_category: 'User Interaction',
+        event_label: 'Previous Slide',
+        slide_direction: 'previous'
+      });
+    }
+
     this.setState((prevState) => {
       const lastIndex = 2; // Three slides: index 0, 1, and 2.
       const newIndex = prevState.currentIndex === 0 ? lastIndex : prevState.currentIndex - 1;
@@ -36,6 +45,15 @@ class MoreAboutMe extends Component {
   };
 
   goToNextSlide = () => {
+    // Track navigation
+    if (window.gtag) {
+      window.gtag('event', 'navigation_click', {
+        event_category: 'User Interaction',
+        event_label: 'Next Slide',
+        slide_direction: 'next'
+      });
+    }
+
     this.setState((prevState) => {
       const lastIndex = 2;
       const newIndex = prevState.currentIndex === lastIndex ? 0 : prevState.currentIndex + 1;
@@ -92,12 +110,30 @@ class MoreAboutMe extends Component {
 const MoreAboutMeWithSwipe = forwardRef((props, ref) => {
   const handlers = useSwipeable({
     onSwipedLeft: (eventData) => {
+      // Track swipe gesture
+      if (window.gtag) {
+        window.gtag('event', 'swipe_gesture', {
+          event_category: 'User Interaction',
+          event_label: 'Swipe Left',
+          swipe_direction: 'left'
+        });
+      }
+
       // Ignore swipe if child component requires interaction.
       if (eventData.event.target.closest('.chessboard-container')) return;
       if (ref && ref.current && ref.current.state.disableSwipe) return;
       props.goToNextSlide && props.goToNextSlide();
     },
     onSwipedRight: (eventData) => {
+      // Track swipe gesture
+      if (window.gtag) {
+        window.gtag('event', 'swipe_gesture', {
+          event_category: 'User Interaction',
+          event_label: 'Swipe Right',
+          swipe_direction: 'right'
+        });
+      }
+
       if (eventData.event.target.closest('.chessboard-container')) return;
       if (ref && ref.current && ref.current.state.disableSwipe) return;
       props.goToPreviousSlide && props.goToPreviousSlide();

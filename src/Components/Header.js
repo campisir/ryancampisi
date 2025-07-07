@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 
 class Header extends Component {
+
+  trackNavClick = (sectionName) => {
+    if (window.gtag) {
+      window.gtag('event', 'navigation_click', {
+        event_category: 'Navigation',
+        event_label: `${sectionName} Menu Click`,
+        nav_section: sectionName
+      });
+    }
+  };
+
   render() {
 
     if(this.props.data){
@@ -34,13 +45,61 @@ class Header extends Component {
         <a className="mobile-btn" href="#home" title="Hide navigation">Hide navigation</a>
 
        <ul id="nav" className="nav">
-         <li className="current"><a className="smoothscroll" href="#home">Home</a></li>
-         <li><a className="smoothscroll" href="#about">About</a></li>
-          <li><a className="smoothscroll" href="#resume">Resume</a></li>
-         {<li><a className="smoothscroll" href="#portfolio">Projects</a></li>}
+         <li className="current">
+           <a 
+             className="smoothscroll" 
+             href="#home"
+             onClick={() => this.trackNavClick('Home')}
+           >
+             Home
+           </a>
+         </li>
+         <li>
+           <a 
+             className="smoothscroll" 
+             href="#about"
+             onClick={() => this.trackNavClick('About')}
+           >
+             About
+           </a>
+         </li>
+         <li>
+           <a 
+             className="smoothscroll" 
+             href="#resume"
+             onClick={() => this.trackNavClick('Resume')}
+           >
+             Resume
+           </a>
+         </li>
+         {<li>
+           <a 
+             className="smoothscroll" 
+             href="#portfolio"
+             onClick={() => this.trackNavClick('Projects')}
+           >
+             Projects
+           </a>
+         </li>}
          {/* <li><a className="smoothscroll" href="#testimonials">Testimonials</a></li> */}
-         <li><a className="smoothscroll" href="#more-about-me">More</a></li> {/* Ensure the ID matches */}
-         <li><a className="smoothscroll" href="#contact">Contact</a></li>
+         <li>
+           <a 
+             className="smoothscroll" 
+             href="#more-about-me"
+             onClick={() => this.trackNavClick('More')}
+           >
+             More
+           </a>
+         </li> {/* Ensure the ID matches */}
+         <li>
+           <a 
+             className="smoothscroll" 
+             href="#contact"
+             onClick={() => this.trackNavClick('Contact')}
+           >
+             Contact
+           </a>
+         </li>
        </ul>
 
      </nav>
@@ -57,7 +116,13 @@ class Header extends Component {
      </div>
 
      <p className="scrolldown">
-       <a className="smoothscroll" href="#about"><i className="icon-down-circle"></i></a>
+       <a 
+         className="smoothscroll" 
+         href="#about"
+         onClick={() => this.trackNavClick('Scroll Down Arrow')}
+       >
+         <i className="icon-down-circle"></i>
+       </a>
      </p>
 
    </header>

@@ -28,6 +28,14 @@ class MyChess extends Component {
   };
 
   componentDidMount() {
+    // Track chess game initialization
+    if (window.gtag) {
+      window.gtag('event', 'chess_game_started', {
+        event_category: 'Game',
+        event_label: 'Chess Bot Game'
+      });
+    }
+
     // Initialize the WASM worker for chess logic
     this.wasmWorker = new Worker('wasmWorker.js');
     this.wasmWorker.onmessage = (e) => {
@@ -113,8 +121,27 @@ class MyChess extends Component {
     if (dialogueText.includes('You win by checkmate!')) {
       emotion = 'loss'; // Robot loses, player wins
       dialogueText = 'You win by checkmate!';
+      
+      // Track game outcome
+      if (window.gtag) {
+        window.gtag('event', 'chess_game_end', {
+          event_category: 'Game',
+          event_label: 'Player Wins by Checkmate',
+          game_outcome: 'player_win'
+        });
+      }
     } else if (dialogueText.includes('I win by checkmate!')) {
       emotion = 'win'; // Robot wins
+      
+      // Track game outcome
+      if (window.gtag) {
+        window.gtag('event', 'chess_game_end', {
+          event_category: 'Game',
+          event_label: 'Robot Wins by Checkmate',
+          game_outcome: 'robot_win'
+        });
+      }
+      
       // Extract only the move and checkmate message
       const checkmateIndex = dialogueText.indexOf('I win by checkmate!');
       const textBeforeCheckmate = dialogueText.substring(0, checkmateIndex).trim();
@@ -133,6 +160,16 @@ class MyChess extends Component {
       dialogueText = lastMove ? `${lastMove} I win by checkmate!` : 'I win by checkmate!';
     } else if (dialogueText.includes('It\'s a draw by')) {
       emotion = 'draw'; // Game is a draw
+      
+      // Track game outcome
+      if (window.gtag) {
+        window.gtag('event', 'chess_game_end', {
+          event_category: 'Game',
+          event_label: 'Game Ends in Draw',
+          game_outcome: 'draw'
+        });
+      }
+      
       // Extract only the draw message
       const drawIndex = dialogueText.indexOf('It\'s a draw by');
       const drawMessage = dialogueText.substring(drawIndex);
@@ -180,6 +217,18 @@ class MyChess extends Component {
 
   onPieceDrop = (sourceSquare, targetSquare, piece) => {
     try {
+      // Track chess move
+      if (window.gtag) {
+        window.gtag('event', 'chess_move_made', {
+          event_category: 'Game',
+          event_label: 'Player Move',
+          custom_parameters: {
+            from_square: sourceSquare,
+            to_square: targetSquare
+          }
+        });
+      }
+
       // Check if this is a promotion move
       const game = new Chess(this.state.chessGame.fen());
       const possibleMoves = game.moves({ verbose: true });
@@ -309,6 +358,15 @@ class MyChess extends Component {
               target="_blank" 
               rel="noopener noreferrer"
               className="github-link"
+              onClick={() => {
+                if (window.gtag) {
+                  window.gtag('event', 'external_link_click', {
+                    event_category: 'Outbound Link',
+                    event_label: 'GitHub Chess Bot Repository',
+                    link_url: 'https://github.com/campisir/rcchessbot'
+                  });
+                }
+              }}
             >
               completely from scratch
             </a>!
@@ -321,7 +379,20 @@ class MyChess extends Component {
           <strong>Goal:</strong> Reach an online rating of 2000 in any chess format.
         </p>
         <p>
-          <a href="https://www.chess.com/member/GrowHome" target="_blank" rel="noopener noreferrer">
+          <a 
+            href="https://www.chess.com/member/GrowHome" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            onClick={() => {
+              if (window.gtag) {
+                window.gtag('event', 'external_link_click', {
+                  event_category: 'Outbound Link',
+                  event_label: 'Chess.com Profile',
+                  link_url: 'https://www.chess.com/member/GrowHome'
+                });
+              }
+            }}
+          >
             Visit my Chess.com profile
           </a>
         </p>

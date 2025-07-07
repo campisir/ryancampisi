@@ -132,6 +132,13 @@ class Travel extends Component {
   }
 
   removeBlur = () => {
+    // Track map reveal
+    if (window.gtag) {
+      window.gtag('event', 'button_click', {
+        event_category: 'Travel',
+        event_label: 'See Map Button Click'
+      });
+    }
     this.setState({ isBlurred: false });
   };
 
@@ -193,11 +200,26 @@ handleCountryClick = (geo) => {
   const countryName = geo.properties.name;
   const details = countryDetails[countryName];
   if (details) {
+    // Track country click
+    if (window.gtag) {
+      window.gtag('event', 'country_click', {
+        event_category: 'Travel',
+        event_label: `Country Click: ${countryName}`,
+        country_name: countryName
+      });
+    }
     this.setState({ showPopup: true, selectedCountry: details });
   }
 };
 
 closePopup = () => {
+  // Track popup close
+  if (window.gtag) {
+    window.gtag('event', 'popup_close', {
+      event_category: 'Travel',
+      event_label: 'Country Popup Closed'
+    });
+  }
   this.setState({ showPopup: false, selectedCountry: null });
 };
 

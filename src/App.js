@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactGA from 'react-ga';
+//import ReactGA from 'react-ga';
 import $ from 'jquery';
 import './App.css';
 import Header from './Components/Header';
@@ -20,8 +20,8 @@ class App extends Component {
       resumeData: {}
     };
 
-    ReactGA.initialize('UA-110570651-1');
-    ReactGA.pageview(window.location.pathname);
+    //ReactGA.initialize('UA-110570651-1');
+    //ReactGA.pageview(window.location.pathname);
 
   }
 
@@ -40,9 +40,43 @@ class App extends Component {
     });
   }
 
-  componentDidMount(){
+  componentDidMount() {
+    window.gtag('config', 'G-HN847L26DC', {
+      page_path: window.location.pathname,
+    });
     this.getResumeData();
+    
+    // Set up Intersection Observer for section tracking
+    this.setupSectionTracking();
   }
+
+  setupSectionTracking = () => {
+    const sections = ['about', 'resume', 'portfolio', 'more-about-me', 'contact'];
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && window.gtag) {
+          window.gtag('event', 'section_view', {
+            event_category: 'Page View',
+            event_label: `Section Viewed: ${entry.target.id}`,
+            section_name: entry.target.id
+          });
+        }
+      });
+    }, {
+      threshold: 0.5 // Trigger when 50% of the section is visible
+    });
+
+    // Observe all sections after a short delay to ensure DOM is ready
+    setTimeout(() => {
+      sections.forEach(sectionId => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          observer.observe(element);
+        }
+      });
+    }, 1000);
+  };
 
   render() {
     return (

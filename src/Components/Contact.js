@@ -1,6 +1,33 @@
 import React, { Component } from 'react';
 
 class Contact extends Component {
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    
+    // Track form submission
+    if (window.gtag) {
+      window.gtag('event', 'form_submit', {
+        event_category: 'Contact',
+        event_label: 'Contact Form Submission'
+      });
+    }
+    
+    // Add your form submission logic here
+    console.log('Contact form submitted');
+  };
+
+  handleInputFocus = (fieldName) => {
+    // Track form field interactions
+    if (window.gtag) {
+      window.gtag('event', 'form_field_focus', {
+        event_category: 'Contact',
+        event_label: `${fieldName} Field Focus`,
+        form_field: fieldName
+      });
+    }
+  };
+
   render() {
 
     if(this.props.data){
@@ -36,31 +63,74 @@ class Contact extends Component {
          <div className="row">
             <div className="eight columns">
 
-               <form action="" method="post" id="contactForm" name="contactForm">
+               <form action="" method="post" id="contactForm" name="contactForm" onSubmit={this.handleSubmit}>
 					<fieldset>
 
                   <div>
 						   <label htmlFor="contactName">Name <span className="required">*</span></label>
-						   <input type="text" defaultValue="" size="35" id="contactName" name="contactName" onChange={this.handleChange}/>
+						   <input 
+                     type="text" 
+                     defaultValue="" 
+                     size="35" 
+                     id="contactName" 
+                     name="contactName" 
+                     onChange={this.handleChange}
+                     onFocus={() => this.handleInputFocus('Name')}
+                   />
                   </div>
 
                   <div>
 						   <label htmlFor="contactEmail">Email <span className="required">*</span></label>
-						   <input type="text" defaultValue="" size="35" id="contactEmail" name="contactEmail" onChange={this.handleChange}/>
+						   <input 
+                     type="text" 
+                     defaultValue="" 
+                     size="35" 
+                     id="contactEmail" 
+                     name="contactEmail" 
+                     onChange={this.handleChange}
+                     onFocus={() => this.handleInputFocus('Email')}
+                   />
                   </div>
 
                   <div>
 						   <label htmlFor="contactSubject">Subject</label>
-						   <input type="text" defaultValue="" size="35" id="contactSubject" name="contactSubject" onChange={this.handleChange}/>
+						   <input 
+                     type="text" 
+                     defaultValue="" 
+                     size="35" 
+                     id="contactSubject" 
+                     name="contactSubject" 
+                     onChange={this.handleChange}
+                     onFocus={() => this.handleInputFocus('Subject')}
+                   />
                   </div>
 
                   <div>
                      <label htmlFor="contactMessage">Message <span className="required">*</span></label>
-                     <textarea cols="50" rows="15" id="contactMessage" name="contactMessage"></textarea>
+                     <textarea 
+                       cols="50" 
+                       rows="15" 
+                       id="contactMessage" 
+                       name="contactMessage"
+                       onFocus={() => this.handleInputFocus('Message')}
+                     ></textarea>
                   </div>
 
                   <div>
-                     <button className="submit">Submit</button>
+                     <button 
+                       className="submit" 
+                       type="submit"
+                       onClick={() => {
+                         if (window.gtag) {
+                           window.gtag('event', 'button_click', {
+                             event_category: 'Contact',
+                             event_label: 'Submit Button Click'
+                           });
+                         }
+                       }}
+                     >
+                       Submit
+                     </button>
                      <span id="image-loader">
                         <img alt="" src="images/loader.gif" />
                      </span>
