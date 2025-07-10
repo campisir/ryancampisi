@@ -10,6 +10,7 @@ import Contact from './Components/Contact';
 import Testimonials from './Components/Testimonials';
 import Portfolio from './Components/Portfolio';
 import MoreAboutMe from './Components/MoreAboutMe'; // Import the new component
+import { logEvent } from './utils/logging';
 
 class App extends Component {
 
@@ -45,6 +46,9 @@ class App extends Component {
       page_path: window.location.pathname,
     });
     this.getResumeData();
+    
+    // Log site load
+    logEvent('Site Load', 'User visited ryancampisi.com');
     
     // Set up Intersection Observer for section tracking
     this.setupSectionTracking();

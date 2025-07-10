@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Resume.css'; // Import the CSS file
+import { logEvent } from '../utils/logging';
 
 class Resume extends Component {
   constructor(props) {
@@ -66,7 +67,13 @@ class Resume extends Component {
                   <i className="fa fa-arrow-down" style={{ fontSize: '1.3em', margin: '0 5px' }}></i>
                   <i className="fa fa-arrow-down" style={{ fontSize: '1.3em', margin: '0 5px' }}></i>
                 </div>
-                <a href={education.publication.url} className="resumebutton" target="_blank" rel="noopener noreferrer">
+                <a 
+                  href={education.publication.url} 
+                  className="resumebutton" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={() => logEvent('Thesis Link Click', 'User clicked on honors thesis link')}
+                >
                   <i className="fa fa-file-text-o"></i> {education.publication.title}
                 </a>
               </div>

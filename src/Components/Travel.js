@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps';
 import './Travel.css';
+import { logEvent } from '../utils/logging';
 
 const geoUrl = "https://unpkg.com/world-atlas@2.0.2/countries-50m.json";
 
@@ -139,6 +140,10 @@ class Travel extends Component {
         event_label: 'See Map Button Click'
       });
     }
+    
+    // Log travel map view
+    logEvent('Travel Map View', 'User clicked to view travel map');
+    
     this.setState({ isBlurred: false });
   };
 

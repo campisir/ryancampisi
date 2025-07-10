@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Chessboard } from "react-chessboard";
 import { Chess } from 'chess.js';
 import './MyChess.css';
+import { logEvent } from '../utils/logging';
 
 class MyChess extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class MyChess extends Component {
       dialogue: "",
       moves: "0 0 1 1 0",
       disableSwipe: false,
-      robotEmotion: "neutral"
+      robotEmotion: "neutral",
+      isFirstMove: true
     };
     this.wasmWorker = null;
   }
@@ -130,6 +132,9 @@ class MyChess extends Component {
           game_outcome: 'player_win'
         });
       }
+      
+      // Log game completion
+      logEvent('Chess Game Complete', 'Player won by checkmate');
     } else if (dialogueText.includes('I win by checkmate!')) {
       emotion = 'win'; // Robot wins
       
@@ -141,6 +146,9 @@ class MyChess extends Component {
           game_outcome: 'robot_win'
         });
       }
+      
+      // Log game completion
+      logEvent('Chess Game Complete', 'Robot won by checkmate');
       
       // Extract only the move and checkmate message
       const checkmateIndex = dialogueText.indexOf('I win by checkmate!');
@@ -169,6 +177,9 @@ class MyChess extends Component {
           game_outcome: 'draw'
         });
       }
+      
+      // Log game completion
+      logEvent('Chess Game Complete', 'Game ended in draw');
       
       // Extract only the draw message
       const drawIndex = dialogueText.indexOf('It\'s a draw by');
@@ -228,6 +239,11 @@ class MyChess extends Component {
           }
         });
       }
+      
+      // Log chess move only for the first move
+      if (this.state.isFirstMove) {
+        logEvent('Chess Move', `Player made first move from ${sourceSquare} to ${targetSquare}`);
+      }
 
       // Check if this is a promotion move
       const game = new Chess(this.state.chessGame.fen());
@@ -272,7 +288,8 @@ class MyChess extends Component {
       }
       this.setState(prevState => ({
         chessGame: prevState.chessGame,
-        moves: `${moves} ${userMove}`
+        moves: `${moves} ${userMove}`,
+        isFirstMove: false
       }), () => {
         // Temporarily disable swipe (if used in the parent slider)
         this.setState({ disableSwipe: true });
@@ -353,7 +370,7 @@ class MyChess extends Component {
         </div>
         <div className="chess-caption">
           <p className="chess-description">
-            Play my chess bot! Coded in C++ <a 
+            Play my chess bot! Coded in C++            <a 
               href="https://github.com/campisir/rcchessbot" 
               target="_blank" 
               rel="noopener noreferrer"
@@ -366,6 +383,7 @@ class MyChess extends Component {
                     link_url: 'https://github.com/campisir/rcchessbot'
                   });
                 }
+                logEvent('GitHub Link Click', 'User clicked chess bot GitHub repository link');
               }}
             >
               completely from scratch
@@ -391,6 +409,7 @@ class MyChess extends Component {
                   link_url: 'https://www.chess.com/member/GrowHome'
                 });
               }
+              logEvent('Chess.com Profile Click', 'User clicked Chess.com profile link');
             }}
           >
             Visit my Chess.com profile

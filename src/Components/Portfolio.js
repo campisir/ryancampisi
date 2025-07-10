@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { logEvent } from '../utils/logging';
 
 class Portfolio extends Component {
 
@@ -11,6 +12,9 @@ class Portfolio extends Component {
         project_url: projectUrl
       });
     }
+    
+    // Log portfolio project click
+    logEvent('Portfolio Project Click', `User clicked on project: ${projectTitle}`);
   };
 
   render() {
@@ -23,6 +27,8 @@ class Portfolio extends Component {
             <a 
               href={projects.url} 
               title={projects.title}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => this.trackProjectClick(projects.title, projects.url)}
             >
                <img alt={projects.title} src={projectImage} />
