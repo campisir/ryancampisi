@@ -228,23 +228,6 @@ class MyChess extends Component {
 
   onPieceDrop = (sourceSquare, targetSquare, piece) => {
     try {
-      // Track chess move
-      if (window.gtag) {
-        window.gtag('event', 'chess_move_made', {
-          event_category: 'Game',
-          event_label: 'Player Move',
-          custom_parameters: {
-            from_square: sourceSquare,
-            to_square: targetSquare
-          }
-        });
-      }
-      
-      // Log chess move only for the first move
-      if (this.state.isFirstMove) {
-        logEvent('Chess Move', `Player made first move from ${sourceSquare} to ${targetSquare}`);
-      }
-
       // Check if this is a promotion move
       const game = new Chess(this.state.chessGame.fen());
       const possibleMoves = game.moves({ verbose: true });
@@ -273,6 +256,23 @@ class MyChess extends Component {
       }
       
       if (move === null) return;
+
+      // Track chess move (only after validating the move is legal)
+      if (window.gtag) {
+        window.gtag('event', 'chess_move_made', {
+          event_category: 'Game',
+          event_label: 'Player Move',
+          custom_parameters: {
+            from_square: sourceSquare,
+            to_square: targetSquare
+          }
+        });
+      }
+      
+      // Log chess move only for the first move (only after validating the move is legal)
+      if (this.state.isFirstMove) {
+        logEvent('Chess Move', `Player made first move from ${sourceSquare} to ${targetSquare}`);
+      }
       
       // Construct user move notation with promotion if applicable
       let userMove = `${sourceSquare}${targetSquare}`;

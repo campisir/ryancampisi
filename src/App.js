@@ -47,12 +47,86 @@ class App extends Component {
     });
     this.getResumeData();
     
-    // Log site load
-    logEvent('Site Load', 'User visited ryancampisi.com');
+    // Track referrer information and log site load
+    this.trackSiteLoadWithReferrer();
     
     // Set up Intersection Observer for section tracking
     this.setupSectionTracking();
   }
+
+  trackSiteLoadWithReferrer = () => {
+    const referrer = document.referrer;
+    let referrerSource = 'Direct/Unknown';
+    let siteLoadMessage = 'User visited ryancampisi.com';
+    
+    if (referrer) {
+      try {
+        const referrerUrl = new URL(referrer);
+        const hostname = referrerUrl.hostname.toLowerCase();
+        
+        // Categorize common referrer sources
+        if (hostname.includes('linkedin.com')) {
+          referrerSource = 'LinkedIn';
+        } else if (hostname.includes('github.com')) {
+          referrerSource = 'GitHub';
+        } else if (hostname.includes('google.com') || hostname.includes('google.')) {
+          referrerSource = 'Google Search';
+        } else if (hostname.includes('bing.com')) {
+          referrerSource = 'Bing Search';
+        } else if (hostname.includes('facebook.com')) {
+          referrerSource = 'Facebook';
+        } else if (hostname.includes('twitter.com') || hostname.includes('x.com')) {
+          referrerSource = 'Twitter/X';
+        } else if (hostname.includes('reddit.com')) {
+          referrerSource = 'Reddit';
+        } else if (hostname.includes('stackoverflow.com')) {
+          referrerSource = 'Stack Overflow';
+        } else {
+          referrerSource = hostname;
+        }
+        
+        siteLoadMessage = `User visited ryancampisi.com from ${referrerSource} (${referrer})`;
+        
+        // Track with Google Analytics
+        if (window.gtag) {
+          window.gtag('event', 'referrer_visit', {
+            event_category: 'Traffic Source',
+            event_label: referrerSource,
+            referrer_url: referrer,
+            referrer_hostname: hostname
+          });
+        }
+        
+        //console.log(`User came from: ${referrerSource} (${referrer})`);
+        
+      } catch (error) {
+        console.warn('Error parsing referrer URL:', error);
+        siteLoadMessage = `User visited ryancampisi.com from unparseable referrer: ${referrer}`;
+        
+        // Still log that there was a referrer, even if we couldn't parse it
+        if (window.gtag) {
+          window.gtag('event', 'referrer_visit', {
+            event_category: 'Traffic Source',
+            event_label: 'Unparseable Referrer',
+            referrer_url: referrer
+          });
+        }
+      }
+    } else {
+      // No referrer - direct visit, bookmark, or typed URL
+      siteLoadMessage = 'User visited ryancampisi.com directly';
+      
+      if (window.gtag) {
+        window.gtag('event', 'referrer_visit', {
+          event_category: 'Traffic Source',
+          event_label: 'Direct/Unknown'
+        });
+      }
+    }
+    
+    // Log site load with referrer information
+    logEvent('Site Load', siteLoadMessage);
+  };
 
   setupSectionTracking = () => {
     const sections = ['about', 'resume', 'portfolio', 'more-about-me', 'contact'];
