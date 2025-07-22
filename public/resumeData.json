@@ -107,11 +107,22 @@
                   "name": "Kotlin",
                   "about": "Kotlin is a modern, statically typed programming language that is fully interoperable with Java and is used for Android development, server-side development, and more.",
                   "projects": [
-                    {
-                      "title": "I forgot the name",
-                      "description": "to do",
-                      "course": "to do"
-                    }
+                      {
+                        "title": "Memory Maker for Pet Lovers",
+                        "description": "An Android app for pet owners to save, favorite, and share photo memories with their pets. Features include RecyclerView, fragments, SQLite storage, photo capture, and sharing via intents. Users can filter, edit, and delete memories, with a clean, multi-activity UI.",
+                        "course": "COP3665 - Mobile Programming"
+                      },
+                      {
+                        "title": "Who Wants to Be a Thousandaire?",
+                        "description": "An Android trivia game app inspired by 'Who Wants to Be a Millionaire?' featuring multiple activities, explicit intents, and a multi-screen flow. Players answer six multiple-choice questions, can quit or continue after each, and see their score at the end. Built with good Android practices and model classes.",
+                        "course": "COP3665 - Mobile Programming"
+                      }
+                      ,
+                      {
+                        "title": "Adventure Game",
+                        "description": "A text-based Android adventure game built in Kotlin. Features room navigation, a tavern with unique logic, player inventory, lootable rooms, and monster battles. Enhanced with object-oriented design, data classes, and custom commands for looting, inventory, and tavern interaction.",
+                        "course": "COP3665 - Mobile Programming"
+                      }
                   ]
                 },
                 {

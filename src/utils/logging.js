@@ -4,6 +4,10 @@ const API_BASE_URL = 'https://flame-picks-production-api.onrender.com';
 // Function to send log entries to backend without blocking UI
 export const logEvent = async (title, description) => {
   try {
+    // Prevent logging if running on localhost
+    if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+      return;
+    }
     // Send log entry asynchronously without blocking the UI
     fetch(`${API_BASE_URL}/data/logentry`, {
       method: 'POST',
