@@ -66,7 +66,7 @@ const countryDetails = {
     name: "Bahamas",
     description: "I visited here as part of a cruise I took in 2025.",
     dateVisited: "June 16, 2025",
-    photo: "images/bahamas_photo.png",
+    photo: "images/bahamas_photo.jpg",
     caption: "A boat ride near rose island in the Bahamas."
   },
   "Dominican Rep.": {

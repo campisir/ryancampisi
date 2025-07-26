@@ -310,10 +310,10 @@
   "portfolio":{
     "projects": [
       {
-        "title":"WeatherViz",
-        "category":"Real-time rendering and analysis of historical weather data.",
-        "image":"weatherviz.png",
-        "url":"https://github.com/aidan-winney/WeatherViz"
+        "title":"ryan.food",
+        "category":"A social media style food platform.",
+        "image":"ryanfood.png",
+        "url":"https://www.ryan.food"
       },
       {
         "title":"YTPicks",

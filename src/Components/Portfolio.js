@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Portfolio.css';
 import { logEvent } from '../utils/logging';
 
 class Portfolio extends Component {
@@ -20,26 +21,30 @@ class Portfolio extends Component {
   render() {
 
     if(this.props.data){
-      var projects = this.props.data.projects.map((projects) => {
+      var projects = this.props.data.projects.map((projects, index) => {
         var projectImage = 'images/portfolio/'+projects.image;
-        return <div key={projects.title} className="columns portfolio-item">
-           <div className="item-wrap">
-            <a 
-              href={projects.url} 
-              title={projects.title}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => this.trackProjectClick(projects.title, projects.url)}
-            >
-               <img alt={projects.title} src={projectImage} />
-               <div className="overlay">
-                  <div className="portfolio-item-meta">
-                 <h5>{projects.title}</h5>
-                     <p>{projects.category}</p>
-                  </div>
-                </div>
-              <div className="link-icon"><i className="fa fa-link"></i></div>
-            </a>
+        return <div key={projects.title} className="portfolio-card">
+           <div className="card-inner">
+            <div className="card-image">
+              <img alt={projects.title} src={projectImage} />
+              <div className="card-overlay">
+                <a 
+                  href={projects.url} 
+                  title={projects.title}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => this.trackProjectClick(projects.title, projects.url)}
+                  className="card-link"
+                >
+                  <i className="fa fa-external-link"></i>
+                  <span>View Project</span>
+                </a>
+              </div>
+            </div>
+            <div className="card-content">
+              <h3>{projects.title}</h3>
+              <p>{projects.category}</p>
+            </div>
           </div>
         </div>
       })
@@ -47,19 +52,18 @@ class Portfolio extends Component {
 
     return (
       <section id="portfolio">
-
-      <div className="row">
-
-         <div className="twelve columns collapsed">
-
-            <h1>Check Out Some of My Works.</h1>
-
-            <div id="portfolio-wrapper" className="bgrid-quarters s-bgrid-thirds cf">
+        <div className="row">
+          <div className="twelve columns">
+            <h1>Featured Projects</h1>
+            <p className="portfolio-intro">
+              Here are some of my favorite projects that showcase my technical skills and creativity.
+            </p>
+            <div className="portfolio-grid">
                 {projects}
             </div>
           </div>
-      </div>
-   </section>
+        </div>
+      </section>
     );
   }
 }
