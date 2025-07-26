@@ -45,13 +45,19 @@
                   "projects": [
                     {
                       "title": "Flame Picks",
-                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
-                      "course": "CIS4914 - Senior Project"
+                      "description": "Developed a full-stack sports prediction web application using React.js frontend and Flask/Python backend with SQLAlchemy database integration. Implemented user authentication, real-time game predictions, social sharing features, and a competitive scoring system with global leaderboards and achievement tracking.",
+                      "course": "CIS4914 - Senior Project",
+                      "link": "https://www.flamepicks.com",
+                      "link_text": "Visit Live Site",
+                      "featured": true
                     },
                     {
                       "title": "SoundSpace",
-                      "description": "A web application that allows users to share music and connect with other musicians.",
-                      "course": "CEN3031 - Introduction to Software Engineering"
+                      "description": "Developed a full-stack social media platform for musicians using Angular frontend and Go backend with MySQL database integration. Implemented comprehensive user authentication with bcrypt password hashing, file upload capabilities for music and images, and real-time social interaction features including likes, comments, and follower systems.",
+                      "course": "CEN3031 - Introduction to Software Engineering",
+                      "link": "https://github.com/marshallw0706/CEN3031-Project",
+                      "link_text": "View on GitHub",
+                      "featured": false
                     }
                   ]
                 },
@@ -61,18 +67,23 @@
                   "projects": [
                     {
                       "title": "Isomap Algorithm Analysis",
-                      "description": "An implementation and analysis of the Isomap algorithm and its applications in data science.",
+                      "description": "Implemented and visualized the Isomap dimensionality reduction algorithm on the s-curve dataset to demonstrate its effectiveness in preserving the global structure of non-linear data. Compared Isomap with PCA and t-SNE, highlighting the strengths and weaknesses of each algorithm in capturing both local and global data structures.",
                       "course": "MAS4115 - Linear Algebra for Data Science"
                     },
                     {
                       "title": "Flame Picks",
-                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
-                      "course": "CIS4914 - Senior Project"
+                      "description": "Developed a full-stack sports prediction web application using React.js frontend and Flask/Python backend with SQLAlchemy database integration. Implemented user authentication, real-time game predictions, social sharing features, and a competitive scoring system with global leaderboards and achievement tracking.",
+                      "course": "CIS4914 - Senior Project",
+                      "link": "https://www.flamepicks.com",
+                      "link_text": "Visit Live Site"
                     },
                     {
                       "title": "WeatherViz",
-                      "description": "A web application used for real-time rendering and analysis of historical weather data.",
-                      "course": "CEN4990 - Performant Programming"
+                      "description": "Designed and developed a cross-platform desktop application with a Python frontend and Rust backend for interactive visualization of historical weather data. Implemented real-time heatmap interpolation, smooth timelapse playback, and a custom scalable UI.",
+                      "course": "CEN4990 - Performant Programming",
+                      "link": "https://github.com/aidan-winney/WeatherViz",
+                      "link_text": "View on GitHub",
+                      "featured": true
                     }
                   ]
                 },
@@ -82,13 +93,22 @@
                   "projects": [
                     {
                       "title": "Largest Subarray - Algorithm Analysis",
-                      "description": "to do",
-                      "course": "COP4533 - Algorithm Abstraction & Design"
+                      "description": "Analyzed and implemented multiple algorithms to solve the maximum subarray and maximum submatrix sum problems, including brute-force, dynamic programming (top-down and bottom-up), and optimized approaches. Compared time and space complexities, benchmarked performance on large datasets, and demonstrated the practical advantages of efficient algorithms for real-world data analysis.",
+                      "course": "COP4533 - Algorithm Abstraction & Design",
+                      "link": "https://drive.google.com/file/d/141genzdE4-r0IaYHewXArSpKFO-V2nZ2/view?usp=sharing",
+                      "link_text": "View on Google Drive",
+                      "featured": true
                     },
                     {
                       "title": "Custom File System",
-                      "description": "to do",
+                      "description": "Implemented a custom userspace file system using FUSE to provide read/write access to classic PC game WAD files. Developed a C++ library to parse, represent, and manipulate WAD file directory structures, supporting file and directory creation, navigation, and data storage.",
                       "course": "COP4600 - Operating Systems"
+                    }
+                    ,
+                    {
+                      "title": "Geographic Information System (GIS)",
+                      "description": "Developed an object-oriented C++ application to model, store, and query convex polygons for GIS data. Implemented efficient point-in-polygon algorithms, file parsing, and a user-facing interface for spatial queries, supporting modular design and automated testing.",
+                      "course": "COP3530 - Data Structures"
                     }
                   ]
                 },
@@ -98,8 +118,21 @@
                   "projects": [
                     {
                       "title": "Custom Programming Language",
-                      "description": "to do",
-                      "course": "COP4020 - Programming Language Concepts"
+                      "description": "Designed and implemented a complete compiler for a custom image processing programming language in Java, featuring lexical analysis, parsing, type checking, and code generation.",
+                      "course": "COP4020 - Programming Language Concepts",
+                      "featured": true
+                    },
+                    {
+                      "title": "Race Car Simulator",
+                      "description": "Developed an object-oriented Java application simulating a car race using Swing for graphical animation. Designed classes to model car objects, manage their movement, and render them within a dynamic GUI.",
+                      "course": "COP3022 - Intermediate Programming",
+                      "featured": true
+                    },
+                    {
+                      "title": "Order Management System",
+                      "description": "Developed a comprehensive Java Swing application for a pizza restaurant's order management system. Implemented object-oriented design with multiple GUI panels for pizza size selection, topping selection, and order summary.",
+                      "course": "COP3022 - Intermediate Programming",
+                      "featured": true
                     }
                   ]
                 },
@@ -109,18 +142,18 @@
                   "projects": [
                       {
                         "title": "Memory Maker for Pet Lovers",
-                        "description": "An Android app for pet owners to save, favorite, and share photo memories with their pets. Features include RecyclerView, fragments, SQLite storage, photo capture, and sharing via intents. Users can filter, edit, and delete memories, with a clean, multi-activity UI.",
-                        "course": "COP3665 - Mobile Programming"
+                        "description": "Designed and implemented an Android app for pet owners to save, favorite, and share photo memories with their pets. Built features including RecyclerView, fragments, SQLite storage, photo capture, and sharing via intents. Enabled users to filter, edit, and delete memories within a clean, multi-activity UI.",
+                        "course": "COP3665 - Mobile Programming",
+                        "featured": true
                       },
                       {
                         "title": "Who Wants to Be a Thousandaire?",
-                        "description": "An Android trivia game app inspired by 'Who Wants to Be a Millionaire?' featuring multiple activities, explicit intents, and a multi-screen flow. Players answer six multiple-choice questions, can quit or continue after each, and see their score at the end. Built with good Android practices and model classes.",
+                        "description": "Developed an Android trivia game app inspired by 'Who Wants to Be a Millionaire,' featuring multiple activities, explicit intents, and a multi-screen flow. Programmed game logic for question progression, quitting, and scoring, and applied best practices in Android development and model class design.",
                         "course": "COP3665 - Mobile Programming"
-                      }
-                      ,
+                      },
                       {
                         "title": "Adventure Game",
-                        "description": "A text-based Android adventure game built in Kotlin. Features room navigation, a tavern with unique logic, player inventory, lootable rooms, and monster battles. Enhanced with object-oriented design, data classes, and custom commands for looting, inventory, and tavern interaction.",
+                        "description": "Implemented a text-based Android adventure game in Kotlin. Engineered room navigation, a tavern with unique logic, player inventory, lootable rooms, and monster battles. Utilized object-oriented design, data classes, and custom commands for looting, inventory, and tavern interaction.",
                         "course": "COP3665 - Mobile Programming"
                       }
                   ]
@@ -131,132 +164,61 @@
                   "projects": [
                     {
                       "title": "SoundSpace",
-                      "description": "A web application that allows users to share music and connect with other musicians.",
-                      "course": "CEN3031 - Introduction to Software Engineering"
+                      "description": "Developed a full-stack social media platform for musicians using Angular frontend and Go backend with MySQL database integration. Implemented comprehensive user authentication with bcrypt password hashing, file upload capabilities for music and images, and real-time social interaction features including likes, comments, and follower systems.",
+                      "course": "CEN3031 - Introduction to Software Engineering",
+                      "link": "https://github.com/marshallw0706/CEN3031-Project",
+                      "link_text": "View on GitHub"
                     }
                   ]
                 },
                 {
-                  "name": "SQLite",
-                  "about": "SQLite is a C-language library that implements a small, fast, self-contained, high-reliability, full-featured, SQL database engine.",
+                  "name": "Rust",
+                  "about": "Rust is a systems programming language that focuses on safety, speed, and concurrency.",
                   "projects": [
                     {
-                      "title": "Flame Picks",
-                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
-                      "course": "CIS4914 - Senior Project"
+                      "title": "WeatherViz",
+                      "description": "Designed and developed a cross-platform desktop application with a Python frontend and Rust backend for interactive visualization of historical weather data. Implemented real-time heatmap interpolation, smooth timelapse playback, and a custom scalable UI.",
+                      "course": "CEN4990 - Performant Programming",
+                      "link": "https://github.com/aidan-winney/WeatherViz",
+                      "link_text": "View on GitHub"
                     }
                   ]
                 },
                 {
-                  "name": "MySQL",
-                  "about": "MySQL is an open-source relational database management system based on SQL (Structured Query Language). It is widely used for database-driven web applications and is known for its reliability, performance, and ease of use.",
-                  "projects": [
-                    {
-                      "title": "SoundSpace",
-                      "description": "A web application that allows users to share music and connect with other musicians.",
-                      "course": "CEN3031 - Introduction to Software Engineering"
-                    }
-                  ]
-                },
-                {
-                  "name": "Angular",
-                  "about": "Angular is a platform and framework for building single-page client applications using HTML and TypeScript. It is maintained by Google and offers a robust set of tools for building scalable web applications.",
+                  "name": "Golang",
+                  "about": "Go is an open-source programming language that makes it easy to build simple, reliable, and efficient software.",
                   "projects": [
                     {
                       "title": "SoundSpace",
-                      "description": "A web application that allows users to share music and connect with other musicians.",
-                      "course": "CEN3031 - Introduction to Software Engineering"
-                    }
-                  ]
-                },
-                {
-                  "name": "React",
-                  "about": "React is a JavaScript library for building user interfaces, maintained by Facebook and a community of individual developers and companies. It is widely used for building single-page applications and mobile apps.",
-                  "projects": [
-                    {
-                      "title": "Flame Picks",
-                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
-                      "course": "CIS4914 - Senior Project"
-                    }
-                  ]
-                },
-                {
-                  "name": "Flask",
-                  "about": "Flask is a lightweight WSGI web application framework in Python. It is designed with simplicity and flexibility in mind, making it easy to build web applications quickly.",
-                  "projects": [
-                    {
-                      "title": "Flame Picks",
-                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
-                      "course": "CIS4914 - Senior Project"
-                    }
-                  ]
-                },
-                {
-                  "name": "HTML",
-                  "about": "HTML (HyperText Markup Language) is the standard markup language used to create web pages. It provides the structure of a webpage, allowing the inclusion of text, images, links, and other elements.",
-                  "projects": [
-                    {
-                      "title": "Flame Picks",
-                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
-                      "course": "CIS4914 - Senior Project"
-                    }
-                  ]
-                },
-                {
-                  "name": "CSS",
-                  "about": "CSS (Cascading Style Sheets) is a style sheet language used for describing the presentation of a document written in HTML or XML. It controls the layout, colors, fonts, and overall visual appearance of web pages.",
-                  "projects": [
-                    {
-                      "title": "Flame Picks",
-                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
-                      "course": "CIS4914 - Senior Project"
-                    }
-                  ]
-                },
-                {
-                  "name": "JSON",
-                  "about": "JSON (JavaScript Object Notation) is a lightweight data interchange format that is easy for humans to read and write, and easy for machines to parse and generate.",
-                  "projects": [
-                    {
-                      "title": "Flame Picks",
-                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
-                      "course": "CIS4914 - Senior Project"
-                    }
-                  ]
-                },
-                {
-                  "name": "Git",
-                  "about": "Git is a distributed version control system designed to handle everything from small to very large projects with speed and efficiency.",
-                  "projects": [
-                    {
-                      "title": "Flame Picks",
-                      "description": "A web application that allows users to make picks on upcoming sports games without the use of real money.",
-                      "course": "CIS4914 - Senior Project"
-                    }
-                  ]
-                },
-                {
-                  "name": "Colab",
-                  "about": "Google Colab is a free, cloud-based platform that allows users to write and execute Python code in a Jupyter notebook environment. It is widely used for machine learning, data analysis, and education.",
-                  "projects": [
-                    {
-                      "title": "Multilingual Semantic Role Labeling",
-                      "description": "",
-                      "course": "CAP4641"
-                    }
-                  ]
-                },
-                {
-                  "name": "Adobe",
-                  "about": "Adobe products are a suite of software applications used for graphic design, video editing, web development, photography, and more. They are widely recognized for their powerful features and industry-standard tools.",
-                  "projects": [
-                    {
-                      "title": "to do",
-                      "description": "to do",
-                      "course": "to do"
+                      "description": "Developed a full-stack social media platform for musicians using Angular frontend and Go backend with MySQL database integration. Implemented comprehensive user authentication with bcrypt password hashing, file upload capabilities for music and images, and real-time social interaction features including likes, comments, and follower systems.",
+                      "course": "CEN3031 - Introduction to Software Engineering",
+                      "link": "https://github.com/marshallw0706/CEN3031-Project",
+                      "link_text": "View on GitHub"
                     }
                   ]
                 }
+            ],
+            "additionalTechnologies": [
+              "HTML/CSS",
+              "Node.js",
+              "React",
+              "Angular",
+              "Bootstrap",
+              "Cypress",
+              "Jupyter Notebook",
+              "Google Colab",
+              "MySQL",
+              "SQLite",
+              "Linux",
+              "Bash/Shell Scripting",
+              "Git/GitHub",
+              "RESTful APIs",
+              "Flask",
+              "TensorFlow",
+              "PyTorch",
+              "Vim/VS Code",
+              "Photoshop",
+              "Agile/Scrum"
             ]
           }
         ],
@@ -284,7 +246,7 @@
     ],
     "work":[
       {
-        "company":"United States Department of Defense",
+        "company":"United States Department of the Navy",
         "title":"Software Developer",
         "years":"September 2024 - Present",
         "description":"Facilitating the development and management of courseware for the United States Navy."

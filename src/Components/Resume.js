@@ -10,31 +10,24 @@ class Resume extends Component {
       selectedTechnology: null,
       selectedProjects: [],
       selectedAbout: '',
-      mainProject: null
+      mainProject: null,
+      showMoreTechnologies: false
     };
   }
 
   handleTechnologyClick = (technology) => {
-    // Sort projects to put the main project first
-    const sortedProjects = [...technology.projects];
-    const mainProjectIndex = sortedProjects.findIndex(project => 
-      project.title === "Flame Picks" || 
-      project.title === "SoundSpace" || 
-      project.title === "WeatherViz" ||
-      project.title === "Isomap Algorithm Analysis"
-    );
+    // Look for a featured project
+    const featuredProjectIndex = technology.projects.findIndex(project => project.featured === true);
     
     let mainProject = null;
-    let otherProjects = [...sortedProjects];
+    let otherProjects = [...technology.projects];
     
-    if (mainProjectIndex !== -1) {
-      mainProject = sortedProjects[mainProjectIndex];
-      otherProjects.splice(mainProjectIndex, 1);
-    } else if (sortedProjects.length > 0) {
-      // If no predefined main project, use the first one
-      mainProject = sortedProjects[0];
-      otherProjects = sortedProjects.slice(1);
+    if (featuredProjectIndex !== -1) {
+      // Use the featured project as main project
+      mainProject = technology.projects[featuredProjectIndex];
+      otherProjects.splice(featuredProjectIndex, 1);
     }
+    // If no featured project, all projects go in the "other projects" section
     
     this.setState({
       showModal: true,
@@ -45,6 +38,12 @@ class Resume extends Component {
     });
   };
 
+  handleMoreTechnologiesClick = () => {
+    this.setState({
+      showMoreTechnologies: true
+    });
+  };
+
   closeModal = () => {
     this.setState({
       showModal: false,
@@ -52,6 +51,12 @@ class Resume extends Component {
       selectedProjects: [],
       selectedAbout: '',
       mainProject: null
+    });
+  };
+
+  closeMoreTechnologies = () => {
+    this.setState({
+      showMoreTechnologies: false
     });
   };
 
@@ -71,6 +76,9 @@ class Resume extends Component {
                       {tech.name}
                     </li>
                   ))}
+                  <li key="more" onClick={this.handleMoreTechnologiesClick} style={{ cursor: 'pointer', color: 'black', fontWeight: 'bold' }}>
+                    More
+                  </li>
                 </ul>
               </li>
             );
@@ -158,20 +166,63 @@ class Resume extends Component {
                     <h3>{this.state.mainProject.title}</h3>
                     <div className="course">{this.state.mainProject.course}</div>
                     <p className="description">{this.state.mainProject.description}</p>
+                    {this.state.mainProject.link && (
+                      <a 
+                        href={this.state.mainProject.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="project-link"
+                      >
+                        {this.state.mainProject.link_text || 'View Project'}
+                      </a>
+                    )}
                   </div>
                 )}
                 {this.state.selectedProjects.length > 0 && (
                   <div className="other-projects">
-                    <h4>Other Projects</h4>
+                    <h4>{this.state.mainProject ? 'Other Projects' : 'Projects'}</h4>
                     {this.state.selectedProjects.map((project, index) => (
                       <div key={index} className="project-item">
                         <h5>{project.title}</h5>
                         <div className="course">{project.course}</div>
                         <p className="description">{project.description}</p>
+                        {project.link && (
+                          <a 
+                            href={project.link} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="project-link"
+                          >
+                            {project.link_text || 'View Project'}
+                          </a>
+                        )}
                       </div>
                     ))}
                   </div>
                 )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {this.state.showMoreTechnologies && (
+          <div className="modal">
+            <div className="modal-content">
+              <div className="modal-header">
+                <span className="close" onClick={this.closeMoreTechnologies}>&times;</span>
+                <h2>Additional Technologies</h2>
+                <p className="about-text">Other technologies and tools I gained experience with during my education</p>
+              </div>
+              <div className="modal-body">
+                <div className="more-technologies-grid">
+                  {this.props.data && this.props.data.education[0].description[1].additionalTechnologies && 
+                    this.props.data.education[0].description[1].additionalTechnologies.map((tech, index) => (
+                      <div key={index} className="tech-item">
+                        {tech}
+                      </div>
+                    ))
+                  }
+                </div>
               </div>
             </div>
           </div>

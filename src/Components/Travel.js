@@ -320,7 +320,7 @@ closePopup = () => {
       {showPopup && selectedCountry && (
         <div className="modal-overlay" onClick={this.closePopup}>
             <div className="popup" onClick={e => e.stopPropagation()}>
-            <span className="close" onClick={this.closePopup}>&times;</span>
+            <span className="travel-close" onClick={this.closePopup}>&times;</span>
             <div className="popup-content">
                 <h2>{selectedCountry.name}</h2>
                 <p>{selectedCountry.description}</p>
