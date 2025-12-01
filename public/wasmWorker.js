@@ -46,10 +46,19 @@ fetch('main.wasm')
 function readWasmString(ptr) {
     const mem = new Uint8Array(wasmInstance.exports.memory.buffer);
     let str = "";
-    while(mem[ptr] !== 0) {
+    const maxLength = mem.length; // Prevent reading beyond buffer
+    let bytesRead = 0;
+    
+    while(ptr < maxLength && mem[ptr] !== 0 && bytesRead < 100000) {
         str += String.fromCharCode(mem[ptr]);
         ptr++;
+        bytesRead++;
     }
+    
+    if (bytesRead >= 100000) {
+        throw new Error("String too long or not null-terminated");
+    }
+    
     return str;
 }
 
