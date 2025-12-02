@@ -7,7 +7,7 @@ class Trophies extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ff7RebirthActiveTab: 'party' // 'party', 'minigames', 'regions'
+      ff7RebirthActiveTab: 'party' // 'party', 'minigames', 'enemies'
     };
   }
 
@@ -42,7 +42,7 @@ class Trophies extends Component {
                 Final Fantasy VII Rebirth
               </h3>
               <a 
-                href="https://psnprofiles.com/trophies/YOUR-GAME-ID-HERE" 
+                href="https://psnprofiles.com/guide/18935-final-fantasy-vii-rebirth-trophy-guide" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 style={{
@@ -170,7 +170,7 @@ class Trophies extends Component {
                     Mini Games
                   </button>
                   <button
-                    onClick={() => this.setState({ ff7RebirthActiveTab: 'regions' })}
+                    onClick={() => this.setState({ ff7RebirthActiveTab: 'enemies' })}
                     style={{
                       padding: '12px 24px',
                       fontSize: '1em',
@@ -179,16 +179,16 @@ class Trophies extends Component {
                       borderRadius: '25px',
                       cursor: 'pointer',
                       transition: 'all 0.3s ease',
-                      background: this.state.ff7RebirthActiveTab === 'regions' 
+                      background: this.state.ff7RebirthActiveTab === 'enemies' 
                         ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
                         : '#f8f9fa',
-                      color: this.state.ff7RebirthActiveTab === 'regions' ? 'white' : '#495057',
-                      boxShadow: this.state.ff7RebirthActiveTab === 'regions' 
+                      color: this.state.ff7RebirthActiveTab === 'enemies' ? 'white' : '#495057',
+                      boxShadow: this.state.ff7RebirthActiveTab === 'enemies' 
                         ? '0 4px 15px rgba(102, 126, 234, 0.4)'
                         : 'none'
                     }}
                   >
-                    Regions
+                    Enemies
                   </button>
                 </div>
 
@@ -199,9 +199,9 @@ class Trophies extends Component {
                   textAlign: 'center',
                   color: '#2c3e50'
                 }}>
-                  {this.state.ff7RebirthActiveTab === 'party' && 'All Party Members Ranked'}
+                  {this.state.ff7RebirthActiveTab === 'party' && 'All Party Members Ranked (Combat)'}
                   {this.state.ff7RebirthActiveTab === 'minigames' && 'My Top 5 Favorite Mini Games'}
-                  {this.state.ff7RebirthActiveTab === 'regions' && 'All Regions Ranked'}
+                  {this.state.ff7RebirthActiveTab === 'enemies' && 'Top 5 Enemies with the Most Aura'}
                 </h4>
 
                 {/* Party Members Tab */}
@@ -378,7 +378,7 @@ class Trophies extends Component {
                     <div className="character-card">
                       <img 
                         src="images/trophies/ff7rebirth-minigame1.jpg" 
-                        alt="Mini Game 1"
+                        alt="Queen's Blood"
                         style={{ 
                           width: '100%', 
                           height: '180px',
@@ -400,7 +400,7 @@ class Trophies extends Component {
                     <div className="character-card">
                       <img 
                         src="images/trophies/ff7rebirth-minigame2.jpg" 
-                        alt="Mini Game 2"
+                        alt="Junon Parade"
                         style={{ 
                           width: '100%', 
                           height: '180px',
@@ -416,13 +416,13 @@ class Trophies extends Component {
                         fontSize: '1.1em',
                         color: '#667eea'
                       }}>
-                        2. Chocobo Racing
+                        2. Junon Parade
                       </div>
                     </div>
                     <div className="character-card">
                       <img 
-                        src="images/trophies/ff7rebirth-minigame3.jpg" 
-                        alt="Mini Game 3"
+                        src="images/trophies/ff7rebirth-minigame3.webp" 
+                        alt="Loveless"
                         style={{ 
                           width: '100%', 
                           height: '180px',
@@ -438,13 +438,13 @@ class Trophies extends Component {
                         fontSize: '1.1em',
                         color: '#667eea'
                       }}>
-                        3. Piano
+                        3. Loveless
                       </div>
                     </div>
                     <div className="character-card">
                       <img 
-                        src="images/trophies/ff7rebirth-minigame4.jpg" 
-                        alt="Mini Game 4"
+                        src="images/trophies/ff7rebirth-minigame4.avif" 
+                        alt="Fall Guys"
                         style={{ 
                           width: '100%', 
                           height: '180px',
@@ -460,13 +460,13 @@ class Trophies extends Component {
                         fontSize: '1.1em',
                         color: '#667eea'
                       }}>
-                        4. G-Bike
+                        4. Fall Guys
                       </div>
                     </div>
                     <div className="character-card">
                       <img 
-                        src="images/trophies/ff7rebirth-minigame5.jpg" 
-                        alt="Mini Game 5"
+                        src="images/trophies/ff7rebirth-minigame5.avif" 
+                        alt="Rocket League"
                         style={{ 
                           width: '100%', 
                           height: '180px',
@@ -482,14 +482,14 @@ class Trophies extends Component {
                         fontSize: '1.1em',
                         color: '#667eea'
                       }}>
-                        5. Gears & Gambits
+                        5. Rocket League
                       </div>
                     </div>
                   </div>
                 )}
 
-                {/* Regions Tab */}
-                {this.state.ff7RebirthActiveTab === 'regions' && (
+                {/* Enemies Tab */}
+                {this.state.ff7RebirthActiveTab === 'enemies' && (
                   <div style={{ 
                     display: 'grid', 
                     gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', 
@@ -497,8 +497,8 @@ class Trophies extends Component {
                   }}>
                     <div className="character-card">
                       <img 
-                        src="images/trophies/ff7rebirth-region1.jpg" 
-                        alt="Region 1"
+                        src="images/trophies/ff7rebirth-enemy1.webp" 
+                        alt="Kid G"
                         style={{ 
                           width: '100%', 
                           height: '180px',
@@ -514,13 +514,13 @@ class Trophies extends Component {
                         fontSize: '1.1em',
                         color: '#667eea'
                       }}>
-                        1. Corel
+                        1. Kid G
                       </div>
                     </div>
                     <div className="character-card">
                       <img 
-                        src="images/trophies/ff7rebirth-region2.jpg" 
-                        alt="Region 2"
+                        src="images/trophies/ff7rebirth-enemy2.jpg" 
+                        alt="Sephiroth"
                         style={{ 
                           width: '100%', 
                           height: '180px',
@@ -536,13 +536,13 @@ class Trophies extends Component {
                         fontSize: '1.1em',
                         color: '#667eea'
                       }}>
-                        2. Nibel
+                        2. Sephiroth
                       </div>
                     </div>
                     <div className="character-card">
                       <img 
-                        src="images/trophies/ff7rebirth-region3.jpg" 
-                        alt="Region 3"
+                        src="images/trophies/ff7rebirth-enemy3.jpg" 
+                        alt="Gilgamesh"
                         style={{ 
                           width: '100%', 
                           height: '180px',
@@ -558,13 +558,13 @@ class Trophies extends Component {
                         fontSize: '1.1em',
                         color: '#667eea'
                       }}>
-                        3. Grasslands
+                        3. Gilgamesh
                       </div>
                     </div>
                     <div className="character-card">
                       <img 
-                        src="images/trophies/ff7rebirth-region4.jpg" 
-                        alt="Region 4"
+                        src="images/trophies/ff7rebirth-enemy4.jpeg" 
+                        alt="Odin"
                         style={{ 
                           width: '100%', 
                           height: '180px',
@@ -580,13 +580,13 @@ class Trophies extends Component {
                         fontSize: '1.1em',
                         color: '#667eea'
                       }}>
-                        4. Gongaga
+                        4. Odin
                       </div>
                     </div>
                     <div className="character-card">
                       <img 
-                        src="images/trophies/ff7rebirth-region5.jpg" 
-                        alt="Region 5"
+                        src="images/trophies/ff7rebirth-enemy5.webp" 
+                        alt="Tonberry King"
                         style={{ 
                           width: '100%', 
                           height: '180px',
@@ -602,51 +602,7 @@ class Trophies extends Component {
                         fontSize: '1.1em',
                         color: '#667eea'
                       }}>
-                        5. Junon
-                      </div>
-                    </div>
-                    <div className="character-card">
-                      <img 
-                        src="images/trophies/ff7rebirth-region6.jpg" 
-                        alt="Region 6"
-                        style={{ 
-                          width: '100%', 
-                          height: '180px',
-                          objectFit: 'cover',
-                          borderRadius: '12px',
-                          marginBottom: '10px',
-                          boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
-                        }}
-                      />
-                      <div style={{ 
-                        textAlign: 'center',
-                        fontWeight: '700',
-                        fontSize: '1.1em',
-                        color: '#667eea'
-                      }}>
-                        6. Cosmo Canyon
-                      </div>
-                    </div>
-                    <div className="character-card">
-                      <img 
-                        src="images/trophies/ff7rebirth-region7.jpg" 
-                        alt="Region 7"
-                        style={{ 
-                          width: '100%', 
-                          height: '180px',
-                          objectFit: 'cover',
-                          borderRadius: '12px',
-                          marginBottom: '10px',
-                          boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
-                        }}
-                      />
-                      <div style={{ 
-                        textAlign: 'center',
-                        fontWeight: '700',
-                        fontSize: '1.1em',
-                        color: '#667eea'
-                      }}>
-                        7. Meridian Ocean
+                        5. Tonberry King
                       </div>
                     </div>
                   </div>
@@ -701,7 +657,7 @@ class Trophies extends Component {
                         Rulers of the Outer Worlds
                       </div>
                       <div style={{ color: '#6c757d', fontSize: '0.9em' }}>
-                        This legit took me like ten hours. 
+                        SHADOWY CHAINS!!! This legit took me like ten hours. 
                       </div>
                     </div>
                   </div>
@@ -857,7 +813,7 @@ class Trophies extends Component {
                         Moving on to Another Game
                       </div>
                       <div style={{ color: '#6c757d', fontSize: '0.9em' }}>
-                        Walking city streets with worn cobblestones... listening to people rushing past to rhythms all their own...
+                        Walking🚶city🌇streets🛣️with😩worn❌cobblestones🪨... listening🎧to😳people👯rushing🏃‍➡️past😭to🥺rhythms🎵all😲their👆own😞...
                       </div>
                     </div>
                   </div>
