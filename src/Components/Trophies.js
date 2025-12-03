@@ -10,6 +10,7 @@ class Trophies extends Component {
     this.state = {
       ff7RebirthActiveTab: 'party', // 'party', 'minigames', 'enemies'
       lisDeClickedCharacters: [], // Track which characters have been clicked
+      codBocwActiveTab: 'zombies', // 'zombies', 'multiplayer'
       
       // Sorting and filtering state
       sortBy: 'newest', // 'newest', 'oldest', 'difficulty-high', 'difficulty-low', 'enjoyment-high', 'enjoyment-low'

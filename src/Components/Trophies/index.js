@@ -2,7 +2,7 @@
 import { FF7RebirthCard } from './cards/FF7Rebirth';
 import { LiSDoubleExposureCard } from './cards/LiSDoubleExposure';
 import { FF7RemakeCard } from './cards/FF7Remake';
-import { BloodborneCard } from './cards/Bloodborne';
+import { CodBlackOpsColdWarCard } from './cards/CodBlackOpsColdWar';
 
 /**
  * Trophy Cards Registry
@@ -28,7 +28,7 @@ export const getTrophyCards = (state, setState) => {
     FF7RebirthCard(state, setState),
     LiSDoubleExposureCard(state, setState),
     FF7RemakeCard(),
-    BloodborneCard(),
+    CodBlackOpsColdWarCard(state, setState),
     // Add more trophy cards here as you create them
     // Example: MyNewGameCard(),
   ];
@@ -66,5 +66,5 @@ export {
   FF7RebirthCard,
   LiSDoubleExposureCard,
   FF7RemakeCard,
-  BloodborneCard,
+  CodBlackOpsColdWarCard,
 };
