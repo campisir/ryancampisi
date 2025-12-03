@@ -53,6 +53,106 @@
   min-width: 100px;
 }
 
+/* Search and Sort Controls */
+.trophy-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  margin: 30px auto 0;
+  padding: 0 20px;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 15px 45px 15px 20px;
+  font-size: 1em;
+  border: 2px solid #e1e8ed;
+  border-radius: 50px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.search-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.search-input::placeholder {
+  color: #adb5bd;
+}
+
+.clear-search {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #e1e8ed;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #495057;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.clear-search:hover {
+  background: #667eea;
+  color: white;
+}
+
+.sort-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.sort-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 1em;
+}
+
+.sort-select {
+  padding: 12px 40px 12px 20px;
+  font-size: 1em;
+  border: 2px solid #e1e8ed;
+  border-radius: 50px;
+  outline: none;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23495057' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  font-weight: 500;
+  color: #495057;
+}
+
+.sort-select:hover {
+  border-color: #667eea;
+}
+
+.sort-select:focus {
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
 .stat-number {
   font-size: 2.2em;
   font-weight: 700;
@@ -88,9 +188,7 @@
   transition: all 0.3s ease;
 }
 
-.trophy-card:hover {
-  /* No transform on hover for full-width cards */
-}
+/* No special hover effect for full-width cards */
 
 .trophy-image-container {
   position: absolute;
@@ -267,6 +365,25 @@
 
   .stat-number {
     font-size: 1.8em;
+  }
+
+  .trophy-controls {
+    padding: 0 15px;
+  }
+
+  .search-input {
+    padding: 12px 40px 12px 15px;
+    font-size: 0.95em;
+  }
+
+  .sort-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sort-select {
+    width: 100%;
+    padding: 12px 35px 12px 15px;
   }
 
   .trophies-grid {
