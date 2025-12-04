@@ -1,5 +1,4 @@
-import React, { Component, forwardRef } from 'react';
-import { useSwipeable } from 'react-swipeable';
+import React, { Component } from 'react';
 import Travel from './Travel';
 import MyChess from './MyChess';
 import Philosophy from './Philosophy';
@@ -8,173 +7,69 @@ class MoreAboutMe extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentIndex: 0,
-      slideWidth: typeof window !== 'undefined' ? window.innerWidth : 1200,
-      // If needed, you can pass additional data or callbacks to your child components here.
+      activeTab: 'travel', // 'travel', 'chess', 'philosophy'
     };
   }
 
-  updateSlideWidth = () => {
-    if (typeof window === 'undefined') return;
-    const slider = document.querySelector('.slider');
-    const slideWidth = slider ? slider.clientWidth : window.innerWidth;
-    this.setState({ slideWidth });
-  };
-
-  handleResize = () => {
-    setTimeout(() => {
-      this.updateSlideWidth();
-    }, 100);
-  };
-
-  goToPreviousSlide = () => {
-    // Track navigation
+  setActiveTab = (tab) => {
+    // Track tab navigation
     if (window.gtag) {
-      window.gtag('event', 'navigation_click', {
+      window.gtag('event', 'tab_click', {
         event_category: 'User Interaction',
-        event_label: 'Previous Slide',
-        slide_direction: 'previous'
+        event_label: `More About Me - ${tab}`,
+        tab_name: tab
       });
     }
 
-    this.setState((prevState) => {
-      const lastIndex = 2; // Three slides: index 0, 1, and 2.
-      const newIndex = prevState.currentIndex === 0 ? lastIndex : prevState.currentIndex - 1;
-      return { currentIndex: newIndex };
-    }, this.handleResize);
+    this.setState({ activeTab: tab });
   };
-
-  goToNextSlide = () => {
-    // Track navigation
-    if (window.gtag) {
-      window.gtag('event', 'navigation_click', {
-        event_category: 'User Interaction',
-        event_label: 'Next Slide',
-        slide_direction: 'next'
-      });
-    }
-
-    this.setState((prevState) => {
-      const lastIndex = 2;
-      const newIndex = prevState.currentIndex === lastIndex ? 0 : prevState.currentIndex + 1;
-      return { currentIndex: newIndex };
-    }, this.handleResize);
-  };
-
-  componentDidMount() {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('resize', this.handleResize);
-      // Use setTimeout to ensure DOM is fully rendered before calculating width
-      setTimeout(() => {
-        this.updateSlideWidth();
-      }, 0);
-    }
-  }
-
-  componentWillUnmount() {
-    if (typeof window !== 'undefined') {
-      window.removeEventListener('resize', this.handleResize);
-    }
-  }
 
   render() {
-    const { currentIndex, slideWidth } = this.state;
-    const offset = -currentIndex * slideWidth;
+    const { activeTab } = this.state;
 
     return (
       <section id="more-about-me">
         <h1 className="section-title">More About Me</h1>
-        <div className="slider">
-          <button className="arrow left-arrow" onClick={this.goToPreviousSlide}>
-            &#10094;
-          </button>
-          <div
-            className="slides-container"
-            style={{ marginLeft: `${offset}px` }}
+        
+        <div className="tab-navigation">
+          <button 
+            className={`tab-button ${activeTab === 'travel' ? 'active' : ''}`}
+            onClick={() => this.setActiveTab('travel')}
           >
-            {/* Passing slideWidth and any other props needed by each slide */}
-            <Travel slideWidth={slideWidth} />
+            Travel
+          </button>
+          <button 
+            className={`tab-button ${activeTab === 'chess' ? 'active' : ''}`}
+            onClick={() => this.setActiveTab('chess')}
+          >
+            Chess
+          </button>
+          <button 
+            className={`tab-button ${activeTab === 'philosophy' ? 'active' : ''}`}
+            onClick={() => this.setActiveTab('philosophy')}
+          >
+            Philosophy
+          </button>
+        </div>
+
+        <div className="tab-content">
+          {activeTab === 'travel' && <Travel />}
+          {activeTab === 'chess' && (
             <MyChess
-              slideWidth={slideWidth}
               dialogue="Play my Chess Bot!!"
-              chessGame={this.props.chessGame}  /* Pass your chessGame instance or state */
-              onPieceDrop={this.props.onPieceDrop} /* Pass the onPieceDrop handler */
+              chessGame={this.props.chessGame}
+              onPieceDrop={this.props.onPieceDrop}
             />
+          )}
+          {activeTab === 'philosophy' && (
             <Philosophy
-              slideWidth={slideWidth}
               philosophyMessage="What is the meaning of life?"
             />
-          </div>
-          <button className="arrow right-arrow" onClick={this.goToNextSlide}>
-            &#10095;
-          </button>
+          )}
         </div>
       </section>
     );
   }
 }
 
-const MoreAboutMeWithSwipe = forwardRef((props, ref) => {
-  const handlers = useSwipeable({
-    onSwipedLeft: (eventData) => {
-      // Track swipe gesture
-      if (window.gtag) {
-        window.gtag('event', 'swipe_gesture', {
-          event_category: 'User Interaction',
-          event_label: 'Swipe Left',
-          swipe_direction: 'left'
-        });
-      }
-
-      // Ignore swipe if child component requires interaction.
-      if (eventData.event.target.closest('.chessboard-container')) return;
-      if (ref && ref.current && ref.current.state.disableSwipe) return;
-      props.goToNextSlide && props.goToNextSlide();
-    },
-    onSwipedRight: (eventData) => {
-      // Track swipe gesture
-      if (window.gtag) {
-        window.gtag('event', 'swipe_gesture', {
-          event_category: 'User Interaction',
-          event_label: 'Swipe Right',
-          swipe_direction: 'right'
-        });
-      }
-
-      if (eventData.event.target.closest('.chessboard-container')) return;
-      if (ref && ref.current && ref.current.state.disableSwipe) return;
-      props.goToPreviousSlide && props.goToPreviousSlide();
-    },
-    preventDefaultTouchmoveEvent: true,
-    trackMouse: true,
-  });
-
-  return <MoreAboutMe {...props} handlers={handlers} ref={ref} />;
-});
-
-const MoreAboutMeContainer = (props) => {
-  const moreAboutMeRef = React.createRef();
-
-  const goToPreviousSlide = () => {
-    if (moreAboutMeRef.current) {
-      moreAboutMeRef.current.goToPreviousSlide();
-    }
-  };
-
-  const goToNextSlide = () => {
-    if (moreAboutMeRef.current) {
-      moreAboutMeRef.current.goToNextSlide();
-    }
-  };
-
-  return (
-    <MoreAboutMeWithSwipe
-      {...props}
-      goToPreviousSlide={goToPreviousSlide}
-      goToNextSlide={goToNextSlide}
-      ref={moreAboutMeRef}
-    />
-  );
-};
-
-export default MoreAboutMeContainer;
+export default MoreAboutMe;

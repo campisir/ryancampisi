@@ -314,8 +314,10 @@ class MyChess extends Component {
   };
 
   render() {
-    const { slideWidth } = this.props; // Parent should pass slideWidth
-    const chessboardWidth = Math.min(slideWidth * 0.8, 400);
+    // Make chessboard responsive
+    const chessboardWidth = typeof window !== 'undefined' 
+      ? Math.min(window.innerWidth * 0.8, 400)
+      : 400;
     
     // Map emotion to robot image
     const getRobotImage = () => {
@@ -343,7 +345,7 @@ class MyChess extends Component {
     };
     
     return (
-      <div className="slide mychess-slide" style={{ width: `${slideWidth}px` }} suppressHydrationWarning>
+      <div className="slide mychess-slide" suppressHydrationWarning>
         <h2>Chess</h2>
         <div className="robot-dialogue-container">
           <img 
@@ -360,6 +362,7 @@ class MyChess extends Component {
           onTouchStart={e => e.stopPropagation()}
           onTouchMove={e => e.stopPropagation()}
           onTouchEnd={e => e.stopPropagation()}
+          onMouseDown={e => e.stopPropagation()}
         >
           <Chessboard
             position={this.state.chessGame.fen()}
@@ -368,6 +371,7 @@ class MyChess extends Component {
             boardOrientation="black"
             promotionToSquare={true}
             isDraggablePiece={this.isDraggablePiece}
+            customDragLayer={true}
           />
         </div>
         <div className="chess-caption">

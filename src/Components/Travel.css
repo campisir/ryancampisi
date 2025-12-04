@@ -1,16 +1,14 @@
 .slide {
-  flex-shrink: 0;
   width: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   padding: 20px;
-  position: relative;
-  overflow: hidden;
   background-color: #2B2B2B;
   color: #fff;
+  position: relative;
+  min-height: 700px;
 }
 
 .slide h2 {
