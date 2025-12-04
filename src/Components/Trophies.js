@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet-async';
-import './Trophies.css';
 import { logEvent } from '../utils/logging';
 import { getTrophyCards } from './Trophies/index';
 

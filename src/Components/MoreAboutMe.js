@@ -3,19 +3,19 @@ import { useSwipeable } from 'react-swipeable';
 import Travel from './Travel';
 import MyChess from './MyChess';
 import Philosophy from './Philosophy';
-import './MoreAboutMe.css';
 
 class MoreAboutMe extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentIndex: 0,
-      slideWidth: window.innerWidth,
+      slideWidth: typeof window !== 'undefined' ? window.innerWidth : 1200,
       // If needed, you can pass additional data or callbacks to your child components here.
     };
   }
 
   updateSlideWidth = () => {
+    if (typeof window === 'undefined') return;
     const slider = document.querySelector('.slider');
     const slideWidth = slider ? slider.clientWidth : window.innerWidth;
     this.setState({ slideWidth });
@@ -62,12 +62,16 @@ class MoreAboutMe extends Component {
   };
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-    this.updateSlideWidth();
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', this.handleResize);
+      this.updateSlideWidth();
+    }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.handleResize);
+    }
   }
 
   render() {

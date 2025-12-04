@@ -22,10 +22,17 @@ class Header extends Component {
       var networks= this.props.data.social.map(function(network){
         return <li key={network.name}><a href={network.url}><i className={network.className}></i></a></li>
       })
+    } else {
+      // Default values for SSR to prevent hydration mismatch
+      var name = '';
+      var occupation = '';
+      var description = '';
+      var city = '';
+      var networks = [];
     }
 
    return (
-     <header id="home">
+     <header id="home" suppressHydrationWarning>
       <video 
         autoPlay 
         muted 
@@ -44,8 +51,8 @@ class Header extends Component {
        <a className="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
         <a className="mobile-btn" href="#home" title="Hide navigation">Hide navigation</a>
 
-       <ul id="nav" className="nav">
-         <li className="current">
+       <ul id="nav" className="nav" suppressHydrationWarning>
+         <li className="current" suppressHydrationWarning>
            <a 
              className="smoothscroll" 
              href="#home"
@@ -54,7 +61,7 @@ class Header extends Component {
              Home
            </a>
          </li>
-         <li>
+         <li suppressHydrationWarning>
            <a 
              className="smoothscroll" 
              href="#about"
@@ -63,7 +70,7 @@ class Header extends Component {
              About
            </a>
          </li>
-         <li>
+         <li suppressHydrationWarning>
            <a 
              className="smoothscroll" 
              href="#resume"
@@ -72,7 +79,7 @@ class Header extends Component {
              Resume
            </a>
          </li>
-         {<li>
+         {<li suppressHydrationWarning>
            <a 
              className="smoothscroll" 
              href="#portfolio"
@@ -82,7 +89,7 @@ class Header extends Component {
            </a>
          </li>}
          {/* <li><a className="smoothscroll" href="#testimonials">Testimonials</a></li> */}
-         <li>
+         <li suppressHydrationWarning>
            <a 
              className="smoothscroll" 
              href="#more-about-me"
@@ -91,7 +98,7 @@ class Header extends Component {
              More
            </a>
          </li> {/* Ensure the ID matches */}
-         <li>
+         <li suppressHydrationWarning>
            <a 
              className="smoothscroll" 
              href="#contact"
@@ -106,7 +113,7 @@ class Header extends Component {
 
      <div className="row banner">
        <div className="banner-text">
-         <h1 className="responsive-headline">I'm {name}.</h1>
+         <h1 className="responsive-headline" suppressHydrationWarning>I'm {name}.</h1>
          <h3>I'm a <span>software developer</span> and <span>mathematician</span> based in Florida.</h3>
          <hr />
          {/* <ul className="social">

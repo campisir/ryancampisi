@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
-import './Philosophy.css';
 
 class Philosophy extends Component {
   constructor(props) {
     super(props);
-    const questions = [
+    this.questions = [
       "What is the meaning of life?",
       "Do we have free will?",
       "Why do we suffer?",
       "What is truth?",
       "Is love eternal?"
     ];
-    // Always pick a random question from the list
+    // Use first question for SSR, will randomize on mount
     this.state = {
       philosophyStage: "idle",
       specialMessage: "Will you be heard?",
-      philosophyMessage: questions[Math.floor(Math.random() * questions.length)],
+      philosophyMessage: this.questions[0], // Start with first question for SSR consistency
       userAnswer: "",
-      questionMarks: this.generateQuestionMarks()
+      questionMarks: []
     };
   }
 
@@ -37,6 +36,11 @@ class Philosophy extends Component {
   };
 
   componentDidMount() {
+    // Set random question and question marks on client
+    this.setState({
+      philosophyMessage: this.questions[Math.floor(Math.random() * this.questions.length)],
+      questionMarks: this.generateQuestionMarks()
+    });
     // Update question marks every 3 seconds
     this.questionMarkInterval = setInterval(this.updateQuestionMarks, 3000);
   }
@@ -118,7 +122,7 @@ class Philosophy extends Component {
     // Default stage is "idle"
     const stage = philosophyStage || "idle";
     return (
-      <div className="slide philosophy-slide" style={{ width: `${slideWidth}px` }}>
+      <div className="slide philosophy-slide" style={{ width: `${slideWidth}px` }} suppressHydrationWarning>
         <div className="philosophy-background">
           <h2>Philosophy</h2>
           <p className="philosophy-caption">

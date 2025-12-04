@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Portfolio.css';
 import { logEvent } from '../utils/logging';
 
 class Portfolio extends Component {

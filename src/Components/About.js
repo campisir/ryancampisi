@@ -15,6 +15,17 @@ class About extends Component {
       var phone= this.props.data.phone;
       var email = this.props.data.email;
       var resumeDownload = this.props.data.resumedownload;
+    } else {
+      var name = '';
+      var profilepic = 'images/profilepic.jpg';
+      var bio = '';
+      var street = '';
+      var city = '';
+      var state = '';
+      var zip = '';
+      var phone = '';
+      var email = '';
+      var resumeDownload = '';
     }
 
     return (

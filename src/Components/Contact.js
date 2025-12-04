@@ -39,6 +39,15 @@ class Contact extends Component {
       var phone= this.props.data.phone;
       var email = this.props.data.email;
       var message = this.props.data.contactmessage;
+    } else {
+      var name = '';
+      var street = '';
+      var city = '';
+      var state = '';
+      var zip = '';
+      var phone = '';
+      var email = '';
+      var message = '';
     }
 
     return (

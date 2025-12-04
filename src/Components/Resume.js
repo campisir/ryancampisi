@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Resume.css'; // Import the CSS file
 import { logEvent } from '../utils/logging';
 
 class Resume extends Component {

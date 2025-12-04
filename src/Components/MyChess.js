@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Chessboard } from "react-chessboard";
+import { Chessboard } from 'react-chessboard';
 import { Chess } from 'chess.js';
-import './MyChess.css';
 import { logEvent } from '../utils/logging';
 
 class MyChess extends Component {
@@ -255,7 +254,7 @@ class MyChess extends Component {
         });
       }
       
-      if (move === null) return;
+      if (move === null) return false;
 
       // Track chess move (only after validating the move is legal)
       if (window.gtag) {
@@ -300,8 +299,11 @@ class MyChess extends Component {
           this.runWasmFunction();
         }, 100); // Adjust delay as needed
       });
+      
+      return true; // Tell react-chessboard the move was successful
     } catch (error) {
       console.warn("Caught invalid move:", error);
+      return false; // Tell react-chessboard the move failed
     }
   };
 
@@ -341,7 +343,7 @@ class MyChess extends Component {
     };
     
     return (
-      <div className="slide mychess-slide" style={{ width: `${slideWidth}px` }}>
+      <div className="slide mychess-slide" style={{ width: `${slideWidth}px` }} suppressHydrationWarning>
         <h2>Chess</h2>
         <div className="robot-dialogue-container">
           <img 
