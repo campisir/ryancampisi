@@ -64,7 +64,10 @@ class MoreAboutMe extends Component {
   componentDidMount() {
     if (typeof window !== 'undefined') {
       window.addEventListener('resize', this.handleResize);
-      this.updateSlideWidth();
+      // Use setTimeout to ensure DOM is fully rendered before calculating width
+      setTimeout(() => {
+        this.updateSlideWidth();
+      }, 0);
     }
   }
 
