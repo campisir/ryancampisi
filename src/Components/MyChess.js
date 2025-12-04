@@ -343,7 +343,7 @@ class MyChess extends Component {
     };
     
     return (
-      <div className="slide mychess-slide" suppressHydrationWarning>
+      <div className="slide mychess-slide" style={{ width: `${slideWidth}px` }} suppressHydrationWarning>
         <h2>Chess</h2>
         <div className="robot-dialogue-container">
           <img 

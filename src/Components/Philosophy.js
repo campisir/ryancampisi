@@ -122,7 +122,7 @@ class Philosophy extends Component {
     // Default stage is "idle"
     const stage = philosophyStage || "idle";
     return (
-      <div className="slide philosophy-slide" suppressHydrationWarning>
+      <div className="slide philosophy-slide" style={{ width: `${slideWidth}px` }} suppressHydrationWarning>
         <div className="philosophy-background">
           <h2>Philosophy</h2>
           <p className="philosophy-caption">

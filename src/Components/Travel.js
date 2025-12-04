@@ -253,7 +253,7 @@ closePopup = () => {
   const { slideWidth } = this.props;
   const { isBlurred, mapPosition, mapScale, showPopup, selectedCountry } = this.state;
   return (
-    <div className="slide" suppressHydrationWarning>
+    <div className="slide" style={{ width: `${slideWidth}px` }} suppressHydrationWarning>
       <h2>My Travels</h2>
       {isBlurred && (
         <div className="blur-overlay">

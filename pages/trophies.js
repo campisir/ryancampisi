@@ -67,6 +67,7 @@ class Trophies extends Component {
 
   render() {
     const trophySections = this.getTrophySections();
+    const { trophyList } = this.props;
     
     // Generate trophy list for meta description
     const trophyNames = trophySections.slice(0, 4).map(t => t.gameTitle).join(', ');
@@ -113,6 +114,23 @@ class Trophies extends Component {
         </Head>
         
         <div className="trophies-page">
+          {/* Static content for search engines and bots */}
+          <div className="seo-content" style={{ position: 'absolute', left: '-9999px' }}>
+            <h1>Ryan Campisi - PlayStation Platinum Trophy Collection</h1>
+            <p>Complete list of {trophyList?.length || 0} PlayStation Platinum trophies earned:</p>
+            <ul>
+              {trophyList?.map(trophy => (
+                <li key={trophy.id}>
+                  <strong>{trophy.gameTitle}</strong> - "{trophy.platinumName}" 
+                  {trophy.platinumNumber && ` - Platinum #${trophy.platinumNumber}`}
+                  {trophy.difficulty && ` - Difficulty: ${trophy.difficulty}/10`}
+                  {trophy.enjoyment && ` - Enjoyment: ${trophy.enjoyment}/10`}
+                  {trophy.completedDate && ` - Completed: ${new Date(trophy.completedDate).toLocaleDateString()}`}
+                </li>
+              ))}
+            </ul>
+          </div>
+          
           <div className="trophies-header">
             <h1>PlayStation Platinum Trophies</h1>
             <p className="trophies-subtitle">
@@ -207,6 +225,40 @@ class Trophies extends Component {
       </>
     );
   }
+}
+
+export async function getStaticProps() {
+  // Import trophy cards to generate static HTML at build time
+  const { getTrophyCards } = require('../src/Components/Trophies/index');
+  
+  // Get initial state for trophy cards
+  const initialState = {
+    ff7RebirthActiveTab: 'party',
+    lisDeClickedCharacters: [],
+    codBocwActiveTab: 'zombies',
+    sortBy: 'newest',
+    searchQuery: '',
+  };
+  
+  // Get all trophy cards with a no-op setState
+  const trophyCards = getTrophyCards(initialState, () => {});
+  
+  // Extract basic info for static HTML
+  const trophyList = trophyCards.map(card => ({
+    id: card.id,
+    gameTitle: card.gameTitle,
+    platinumName: card.platinumName,
+    platinumNumber: card.platinumNumber,
+    difficulty: card.difficulty,
+    enjoyment: card.enjoyment,
+    completedDate: card.completedDate ? card.completedDate.toISOString() : null,
+  }));
+  
+  return {
+    props: {
+      trophyList,
+    },
+  };
 }
 
 export default Trophies;
