@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet-async';
 import './Trophies.css';
 import { logEvent } from '../utils/logging';
 import { getTrophyCards } from './Trophies/index';
@@ -74,9 +75,47 @@ class Trophies extends Component {
 
   render() {
     const trophySections = this.getTrophySections();
+    
+    // Generate trophy list for meta description
+    const trophyNames = trophySections.slice(0, 4).map(t => t.gameTitle).join(', ');
+    const description = `Explore my collection of ${trophySections.length} PlayStation Platinum trophies including ${trophyNames}, and more!`;
 
     return (
       <div className="trophies-page">
+        <Helmet>
+          <title>PlayStation Trophies | Ryan Campisi</title>
+          <meta name="description" content={description} />
+          
+          {/* Open Graph / Facebook */}
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="https://www.ryancampisi.com/trophies" />
+          <meta property="og:title" content="PlayStation Platinum Trophies | Ryan Campisi" />
+          <meta property="og:description" content={description} />
+          <meta property="og:image" content="https://www.ryancampisi.com/images/trophies/ff7rebirth-bg.webp" />
+          
+          {/* Twitter */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:url" content="https://www.ryancampisi.com/trophies" />
+          <meta name="twitter:title" content="PlayStation Platinum Trophies | Ryan Campisi" />
+          <meta name="twitter:description" content={description} />
+          <meta name="twitter:image" content="https://www.ryancampisi.com/images/trophies/ff7rebirth-bg.webp" />
+          
+          {/* Structured Data for Search Engines */}
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "CollectionPage",
+              "name": "PlayStation Platinum Trophy Collection",
+              "description": description,
+              "author": {
+                "@type": "Person",
+                "name": "Ryan Campisi",
+                "url": "https://www.ryancampisi.com"
+              },
+              "numberOfItems": trophySections.length
+            })}
+          </script>
+        </Helmet>
         <div className="trophies-header">
           <h1>PlayStation Platinum Trophies</h1>
           <p className="trophies-subtitle">

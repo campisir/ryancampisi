@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import './App.css';
 import MainPage from './Components/MainPage';
 import Trophies from './Components/Trophies';
@@ -7,14 +8,16 @@ import Trophies from './Components/Trophies';
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div className="App">
-          <Switch>
-            <Route exact path="/" component={MainPage} />
-            <Route path="/trophies" component={Trophies} />
-          </Switch>
-        </div>
-      </Router>
+      <HelmetProvider>
+        <Router>
+          <div className="App">
+            <Switch>
+              <Route exact path="/" component={MainPage} />
+              <Route path="/trophies" component={Trophies} />
+            </Switch>
+          </div>
+        </Router>
+      </HelmetProvider>
     );
   }
 }
