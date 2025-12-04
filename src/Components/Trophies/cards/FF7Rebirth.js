@@ -8,7 +8,7 @@ export const FF7RebirthCard = (state, setState) => ({
   difficulty: 7,
   enjoyment: 10,
   completedDate: new Date('2025-11-24'),
-  backgroundImage: 'images/trophies/ff7rebirth-bg.webp',
+  backgroundImage: '/images/trophies/ff7rebirth-bg.webp',
   content: (
     <>
       <div style={{ textAlign: 'center', marginBottom: '25px' }}>
@@ -32,7 +32,7 @@ export const FF7RebirthCard = (state, setState) => ({
           </p>
         </a>
         <img 
-          src="images/trophies/ff7rebirth-platinum.jpg" 
+          src="/images/trophies/ff7rebirth-platinum.jpg" 
           alt="The Planet's Hope Platinum Trophy"
           style={{ 
             width: '120px', 
@@ -187,7 +187,7 @@ export const FF7RebirthCard = (state, setState) => ({
             }}>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-char1.jpeg" 
+                  src="/images/trophies/ff7rebirth-char1.jpeg" 
                   alt="Yuffie"
                   style={{ 
                     width: '100%', 
@@ -209,7 +209,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-char2.jpg" 
+                  src="/images/trophies/ff7rebirth-char2.jpg" 
                   alt="Red XIII"
                   style={{ 
                     width: '100%', 
@@ -231,7 +231,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-char3.jpeg" 
+                  src="/images/trophies/ff7rebirth-char3.jpeg" 
                   alt="Cloud"
                   style={{ 
                     width: '100%', 
@@ -253,7 +253,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-char4.jpg" 
+                  src="/images/trophies/ff7rebirth-char4.jpg" 
                   alt="Aerith"
                   style={{ 
                     width: '100%', 
@@ -275,7 +275,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-char5.jpeg" 
+                  src="/images/trophies/ff7rebirth-char5.jpeg" 
                   alt="Barret"
                   style={{ 
                     width: '100%', 
@@ -297,7 +297,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-char6.webp" 
+                  src="/images/trophies/ff7rebirth-char6.webp" 
                   alt="Tifa"
                   style={{ 
                     width: '100%', 
@@ -319,7 +319,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-char7.webp" 
+                  src="/images/trophies/ff7rebirth-char7.webp" 
                   alt="Cait Sith"
                   style={{ 
                     width: '100%', 
@@ -351,7 +351,7 @@ export const FF7RebirthCard = (state, setState) => ({
             }}>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-minigame1.jpg" 
+                  src="/images/trophies/ff7rebirth-minigame1.jpg" 
                   alt="Queen's Blood"
                   style={{ 
                     width: '100%', 
@@ -373,7 +373,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-minigame2.jpg" 
+                  src="/images/trophies/ff7rebirth-minigame2.jpg" 
                   alt="Junon Parade"
                   style={{ 
                     width: '100%', 
@@ -395,7 +395,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-minigame3.webp" 
+                  src="/images/trophies/ff7rebirth-minigame3.webp" 
                   alt="Loveless"
                   style={{ 
                     width: '100%', 
@@ -417,7 +417,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-minigame4.avif" 
+                  src="/images/trophies/ff7rebirth-minigame4.avif" 
                   alt="Fall Guys"
                   style={{ 
                     width: '100%', 
@@ -439,7 +439,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-minigame5.avif" 
+                  src="/images/trophies/ff7rebirth-minigame5.avif" 
                   alt="Rocket League"
                   style={{ 
                     width: '100%', 
@@ -471,7 +471,7 @@ export const FF7RebirthCard = (state, setState) => ({
             }}>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-enemy1.webp" 
+                  src="/images/trophies/ff7rebirth-enemy1.webp" 
                   alt="Kid G"
                   style={{ 
                     width: '100%', 
@@ -493,7 +493,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-enemy2.jpg" 
+                  src="/images/trophies/ff7rebirth-enemy2.jpg" 
                   alt="Sephiroth"
                   style={{ 
                     width: '100%', 
@@ -515,7 +515,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-enemy3.jpg" 
+                  src="/images/trophies/ff7rebirth-enemy3.jpg" 
                   alt="Gilgamesh"
                   style={{ 
                     width: '100%', 
@@ -537,7 +537,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-enemy4.jpeg" 
+                  src="/images/trophies/ff7rebirth-enemy4.jpeg" 
                   alt="Odin"
                   style={{ 
                     width: '100%', 
@@ -559,7 +559,7 @@ export const FF7RebirthCard = (state, setState) => ({
               </div>
               <div className="character-card">
                 <img 
-                  src="images/trophies/ff7rebirth-enemy5.webp" 
+                  src="/images/trophies/ff7rebirth-enemy5.webp" 
                   alt="Tonberry King"
                   style={{ 
                     width: '100%', 
@@ -616,7 +616,7 @@ export const FF7RebirthCard = (state, setState) => ({
                 1.
               </span>
               <img 
-                src="images/trophies/ff7rebirth-gif1.gif" 
+                src="/images/trophies/ff7rebirth-gif1.gif" 
                 alt="Mini Game 1"
                 style={{ 
                   width: '150px', 
@@ -655,7 +655,7 @@ export const FF7RebirthCard = (state, setState) => ({
                 2.
               </span>
               <img 
-                src="images/trophies/ff7rebirth-gif2.gif" 
+                src="/images/trophies/ff7rebirth-gif2.gif" 
                 alt="Mini Game 2"
                 style={{ 
                   width: '150px', 
@@ -694,7 +694,7 @@ export const FF7RebirthCard = (state, setState) => ({
                 3.
               </span>
               <img 
-                src="images/trophies/ff7rebirth-gif3.gif" 
+                src="/images/trophies/ff7rebirth-gif3.gif" 
                 alt="Mini Game 3"
                 style={{ 
                   width: '150px', 
@@ -733,7 +733,7 @@ export const FF7RebirthCard = (state, setState) => ({
                 4.
               </span>
               <img 
-                src="images/trophies/ff7rebirth-gif4.gif" 
+                src="/images/trophies/ff7rebirth-gif4.gif" 
                 alt="Mini Game 4"
                 style={{ 
                   width: '150px', 
@@ -772,7 +772,7 @@ export const FF7RebirthCard = (state, setState) => ({
                 5.
               </span>
               <img 
-                src="images/trophies/ff7rebirth-gif5.gif" 
+                src="/images/trophies/ff7rebirth-gif5.gif" 
                 alt="Mini Game 5"
                 style={{ 
                   width: '150px', 

@@ -8,7 +8,7 @@ export const CodBlackOpsColdWarCard = (state, setState) => ({
   difficulty: 5,
   enjoyment: 7,
   completedDate: new Date('2025-05-24'),
-  backgroundImage: 'images/trophies/cod-bocw-bg.jpg',
+  backgroundImage: '/images/trophies/cod-bocw-bg.jpg',
   
   content: (
     <>
@@ -35,7 +35,7 @@ export const CodBlackOpsColdWarCard = (state, setState) => ({
         </a>
         
         <img 
-          src="images/trophies/cod-bocw-platinum.png" 
+          src="/images/trophies/cod-bocw-platinum.png" 
           alt="Platinum Trophy"
           style={{ 
             width: '120px', 
@@ -207,7 +207,7 @@ export const CodBlackOpsColdWarCard = (state, setState) => ({
                     1.
                   </span>
                   <img 
-                    src="images/trophies/bocw-map1.avif" 
+                    src="/images/trophies/bocw-map1.avif" 
                     alt="Map 1"
                     style={{ 
                       width: '120px', 
@@ -244,7 +244,7 @@ export const CodBlackOpsColdWarCard = (state, setState) => ({
                     2.
                   </span>
                   <img 
-                    src="images/trophies/bocw-map2.jpg" 
+                    src="/images/trophies/bocw-map2.jpg" 
                     alt="Map 2"
                     style={{ 
                       width: '120px', 
@@ -281,7 +281,7 @@ export const CodBlackOpsColdWarCard = (state, setState) => ({
                     3.
                   </span>
                   <img 
-                    src="images/trophies/bocw-map3.webp" 
+                    src="/images/trophies/bocw-map3.webp" 
                     alt="Map 3"
                     style={{ 
                       width: '120px', 
@@ -318,7 +318,7 @@ export const CodBlackOpsColdWarCard = (state, setState) => ({
                     4.
                   </span>
                   <img 
-                    src="images/trophies/bocw-map4.webp" 
+                    src="/images/trophies/bocw-map4.webp" 
                     alt="Map 4"
                     style={{ 
                       width: '120px', 
@@ -355,7 +355,7 @@ export const CodBlackOpsColdWarCard = (state, setState) => ({
                     5.
                   </span>
                   <img 
-                    src="images/trophies/bocw-map5.webp" 
+                    src="/images/trophies/bocw-map5.webp" 
                     alt="Map 5"
                     style={{ 
                       width: '120px', 

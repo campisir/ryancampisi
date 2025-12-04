@@ -13,8 +13,8 @@ const nextConfig = {
     unoptimized: true,
   },
   
-  // Trailing slash for compatibility
-  trailingSlash: false,
+  // Trailing slash for compatibility - required for static export routing
+  trailingSlash: true,
   
   // Handle webpack for client-side libraries
   webpack: (config, { isServer }) => {

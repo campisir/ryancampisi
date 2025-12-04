@@ -14,7 +14,7 @@ import React from 'react';
  * export const YourGameCard = () => ({
  *   id: 'your-game-id',
  *   platinumNumber: 87,
- *   backgroundImage: 'images/trophies/your-game-bg.jpg',
+ *   backgroundImage: '/images/trophies/your-game-bg.jpg',
  *   content: (...)
  * });
  * 
@@ -22,7 +22,7 @@ import React from 'react';
  * export const YourGameCard = (state, setState) => ({
  *   id: 'your-game-id',
  *   platinumNumber: 87,
- *   backgroundImage: 'images/trophies/your-game-bg.jpg',
+ *   backgroundImage: '/images/trophies/your-game-bg.jpg',
  *   content: (...)
  * });
  */
@@ -35,7 +35,7 @@ export const TemplateCard = (state, setState) => ({
   difficulty: 5, // REQUIRED: Difficulty rating 0-10 (for sorting)
   enjoyment: 5, // REQUIRED: Enjoyment rating 0-10 (for sorting)
   completedDate: new Date('2025-01-01'), // REQUIRED: Completion date (for sorting)
-  backgroundImage: 'images/trophies/template-bg.jpg', // REQUIRED: Path to background image
+  backgroundImage: '/images/trophies/template-bg.jpg', // REQUIRED: Path to background image
   
   content: (
     <>
@@ -65,7 +65,7 @@ export const TemplateCard = (state, setState) => ({
         
         {/* Optional: Platinum Trophy Icon */}
         <img 
-          src="images/trophies/template-platinum.png" 
+          src="/images/trophies/template-platinum.png" 
           alt="Your Platinum Trophy"
           style={{ 
             width: '120px', 
@@ -193,7 +193,7 @@ export const TemplateCard = (state, setState) => ({
         }}>
           <div className="character-card">
             <img 
-              src="images/trophies/your-image1.jpg" 
+              src="/images/trophies/your-image1.jpg" 
               alt="Description"
               style={{ 
                 width: '100%', 

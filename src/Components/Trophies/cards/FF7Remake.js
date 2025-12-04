@@ -8,7 +8,7 @@ export const FF7RemakeCard = () => ({
   difficulty: 6,
   enjoyment: 7,
   completedDate: new Date('2025-09-13'),
-  backgroundImage: 'images/trophies/ff7-bg.jpg',
+  backgroundImage: '/images/trophies/ff7-bg.jpg',
   content: (
     <>
       <div style={{ textAlign: 'center', marginBottom: '25px' }}>
@@ -32,7 +32,7 @@ export const FF7RemakeCard = () => ({
           </p>
         </a>
         <img 
-          src="images/trophies/ff7-platinum.png" 
+          src="/images/trophies/ff7-platinum.png" 
           alt="Master of Fate Platinum Trophy"
           style={{ 
             width: '120px', 

@@ -8,7 +8,7 @@ export const LiSDoubleExposureCard = (state, setState) => ({
   difficulty: 0,
   enjoyment: 5,
   completedDate: new Date('2025-10-09'),
-  backgroundImage: 'images/trophies/lis-de-bg.jpg',
+  backgroundImage: '/images/trophies/lis-de-bg.jpg',
   content: (
     <>
       <div style={{ textAlign: 'center', marginBottom: '25px' }}>
@@ -32,7 +32,7 @@ export const LiSDoubleExposureCard = (state, setState) => ({
           </p>
         </a>
         <img 
-          src="images/trophies/lis-de-platinum.png" 
+          src="/images/trophies/lis-de-platinum.png" 
           alt="Picture Perfect Platinum Trophy"
           style={{ 
             width: '120px', 
@@ -115,13 +115,13 @@ export const LiSDoubleExposureCard = (state, setState) => ({
             gap: '20px'
           }}>
             {[
-              { id: 1, name: 'Max', image: 'images/trophies/lis-de-char1.webp' },
-              { id: 2, name: 'Safi', image: 'images/trophies/lis-de-char2.webp' },
-              { id: 3, name: 'Amanda', image: 'images/trophies/lis-de-char3.jpeg' },
-              { id: 4, name: 'Moses', image: 'images/trophies/lis-de-char4.avif' },
-              { id: 5, name: 'Vinh', image: 'images/trophies/lis-de-char5.webp' },
-              { id: 6, name: 'Gwen', image: 'images/trophies/lis-de-char6.webp' },
-              { id: 7, name: 'Reggie', image: 'images/trophies/lis-de-char7.webp' }
+              { id: 1, name: 'Max', image: '/images/trophies/lis-de-char1.webp' },
+              { id: 2, name: 'Safi', image: '/images/trophies/lis-de-char2.webp' },
+              { id: 3, name: 'Amanda', image: '/images/trophies/lis-de-char3.jpeg' },
+              { id: 4, name: 'Moses', image: '/images/trophies/lis-de-char4.avif' },
+              { id: 5, name: 'Vinh', image: '/images/trophies/lis-de-char5.webp' },
+              { id: 6, name: 'Gwen', image: '/images/trophies/lis-de-char6.webp' },
+              { id: 7, name: 'Reggie', image: '/images/trophies/lis-de-char7.webp' }
             ].map((character) => (
               <div 
                 key={character.id}

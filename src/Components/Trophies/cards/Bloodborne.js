@@ -8,7 +8,7 @@ export const BloodborneCard = () => ({
   difficulty: 8,
   enjoyment: 9,
   completedDate: new Date('2020-06-15'),
-  backgroundImage: 'images/trophies/bloodborne-bg.jpg',
+  backgroundImage: '/images/trophies/bloodborne-bg.jpg',
   content: (
     <>
       <h3 className="game-title">Bloodborne</h3>
