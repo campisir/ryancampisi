@@ -227,19 +227,30 @@ class MyChess extends Component {
 
   onPieceDrop = (sourceSquare, targetSquare, piece) => {
     try {
-      // Try the move first, if it fails with promotion required, retry with promotion
-      let move = this.state.chessGame.move({
-        from: sourceSquare,
-        to: targetSquare
-      });
+      // Check if this is a promotion move
+      const game = new Chess(this.state.chessGame.fen());
+      const possibleMoves = game.moves({ verbose: true });
+      const promotionMove = possibleMoves.find(m => 
+        m.from === sourceSquare && 
+        m.to === targetSquare && 
+        m.promotion
+      );
       
-      // If move failed, it might need promotion
-      if (move === null) {
+      let move;
+      if (promotionMove) {
+        // This is a promotion move - let the user choose the piece
+        // The piece parameter from react-chessboard contains the chosen piece
         const promotionPiece = piece ? piece.charAt(1).toLowerCase() : 'q';
         move = this.state.chessGame.move({
           from: sourceSquare,
           to: targetSquare,
           promotion: promotionPiece
+        });
+      } else {
+        // Regular move
+        move = this.state.chessGame.move({
+          from: sourceSquare,
+          to: targetSquare
         });
       }
       
