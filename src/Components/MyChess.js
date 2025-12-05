@@ -228,7 +228,14 @@ class MyChess extends Component {
   onPieceDrop = (sourceSquare, targetSquare, piece) => {
     try {
       // Check if this is a promotion move
-      const game = new Chess(this.state.chessGame.fen());
+      const currentFen = this.state.chessGame.fen();
+      
+      // Debug: Show FEN on screen
+      this.setState({ dialogue: `Debug: FEN length: ${currentFen.length}, Creating Chess instance...` });
+      
+      const game = new Chess(currentFen);
+      
+      this.setState({ dialogue: `Debug: Chess instance created, getting moves...` });
       const possibleMoves = game.moves({ verbose: true });
       const promotionMove = possibleMoves.find(m => 
         m.from === sourceSquare && 
