@@ -359,10 +359,6 @@ class MyChess extends Component {
         </div>
         <div 
           className="chessboard-container"
-          onTouchStart={e => e.stopPropagation()}
-          onTouchMove={e => e.stopPropagation()}
-          onTouchEnd={e => e.stopPropagation()}
-          onMouseDown={e => e.stopPropagation()}
         >
           <Chessboard
             position={this.state.chessGame.fen()}
@@ -371,7 +367,6 @@ class MyChess extends Component {
             boardOrientation="black"
             promotionToSquare={true}
             isDraggablePiece={this.isDraggablePiece}
-            customDragLayer={true}
           />
         </div>
         <div className="chess-caption">
