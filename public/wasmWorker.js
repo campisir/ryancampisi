@@ -4,13 +4,20 @@ const imports = {
   env: {
     __memory_base: 0,
     __table_base: 0,
-    memory: new WebAssembly.Memory({ initial: 1024 }),
+    memory: new WebAssembly.Memory({ initial: 256, maximum: 512 }),
     table: new WebAssembly.Table({ initial: 0, element: 'anyfunc' }),
     _emscripten_get_now: Date.now,
     __cxa_throw: (ptr, type, destructor) => {},
     emscripten_date_now: () => Date.now(),
     __syscall_openat: () => {},
-    emscripten_resize_heap: () => false,
+    emscripten_resize_heap: (size) => {
+      try {
+        imports.env.memory.grow(Math.ceil((size - imports.env.memory.buffer.byteLength) / 65536));
+        return true;
+      } catch {
+        return false;
+      }
+    },
     _abort_js: () => {},
     __syscall_fcntl64: () => {},
     __syscall_ioctl: () => {},
@@ -84,14 +91,37 @@ onmessage = function(e) {
         postMessage({ type: 'result', result: 'Error: wasm module not loaded' });
         return;
       }
-      try {
-        const { ptr, free } = allocateString(moves);
-        const resultPtr = wasmInstance.exports.my_main(ptr);
-        const output = readWasmString(resultPtr);
-        free(ptr);
-        postMessage({ type: 'result', result: output });
-      } catch (err) {
-        postMessage({ type: 'result', result: 'Error executing wasm function: ' + err.message });
-      }
+      
+      // Set up a timeout to catch infinite loops or stack overflows
+      let timeoutId;
+      const timeoutPromise = new Promise((_, reject) => {
+        timeoutId = setTimeout(() => reject(new Error('Execution timeout - move took too long')), 10000);
+      });
+      
+      const executeWasm = new Promise((resolve, reject) => {
+        try {
+          const { ptr, free } = allocateString(moves);
+          const resultPtr = wasmInstance.exports.my_main(ptr);
+          const output = readWasmString(resultPtr);
+          free(ptr);
+          resolve(output);
+        } catch (err) {
+          reject(err);
+        }
+      });
+      
+      Promise.race([executeWasm, timeoutPromise])
+        .then(output => {
+          clearTimeout(timeoutId);
+          postMessage({ type: 'result', result: output });
+        })
+        .catch(err => {
+          clearTimeout(timeoutId);
+          if (err.message.includes('call stack') || err.message.includes('stack overflow')) {
+            postMessage({ type: 'result', result: '!sad\nOops! My circuits are overloaded. Let me think of a simpler move...\n0 0 1 1 0\ne2e4' });
+          } else {
+            postMessage({ type: 'result', result: 'Error executing wasm function: ' + err.message });
+          }
+        });
     }
   };
