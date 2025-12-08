@@ -117,8 +117,8 @@ onmessage = function(e) {
         })
         .catch(err => {
           clearTimeout(timeoutId);
-          if (err.message.includes('call stack') || err.message.includes('stack overflow')) {
-            postMessage({ type: 'result', result: '!sad\nOops! My circuits are overloaded. Let me think of a simpler move...\n0 0 1 1 0\ne2e4' });
+          if (err.message.includes('call stack') || err.message.includes('stack overflow') || err.message.includes('timeout')) {
+            postMessage({ type: 'result', result: '!loss\nI resign!', isOverflowError: true });
           } else {
             postMessage({ type: 'result', result: 'Error executing wasm function: ' + err.message });
           }

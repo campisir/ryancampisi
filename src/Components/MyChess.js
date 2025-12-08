@@ -12,7 +12,9 @@ class MyChess extends Component {
       moves: "0 0 1 1 0",
       disableSwipe: false,
       robotEmotion: "neutral",
-      isFirstMove: true
+      isFirstMove: true,
+      showOverflowError: false,
+      errorMessage: ""
     };
     this.wasmWorker = null;
   }
@@ -40,13 +42,18 @@ class MyChess extends Component {
     // Initialize the WASM worker for chess logic
     this.wasmWorker = new Worker('wasmWorker.js');
     this.wasmWorker.onmessage = (e) => {
-      const { type, result, message } = e.data;
+      const { type, result, message, isOverflowError } = e.data;
       if (type === 'wasmLoaded') {
         this.appendDialogue('Let\'s play. ');
       } else if (type === 'result') {
-        this.handleWasmResult(result);
+        this.handleWasmResult(result, isOverflowError);
       } else if (type === 'error') {
-        this.appendDialogue(`Uh... I can't play right now, sorry.: ${message} `);
+        this.appendDialogue('I resign!');
+        this.setState({ 
+          showOverflowError: true,
+          errorMessage: "I guess your aura is too strong...",
+          robotEmotion: 'loss'
+        });
       }
     };
 
@@ -77,10 +84,18 @@ class MyChess extends Component {
     this.wasmWorker.postMessage({ type: 'runWasm', moves });
   };
 
-  handleWasmResult = (result) => {
+  handleWasmResult = (result, isOverflowError = false) => {
     if (typeof result !== 'string' || !result.trim()) {
       this.appendDialogue('Error: Invalid result from WASM worker.');
       return;
+    }
+    
+    // Show appropriate error message based on error type
+    if (isOverflowError) {
+      this.setState({ 
+        showOverflowError: true,
+        errorMessage: "My bot is having trouble thinking clearly on your device! Try playing on desktop!"
+      });
     }
     const lines = result.trim().split('\n');
     
@@ -88,7 +103,7 @@ class MyChess extends Component {
     const firstLine = lines[0] || '';
     let emotion = "neutral";
     if (firstLine.startsWith('!')) {
-      const emotionMatch = firstLine.match(/^!(happy|veryhappy|neutral|sad|verysad|mated)/);
+      const emotionMatch = firstLine.match(/^!(happy|veryhappy|neutral|sad|verysad|mated|loss)/);
       if (emotionMatch) {
         emotion = emotionMatch[1];
       }
@@ -369,6 +384,21 @@ class MyChess extends Component {
             isDraggablePiece={this.isDraggablePiece}
           />
         </div>
+        {this.state.showOverflowError && (
+          <div style={{
+            backgroundColor: '#ff4444',
+            color: 'white',
+            padding: '6px 10px',
+            borderRadius: '4px',
+            marginTop: '10px',
+            marginBottom: '10px',
+            fontStyle: 'italic',
+            textAlign: 'center',
+            fontSize: '12px'
+          }}>
+            {this.state.errorMessage}
+          </div>
+        )}
         <div className="chess-caption">
           <p className="chess-description">
             Play my chess bot! Coded in C++            <a 
