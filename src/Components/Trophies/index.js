@@ -3,6 +3,7 @@ import { FF7RebirthCard } from './cards/FF7Rebirth';
 import { LiSDoubleExposureCard } from './cards/LiSDoubleExposure';
 import { FF7RemakeCard } from './cards/FF7Remake';
 import { CodBlackOpsColdWarCard } from './cards/CodBlackOpsColdWar';
+import { Persona3ReloadCard } from './cards/Persona3Reload';
 
 /**
  * Trophy Cards Registry
@@ -29,6 +30,7 @@ export const getTrophyCards = (state, setState) => {
     LiSDoubleExposureCard(state, setState),
     FF7RemakeCard(),
     CodBlackOpsColdWarCard(state, setState),
+    Persona3ReloadCard(state, setState),
     // Add more trophy cards here as you create them
     // Example: MyNewGameCard(),
   ];
