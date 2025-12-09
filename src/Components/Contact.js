@@ -3,18 +3,14 @@ import React, { Component } from 'react';
 class Contact extends Component {
 
   handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Track form submission
+    // jQuery in init.js handles the actual submission
+    // This is just for tracking
     if (window.gtag) {
       window.gtag('event', 'form_submit', {
         event_category: 'Contact',
         event_label: 'Contact Form Submission'
       });
     }
-    
-    // Add your form submission logic here
-    console.log('Contact form submitted');
   };
 
   handleInputFocus = (fieldName) => {
@@ -72,44 +68,41 @@ class Contact extends Component {
          <div className="row">
             <div className="eight columns">
 
-               <form action="" method="post" id="contactForm" name="contactForm" onSubmit={this.handleSubmit}>
+               <form action="" method="post" id="contactForm" name="contactForm">
 					<fieldset>
 
                   <div>
-						   <label htmlFor="contactName">Name <span className="required">*</span></label>
-						   <input 
+					   <label htmlFor="contactName">Name <span className="required">*</span></label>
+					   <input 
                      type="text" 
                      defaultValue="" 
                      size="35" 
                      id="contactName" 
                      name="contactName" 
-                     onChange={this.handleChange}
                      onFocus={() => this.handleInputFocus('Name')}
                    />
                   </div>
 
                   <div>
-						   <label htmlFor="contactEmail">Email <span className="required">*</span></label>
-						   <input 
-                     type="text" 
+					   <label htmlFor="contactEmail">Email <span className="required">*</span></label>
+					   <input 
+                     type="email" 
                      defaultValue="" 
                      size="35" 
                      id="contactEmail" 
                      name="contactEmail" 
-                     onChange={this.handleChange}
                      onFocus={() => this.handleInputFocus('Email')}
                    />
                   </div>
 
                   <div>
-						   <label htmlFor="contactSubject">Subject</label>
-						   <input 
+					   <label htmlFor="contactSubject">Subject</label>
+					   <input 
                      type="text" 
                      defaultValue="" 
                      size="35" 
                      id="contactSubject" 
                      name="contactSubject" 
-                     onChange={this.handleChange}
                      onFocus={() => this.handleInputFocus('Subject')}
                    />
                   </div>
@@ -121,8 +114,22 @@ class Contact extends Component {
                        rows="15" 
                        id="contactMessage" 
                        name="contactMessage"
+                       defaultValue=""
                        onFocus={() => this.handleInputFocus('Message')}
                      ></textarea>
+                  </div>
+
+                  {/* Honeypot field - hidden from users but visible to bots */}
+                  <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+                     <label htmlFor="website_url">Website URL</label>
+                     <input 
+                       type="text" 
+                       id="website_url" 
+                       name="website_url" 
+                       defaultValue=""
+                       tabIndex="-1"
+                       autoComplete="off"
+                     />
                   </div>
 
                   <div>

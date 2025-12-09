@@ -139,6 +139,11 @@ jQuery(document).ready(function($) {
    /*  contact form
    ------------------------------------------------------*/
    
+   // Set form load timestamp for bot protection
+   if ($('#contactForm').length) {
+      $('#contactForm').data('timestamp', Date.now());
+   }
+   
    $('form#contactForm button.submit').click(function (e) {
       e.preventDefault(); // Prevent default form submission behavior
 
@@ -147,6 +152,13 @@ jQuery(document).ready(function($) {
       var contactEmail = $('#contactForm #contactEmail').val().trim();
       var contactSubject = $('#contactForm #contactSubject').val().trim();
       var contactMessage = $('#contactForm #contactMessage').val().trim();
+      var websiteUrl = $('#contactForm #website_url').val(); // Honeypot field
+
+      // Bot protection: Check honeypot field
+      if (websiteUrl) {
+         console.log('Bot detected');
+         return false;
+      }
 
       // Validate the fields
       if (!contactName || !contactEmail || !contactMessage) {
@@ -163,12 +175,23 @@ jQuery(document).ready(function($) {
          return false;
       }
 
-      // Prepare the data for the API request
+      // Get form load timestamp (should be set when form loads)
+      var formTimestamp = $('#contactForm').data('timestamp');
+      if (!formTimestamp) {
+         formTimestamp = Date.now() - 5000; // Fallback: assume form loaded 5 seconds ago
+      }
+
+      // Prepare the data for the API request (new format matching backend)
       var data = JSON.stringify({
-         email: `${contactEmail} (${contactName})`, // Append contact name to email
-         message: `${contactSubject} - ${contactMessage}`, // Prepend subject to message
-         website: "ryancampisi.com" // Specify the website
+         name: contactName,
+         email: contactEmail,
+         subject: contactSubject,
+         message: contactMessage,
+         website: "ryancampisi.com",
+         timestamp: formTimestamp
       });
+
+      $('#image-loader').fadeIn();
 
       // Make the AJAX request to your email service
       $.ajax({
