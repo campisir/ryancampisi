@@ -14,7 +14,8 @@ class MyChess extends Component {
       robotEmotion: "neutral",
       isFirstMove: true,
       showOverflowError: false,
-      errorMessage: ""
+      errorMessage: "",
+      useBackend: false
     };
     this.wasmWorker = null;
   }
@@ -46,13 +47,20 @@ class MyChess extends Component {
       if (type === 'wasmLoaded') {
         this.appendDialogue('Let\'s play. ');
       } else if (type === 'result') {
-        this.handleWasmResult(result, isOverflowError);
+        // Check if this is an error result (the "I resign!" message from overflow/timeout)
+        if (isOverflowError) {
+          // Switch to backend for future moves and retry this move
+          this.setState({ useBackend: true }, () => {
+            this.runBackendFunction(true);
+          });
+        } else {
+          // Normal successful result
+          this.handleWasmResult(result, false);
+        }
       } else if (type === 'error') {
-        this.appendDialogue('I resign!');
-        this.setState({ 
-          showOverflowError: true,
-          errorMessage: "I guess your aura is too strong...",
-          robotEmotion: 'loss'
+        // Switch to backend for future moves and retry this move
+        this.setState({ useBackend: true }, () => {
+          this.runBackendFunction(false);
         });
       }
     };
@@ -74,6 +82,12 @@ class MyChess extends Component {
   }
 
   runWasmFunction = () => {
+    // If we've switched to backend mode, use backend instead
+    if (this.state.useBackend) {
+      this.runBackendFunction();
+      return;
+    }
+    
     if (!this.wasmWorker) {
       console.error('Error: wasm worker not initialized.');
       return;
@@ -84,19 +98,54 @@ class MyChess extends Component {
     this.wasmWorker.postMessage({ type: 'runWasm', moves });
   };
 
+  runBackendFunction = async (wasmErrorWasOverflow = false) => {
+    const { moves } = this.state;
+    
+    try {
+      const response = await fetch('https://flame-picks-production-api.onrender.com/data/chess/move', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ moves }),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Backend request failed: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      // Backend should return {result: "..."}
+      if (data.result) {
+        this.handleWasmResult(data.result, false);
+      } else {
+        throw new Error('Invalid backend response');
+      }
+    } catch (error) {
+      console.error('Backend error:', error);
+      // Both WASM and backend failed - show error message
+      const errorMessage = wasmErrorWasOverflow 
+        ? "My bot is having trouble thinking clearly on your device! Try playing on desktop!"
+        : "I guess your aura is too strong...";
+      
+      this.appendDialogue('I resign!');
+      this.setState({ 
+        showOverflowError: true,
+        errorMessage: errorMessage,
+        robotEmotion: 'loss'
+      });
+    }
+  };
+
   handleWasmResult = (result, isOverflowError = false) => {
     if (typeof result !== 'string' || !result.trim()) {
       this.appendDialogue('Error: Invalid result from WASM worker.');
       return;
     }
     
-    // Show appropriate error message based on error type
-    if (isOverflowError) {
-      this.setState({ 
-        showOverflowError: true,
-        errorMessage: "My bot is having trouble thinking clearly on your device! Try playing on desktop!"
-      });
-    }
+    // Note: Don't show error message here - if WASM had an error, we've already
+    // switched to backend. This function processes successful responses from either source.
     const lines = result.trim().split('\n');
     
     // Extract emotion from the first line
