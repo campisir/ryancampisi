@@ -1,5 +1,7 @@
 // Import all trophy cards
+import { SplitFictionCard } from './cards/SplitFiction';
 import { FF7RebirthCard } from './cards/FF7Rebirth';
+import { ClairObscurExpedition33Card } from './cards/ClairObscurExpedition33';
 import { LiSDoubleExposureCard } from './cards/LiSDoubleExposure';
 import { FF7RemakeCard } from './cards/FF7Remake';
 import { CodBlackOpsColdWarCard } from './cards/CodBlackOpsColdWar';
@@ -26,6 +28,8 @@ import { Persona3ReloadCard } from './cards/Persona3Reload';
 
 export const getTrophyCards = (state, setState) => {
   const cards = [
+    SplitFictionCard(),
+    ClairObscurExpedition33Card(),
     FF7RebirthCard(state, setState),
     LiSDoubleExposureCard(state, setState),
     FF7RemakeCard(),
@@ -65,6 +69,8 @@ function extractCompletedDate(card) {
 
 // Export individual cards if needed elsewhere
 export {
+  SplitFictionCard,
+  ClairObscurExpedition33Card,
   FF7RebirthCard,
   LiSDoubleExposureCard,
   FF7RemakeCard,
