@@ -89,7 +89,13 @@ class Japan2023 extends Component {
     });
   }
 
-  /* ── scroll helper ── */
+  /* ── scroll helpers ── */
+  scrollDateBar = (dir) => {
+    const bar = this.dateBarRef.current;
+    if (!bar) return;
+    bar.scrollBy({ left: dir * 260, behavior: 'smooth' });
+  }
+
   scrollDateIntoView = (dateStr) => {
     const ref = this.dateRefs[dateStr];
     const bar = this.dateBarRef.current;
@@ -202,6 +208,14 @@ class Japan2023 extends Component {
           </svg>
         </button>
 
+        <button
+          className="jp-datebar-arrow"
+          onClick={() => this.scrollDateBar(-1)}
+          aria-label="Scroll dates left"
+        >
+          &#10094;
+        </button>
+
         <div className="jp-datebar" ref={this.dateBarRef}>
           {order.map(key => (
             <React.Fragment key={key}>
@@ -227,6 +241,14 @@ class Japan2023 extends Component {
             </React.Fragment>
           ))}
         </div>
+
+        <button
+          className="jp-datebar-arrow"
+          onClick={() => this.scrollDateBar(1)}
+          aria-label="Scroll dates right"
+        >
+          &#10095;
+        </button>
       </div>
     );
   }

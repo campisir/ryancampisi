@@ -175,6 +175,32 @@
   background: var(--jp-red-dim);
 }
 
+.jp-datebar-arrow {
+  flex-shrink: 0;
+  width: 36px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-right: 1px solid var(--jp-border);
+  color: var(--jp-text);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.18s, background 0.18s;
+  user-select: none;
+}
+.jp-datebar-arrow:last-child {
+  border-right: none;
+  border-left: 1px solid var(--jp-border);
+}
+.jp-datebar-arrow:hover {
+  color: var(--jp-red);
+  background: var(--jp-red-dim);
+}
+
 .jp-datebar {
   display: flex;
   align-items: center;
