@@ -6,6 +6,7 @@ import '../src/Components/Portfolio.css';
 import '../src/Components/Resume.css';
 import '../src/Components/Travel.css';
 import '../src/Components/Trophies.css';
+import '../src/Components/Japan2023.css';
 import Script from 'next/script';
 
 function MyApp({ Component, pageProps }) {

@@ -21,14 +21,14 @@ const countryDetails = {
   },
   "Japan": {
     name: "Japan",
-    description: "I studied abroad here during the Summer 2023 semester. Don't ask me to speak Japanese, though.",
+    description: "I studied abroad here during the Summer 2023 semester.",
     dateVisited: "May 31, 2023",
     photo: "images/japan_photo.jpg",
     caption: "A funny souvenir image I got from a maid cafe in Kyoto."
   },
   "Italy": {
     name: "Italy",
-    description: "I visited here as part of a cruise I took in 2024. Surprisingly, this trip was unrelated from my Italian heritage.",
+    description: "I visited here as part of a cruise I took in 2024.",
     dateVisited: "June 21, 2024",
     photo: "images/italy_photo.png",
     caption: "By pure coincidence, I got to see the Tour De France come through Bologna."
@@ -70,18 +70,39 @@ const countryDetails = {
   },
   "Dominican Rep.": {
     name: "Dominican Republic",
-    description: "I visited here as part of a cruise I took in 2025.",
+    description: "I visited here twice, as part of cruises I took in 2025 and 2026.",
     dateVisited: "June 21, 2025",
     photo: "images/dominican_republic_photo.PNG",
     caption: "Some squirrel monkeys and I in the Dominican Republic."
   },
   "Puerto Rico": {
     name: "Puerto Rico",
-    description: "I visited here as part of a cruise I took in 2025.",
+    description: "I have visited San Juan multiple times as part of cruises I took in 2025 and 2026.",
     dateVisited: "June 20, 2025",
     photo: "images/puerto_rico_photo.jpg",
     caption: "My brothers and I at the San Juan National Historic Site (I'm on the right)."
-  }
+  },
+  "U.S. Virgin Is.": {
+    name: "U.S. Virgin Islands",
+    description: "I visited here as part of a cruise I took in 2026. I went to St. Thomas, St. John, and St. Croix.",
+    dateVisited: "July 12, 2026",
+    photo: "images/us_virgin_islands_photo.jpg",
+    caption: "tbd."
+  },
+  "St-Martin": {
+    name: "St. Martin",
+    description: "I visited here as part of a cruise I took in 2026.",
+    dateVisited: "July 14, 2026",
+    photo: "images/st_martin_photo.jpg",
+    caption: "tbd."
+  },
+  "Antigua and Barb.": {
+    name: "Antigua and Barbuda",
+    description: "I visited Antigua as part of a cruise I took in 2026. I will visit Barbuda some day.",
+    dateVisited: "July 15, 2026",
+    photo: "images/antigua_and_barbuda_photo.jpg",
+    caption: "tbd."
+  },
 };
 
 const clickableCountries = [
@@ -95,7 +116,10 @@ const clickableCountries = [
   "Croatia",
   "Bahamas",
   "Dominican Rep.",
-  "Puerto Rico"
+  "Puerto Rico",
+  "U.S. Virgin Is.",
+  "St-Martin",
+  "Antigua and Barb."
 ];
 
 class Travel extends Component {
@@ -244,7 +268,10 @@ closePopup = () => {
       "Croatia": "#90EE90",
       "Bahamas": "#90EE90",
       "Dominican Rep.": "#90EE90",
-      "Puerto Rico": "#90EE90"
+      "Puerto Rico": "#90EE90",
+      "U.S. Virgin Is.": "#90EE90",
+      "St-Martin": "#90EE90",
+      "Antigua and Barb.": "#90EE90"
     };
     return countryColors[countryName] || "#D6D6DA";
   };
