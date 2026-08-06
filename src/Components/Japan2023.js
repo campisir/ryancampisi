@@ -296,24 +296,43 @@ class Japan2023 extends Component {
      TAB: INFO
      ══════════════════════════════════════════════════════════ */
   renderInfoTab() {
+    const cities = [
+      { name: 'Kyoto',     sub: 'Home base · full 63 days'       },
+      { name: 'Osaka',     sub: 'Day & night trips · many times' },
+      { name: 'Kobe',      sub: 'Day trips · a few times'        },
+      { name: 'Tokyo',     sub: 'Backpacking · ~1 week'          },
+      { name: 'Hiroshima', sub: 'Overnight trip · 2 days'        },
+      { name: 'Shizuoka',  sub: 'Day trip'                       },
+    ];
+
     return (
       <div className="jp-content jp-info">
 
         {/* Hero card */}
         <div className="jp-info-hero-card">
           <div className="jp-info-hero-card-left">
-            <div className="jp-info-badge">Study Abroad</div>
+            <div className="jp-info-badge">UF Study Abroad · Cohort #2</div>
             <h2 className="jp-info-title">Japan Summer 2023</h2>
             <p className="jp-info-lead">
-              A 63-day immersive study abroad program through the University of Florida,
-              spent exploring Japan while taking courses in Python programming
-              and cross-cultural engineering.
+              A 63-day study abroad program in Kyoto, Japan through the University of
+              Florida&#39;s <em>UF in Japan Design</em> initiative. As part of the second
+              cohort, I spent the summer taking two computer engineering electives alongside
+              roughly 30 fellow students — with a constant emphasis on exploring Japan
+              independently beyond the classroom.
             </p>
             <div className="jp-info-dates-row">
               <span className="jp-info-date-chip">May 31, 2023</span>
               <span className="jp-info-date-arrow">&#8594;</span>
               <span className="jp-info-date-chip">August 1, 2023</span>
             </div>
+            <a
+              href="https://cpe.eng.ufl.edu/uf-in-japan-design/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="jp-info-ext-link"
+            >
+              Program Website &#8599;
+            </a>
           </div>
           <div className="jp-info-hero-card-right">
             <div className="jp-info-map-placeholder">Map or hero photo</div>
@@ -323,16 +342,66 @@ class Japan2023 extends Component {
         {/* Stats */}
         <div className="jp-stats-row">
           {[
-            { value: '63',   label: 'Days'                },
-            { value: '2',    label: 'Courses'             },
-            { value: 'UF',   label: 'University of Florida' },
-            { value: '?',    label: 'Cities Visited'      },
+            { value: '63',  label: 'Days Abroad'  },
+            { value: '6',   label: 'Credit Hours' },
+            { value: '#2',  label: 'Cohort'        },
+            { value: '6',   label: 'Destinations' },
           ].map(s => (
             <div key={s.label} className="jp-stat-card">
               <span className="jp-stat-value">{s.value}</span>
               <span className="jp-stat-label">{s.label}</span>
             </div>
           ))}
+        </div>
+
+        {/* Why I Did It + The Program */}
+        <div className="jp-courses-row">
+          <div className="jp-section-block" style={{ marginBottom: 0 }}>
+            <h3 className="jp-section-block-title">Why I Did It</h3>
+            <p className="jp-info-prose">
+              Going into my third year at UF, I was majoring in Computer Science and
+              Mathematics and needed two more elective credits to complete my CS degree.
+              This program was a perfect fit on every level.
+            </p>
+            <p className="jp-info-prose">
+              It covered exactly the credits I needed, my financial aid fully covered the
+              cost of the trip, and — most importantly — it let me check off a goal I had
+              set before I even started college: do a study abroad at some point. Japan
+              had always been at the top of my list.
+            </p>
+            <p className="jp-info-prose">
+              I graduated in May 2024, so this was the summer going into my final year.
+            </p>
+          </div>
+
+          <div className="jp-section-block" style={{ marginBottom: 0 }}>
+            <h3 className="jp-section-block-title">The Program</h3>
+            <p className="jp-info-prose">
+              The{' '}
+              <a
+                href="https://cpe.eng.ufl.edu/uf-in-japan-design/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="jp-info-inline-link"
+              >
+                UF in Japan Design
+              </a>{' '}
+              program is based in Kyoto and is still active and growing — it has since
+              expanded to offer Fall and Spring cohorts beyond the original summer-only
+              format. Our group of roughly 30 students was the second cohort.
+            </p>
+            <p className="jp-info-prose">
+              Originally we were set to partner with Kyoto University for classroom space,
+              but those arrangements didn&#39;t come through for our cycle. We visited
+              Kyoto University as a field trip instead; other cohorts have had the
+              full partnership.
+            </p>
+            <p className="jp-info-prose">
+              A major theme from the instructor was independent exploration — he actively
+              encouraged everyone to travel and experience as much of Japan as possible
+              on their own outside of class.
+            </p>
+          </div>
         </div>
 
         {/* Courses */}
@@ -346,17 +415,23 @@ class Japan2023 extends Component {
               </svg>
             </div>
             <div className="jp-course-body">
-              <h3 className="jp-course-title">Python Programming</h3>
+              <span className="jp-course-code">CEN4930</span>
+              <h3 className="jp-course-title">
+                Performant Python Programming
+                <span className="jp-course-credits">3 cr</span>
+              </h3>
               <p className="jp-course-desc">
-                Covered Python fundamentals through to applied project development.
-                Final project was WeatherViz, a weather data visualization tool built
-                with a small group.
+                Covered Python from fundamentals through performance-focused techniques
+                and applied project development. This class started online a few weeks
+                before we flew to Japan. The final project was WeatherViz, a weather
+                data visualization tool built collaboratively with a small group.
               </p>
               <div className="jp-course-tags">
                 <span className="jp-tag">Python</span>
                 <span className="jp-tag">Programming</span>
                 <span className="jp-tag">WeatherViz</span>
               </div>
+              <p className="jp-course-location">Held in a classroom in a private building in Kyoto.</p>
             </div>
           </div>
 
@@ -370,34 +445,61 @@ class Japan2023 extends Component {
               </svg>
             </div>
             <div className="jp-course-body">
-              <h3 className="jp-course-title">Cross Cultural Engineering</h3>
+              <span className="jp-course-code">CEN4930</span>
+              <h3 className="jp-course-title">
+                Cross Cultural Design
+                <span className="jp-course-credits">3 cr</span>
+              </h3>
               <p className="jp-course-desc">
-                Explored how engineering practices, professional norms, and design
-                philosophies differ across cultures, with a focus on Japanese
-                industry and workplace culture.
+                Explored how engineering practices, design philosophies, and professional
+                norms differ across cultures, with a strong focus on Japan. CEN4930 is
+                the designated course code at UF for computer engineering electives.
               </p>
               <div className="jp-course-tags">
                 <span className="jp-tag">Engineering</span>
                 <span className="jp-tag">Culture</span>
+                <span className="jp-tag">Design</span>
                 <span className="jp-tag">Japan</span>
               </div>
+              <p className="jp-course-location">
+                Held outdoors next to the Kamo River — we sat in the grass while the
+                instructor used a karaoke-style mic setup to be heard over the cicadas.
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Cities placeholder */}
+        {/* Grade callout */}
+        <div className="jp-info-grade-callout">
+          <span className="jp-grade-a">A</span>
+          <span className="jp-grade-plus">+</span>
+          <span className="jp-grade-a">A</span>
+          <span className="jp-grade-label">Finished both courses with an A.</span>
+        </div>
+
+        {/* Cities */}
         <div className="jp-section-block">
-          <h3 className="jp-section-block-title">Cities &amp; Regions</h3>
-          <p className="jp-placeholder-note">Add cities visited — photos, dates, quick descriptions.</p>
+          <h3 className="jp-section-block-title">Cities &amp; Destinations</h3>
+          <p className="jp-placeholder-note">Photos coming — add one per city when ready.</p>
           <div className="jp-city-grid">
-            {['Tokyo', 'Kyoto', 'Osaka'].map(city => (
-              <div key={city} className="jp-city-card">
+            {cities.map(city => (
+              <div key={city.name} className="jp-city-card">
                 <div className="jp-city-image-placeholder" />
-                <span className="jp-city-name">{city}</span>
+                <span className="jp-city-name">{city.name}</span>
+                <span className="jp-city-sub">{city.sub}</span>
               </div>
             ))}
-            <div className="jp-city-card add-more"><span>+ Add More</span></div>
           </div>
+        </div>
+
+        {/* Page footnote */}
+        <div className="jp-info-footnote">
+          <span className="jp-info-footnote-icon">&#9998;</span>
+          <p>
+            This page was built in late 2026 — over three years after the trip. Most of
+            the detail across the site comes from notes I kept in my phone every day I
+            was there, along with photos and videos from the trip.
+          </p>
         </div>
 
       </div>

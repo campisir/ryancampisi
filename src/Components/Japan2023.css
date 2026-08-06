@@ -564,6 +564,146 @@
   border: 1px dashed rgba(255,255,255,0.1);
   background: none;
 }
+.jp-city-sub {
+  display: block;
+  padding: 0 10px 9px;
+  font-size: 10px;
+  color: var(--jp-text-dim);
+  font-style: italic;
+  line-height: 1.35;
+}
+
+/* Info tab extras */
+.jp-info-ext-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border-radius: 7px;
+  border: 1px solid var(--jp-border);
+  background: var(--jp-surface-2);
+  color: var(--jp-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.18s;
+  margin-top: 16px;
+}
+.jp-info-ext-link:hover {
+  border-color: var(--jp-gold-border);
+  color: var(--jp-gold);
+}
+
+.jp-info-inline-link {
+  color: var(--jp-gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(200,168,76,0.3);
+  transition: border-color 0.15s;
+}
+.jp-info-inline-link:hover { border-color: var(--jp-gold); }
+
+.jp-info-prose {
+  font-size: 14px;
+  color: var(--jp-text-muted);
+  line-height: 1.72;
+  margin: 0 0 11px;
+}
+.jp-info-prose:last-child { margin-bottom: 0; }
+
+.jp-course-code {
+  display: block;
+  font-size: 11px;
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  font-weight: 700;
+  color: var(--jp-gold);
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+.jp-course-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--jp-text);
+  margin: 0 0 8px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.jp-course-credits {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--jp-gold-dim);
+  border: 1px solid var(--jp-gold-border);
+  color: var(--jp-gold);
+}
+.jp-course-location {
+  font-size: 12px;
+  color: var(--jp-text-dim);
+  font-style: italic;
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--jp-border);
+  line-height: 1.55;
+}
+
+.jp-info-grade-callout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(200,168,76,0.07);
+  border: 1px solid var(--jp-gold-border);
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-bottom: 28px;
+}
+.jp-grade-a {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--jp-gold);
+  line-height: 1;
+}
+.jp-grade-plus {
+  font-size: 18px;
+  color: rgba(200,168,76,0.5);
+  font-weight: 700;
+}
+.jp-grade-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--jp-gold);
+  margin-left: 4px;
+  opacity: 0.85;
+}
+
+.jp-info-footnote {
+  background: var(--jp-surface);
+  border: 1px solid var(--jp-border);
+  border-radius: 10px;
+  padding: 16px 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.jp-info-footnote-icon {
+  flex-shrink: 0;
+  font-size: 16px;
+  opacity: 0.3;
+  margin-top: 2px;
+}
+.jp-info-footnote p {
+  font-size: 13px;
+  color: var(--jp-text-dim);
+  line-height: 1.65;
+  margin: 0;
+  font-style: italic;
+}
 
 /* =====================================================
    Highlights Tab
