@@ -1,5 +1,5 @@
 /* =====================================================
-   Japan 2023 — Page-scoped CSS variables & base
+   Japan 2023 - Page-scoped CSS variables & base
    ===================================================== */
 .jp-page {
   --jp-bg:           #0d0d1a;
@@ -163,8 +163,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  padding: 0;
   background: none;
   border: none;
+  border-radius: 0;
   border-right: 1px solid var(--jp-border);
   color: var(--jp-text-muted);
   cursor: pointer;
@@ -182,11 +185,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  padding: 0;
   background: none;
   border: none;
+  border-radius: 0;
   border-right: 1px solid var(--jp-border);
   color: var(--jp-text);
   font-size: 20px;
+  font-family: inherit;
   line-height: 1;
   cursor: pointer;
   transition: color 0.18s, background 0.18s;
@@ -236,6 +243,7 @@
   flex-direction: column;
   align-items: center;
   gap: 1px;
+  margin: 0;
   padding: 6px 7px 5px;
   border-radius: 7px;
   border: 1px solid transparent;
@@ -245,6 +253,7 @@
   transition: all 0.15s ease;
   min-width: 38px;
   line-height: 1;
+  font-family: inherit;
 }
 .jp-date-cell:hover {
   background: var(--jp-surface);
@@ -274,17 +283,21 @@
 }
 
 .jp-tab {
+  margin: 0;
   padding: 11px 20px;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.5px;
   background: none;
   border: none;
+  border-radius: 0;
   color: var(--jp-text-muted);
   cursor: pointer;
   position: relative;
   transition: color 0.18s;
   white-space: nowrap;
+  font-family: inherit;
+  line-height: 1;
 }
 .jp-tab::after {
   content: '';
@@ -966,6 +979,14 @@
 
 .jp-team-list { display: flex; flex-direction: column; gap: 10px; }
 .jp-team-member { display: flex; align-items: center; gap: 12px; }
+.jp-team-clickable {
+  text-decoration: none;
+  padding: 6px 8px;
+  margin: 0 -8px;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+.jp-team-clickable:hover { background: var(--jp-surface-2); }
 .jp-member-avatar {
   width: 36px;
   height: 36px;
@@ -977,7 +998,12 @@
   background: var(--jp-surface-2);
   border: 1px dashed rgba(255,255,255,0.12);
 }
-.jp-member-name { font-size: 14px; color: var(--jp-text); font-weight: 500; }
+.jp-member-avatar-img {
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.jp-member-name { font-size: 14px; color: var(--jp-text); font-weight: 500; display: block; }
+.jp-member-gh   { font-size: 11px; color: var(--jp-text-dim); display: block; margin-top: 1px; }
 
 .jp-features-grid {
   display: grid;
@@ -992,6 +1018,15 @@
   transition: border-color 0.2s;
 }
 .jp-feature-card:hover { border-color: var(--jp-blue-border); }
+.jp-feature-category {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--jp-blue);
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
 .jp-feature-icon-placeholder {
   width: 34px;
   height: 34px;
@@ -1221,6 +1256,8 @@
   border-radius: 16px;
   padding: 22px;
   width: 310px;
+  max-width: calc(100vw - 32px); /* never overflow viewport */
+  box-sizing: border-box;
   box-shadow: 0 24px 64px rgba(0,0,0,0.7);
   animation: jp-fade-in 0.15s ease;
 }
@@ -1278,8 +1315,9 @@
   gap: 2px;
 }
 .jp-cal-cell {
-  aspect-ratio: 1;
-  border-radius: 7px;
+  height: 36px;          /* fixed height; aspect-ratio is unreliable in grids on mobile */
+  min-width: 0;          /* prevent grid column blowout */
+  border-radius: 6px;
   border: none;
   background: none;
   font-size: 13px;
@@ -1292,6 +1330,7 @@
   gap: 1px;
   transition: background 0.13s;
   padding: 0;
+  box-sizing: border-box;
 }
 .jp-cal-cell.empty   { pointer-events: none; }
 .jp-cal-cell.out-of-trip {
@@ -1333,12 +1372,15 @@
 /* =====================================================
    Responsive
    ===================================================== */
+
+/* ── Tablets (960px) ────────────────────────────── */
 @media (max-width: 960px) {
-  .jp-hero        { padding: 60px 28px 80px; }
-  .jp-content     { padding: 36px 28px; }
-  .jp-tabs        { padding: 0 20px; }
-  .jp-hero-back   { left: 28px; }
-  .jp-hero-sun    { display: none; }
+  .jp-hero      { padding: 56px 24px 72px; }
+  .jp-hero-back { left: 24px; }
+  .jp-hero-sun  { display: none; }
+  .jp-content   { padding: 32px 24px; }
+  .jp-tabs      { padding: 0 16px; }
+
   .jp-info-hero-card        { grid-template-columns: 1fr; }
   .jp-info-hero-card-right  { display: none; }
   .jp-stats-row             { grid-template-columns: repeat(2, 1fr); }
@@ -1352,9 +1394,83 @@
   .jp-day-body              { grid-template-columns: 1fr; }
 }
 
+/* ── Phones (600px) ─────────────────────────────── */
 @media (max-width: 600px) {
-  .jp-highlights-grid { grid-template-columns: 1fr; }
-  .jp-food-grid       { grid-template-columns: repeat(2, 1fr); }
-  .jp-day-photo-grid  { grid-template-columns: repeat(2, 1fr); }
-  .jp-hero-title      { letter-spacing: -1px; }
+  .jp-hero      { padding: 48px 18px 56px; }
+  .jp-hero-back { left: 18px; top: 14px; font-size: 11px; }
+  .jp-hero-title {
+    font-size: clamp(40px, 11vw, 56px);
+    letter-spacing: -1px;
+  }
+  .jp-hero-subtitle { font-size: 14px; }
+  .jp-hero-meta-item { font-size: 12px; }
+  .jp-content { padding: 24px 18px; }
+
+  /* Date bar: hide scrollbar on mobile; arrows are enough */
+  .jp-datebar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .jp-datebar::-webkit-scrollbar { display: none; }
+
+  /* Tab bar: compact on mobile */
+  .jp-tabs {
+    padding: 0 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .jp-tabs::-webkit-scrollbar { display: none; }
+  .jp-tab { padding: 8px 14px; font-size: 11px; white-space: nowrap; }
+  .jp-tab::after { left: 14px; right: 14px; }
+
+  /* Date bar: compact on mobile; all children same explicit height */
+  .jp-calendar-btn  { width: 42px; height: 42px; }
+
+  .jp-datebar-arrow { width: 28px; height: 42px; font-size: 16px; }
+  .jp-datebar       { padding: 0 6px; }
+  .jp-date-cell     { min-width: 30px; padding: 2px 3px; }
+  .jp-date-cell-num { font-size: 12px; }
+  .jp-date-cell-day,
+  .jp-date-cell-dayn { font-size: 8px; }
+
+  /* Calendar: reduce padding so cells have more room on narrow phones */
+  .jp-calendar-modal  { padding: 14px; }
+  .jp-cal-cell        { font-size: 12px; }
+  .jp-cal-day-num     { display: none; }
+  .jp-cal-month-label { font-size: 14px; }
+
+  /* Info tab */
+  .jp-info-hero-card { padding: 24px 18px; }
+  .jp-info-title     { font-size: 26px; }
+  .jp-info-lead      { font-size: 14px; }
+  .jp-info-dates-row { flex-wrap: wrap; gap: 8px; }
+  .jp-stat-value     { font-size: 28px; }
+  .jp-section-block  { padding: 20px 16px; }
+  .jp-course-card    { flex-direction: column; }
+  .jp-city-grid      { grid-template-columns: repeat(2, 1fr); }
+
+  /* Highlights */
+  .jp-highlights-grid             { grid-template-columns: 1fr; }
+  .jp-highlight-image-placeholder { height: 160px; }
+
+  /* WeatherViz */
+  .jp-wv-hero  { padding: 24px 20px; }
+  .jp-wv-title { font-size: 30px; }
+  .jp-wv-links { flex-wrap: wrap; }
+
+  /* Day view */
+  .jp-day-header { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .jp-day-date   { font-size: 22px; }
+  .jp-day-close  { align-self: flex-start; }
+  .jp-day-photo-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Small phones (400px) ───────────────────────── */
+@media (max-width: 400px) {
+  .jp-hero-title  { font-size: 40px; }
+  .jp-food-grid   { grid-template-columns: 1fr; }
+  .jp-content     { padding: 20px 14px; }
+  .jp-calendar-modal { padding: 12px 10px; }
+  .jp-cal-cell    { font-size: 11px; }
 }

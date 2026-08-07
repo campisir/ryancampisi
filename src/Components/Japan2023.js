@@ -44,7 +44,7 @@ class Japan2023 extends Component {
       activeTab:     'info',
       activeDate:    null,   // { date, dayNum, dateStr } | null
       showCalendar:  false,
-      calMonth:      5,      // June (0-indexed) — initial calendar view
+      calMonth:      5,      // June (0-indexed), initial calendar view
       calYear:       2023,
     };
     this.dateBarRef = React.createRef();
@@ -106,7 +106,7 @@ class Japan2023 extends Component {
   }
 
   /* ══════════════════════════════════════════════════════════
-     RENDER — CALENDAR WIDGET
+     RENDER: CALENDAR WIDGET
      ══════════════════════════════════════════════════════════ */
   renderCalendar() {
     const { showCalendar, calMonth, calYear, activeDate } = this.state;
@@ -173,7 +173,7 @@ class Japan2023 extends Component {
   }
 
   /* ══════════════════════════════════════════════════════════
-     RENDER — DATE BAR
+     RENDER: DATE BAR
      ══════════════════════════════════════════════════════════ */
   renderDateBar() {
     const { activeDate } = this.state;
@@ -198,9 +198,10 @@ class Japan2023 extends Component {
           title="Open calendar"
           aria-label="Jump to date"
         >
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" strokeWidth="2"
-            strokeLinecap="round" strokeLinejoin="round">
+            strokeLinecap="round" strokeLinejoin="round"
+            style={{ flexShrink: 0 }}>
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
             <line x1="16" y1="2" x2="16" y2="6"/>
             <line x1="8"  y1="2" x2="8"  y2="6"/>
@@ -254,7 +255,7 @@ class Japan2023 extends Component {
   }
 
   /* ══════════════════════════════════════════════════════════
-     RENDER — TAB BAR
+     RENDER: TAB BAR
      ══════════════════════════════════════════════════════════ */
   renderTabs() {
     const { activeTab, activeDate } = this.state;
@@ -278,7 +279,7 @@ class Japan2023 extends Component {
   }
 
   /* ══════════════════════════════════════════════════════════
-     RENDER — CONTENT ROUTER
+     RENDER: CONTENT ROUTER
      ══════════════════════════════════════════════════════════ */
   renderContent() {
     const { activeDate, activeTab } = this.state;
@@ -317,7 +318,7 @@ class Japan2023 extends Component {
               A 63-day study abroad program in Kyoto, Japan through the University of
               Florida&#39;s <em>UF in Japan Design</em> initiative. As part of the second
               cohort, I spent the summer taking two computer engineering electives alongside
-              roughly 30 fellow students — with a constant emphasis on exploring Japan
+              roughly 30 fellow students, with a constant emphasis on exploring Japan
               independently beyond the classroom.
             </p>
             <div className="jp-info-dates-row">
@@ -365,7 +366,7 @@ class Japan2023 extends Component {
             </p>
             <p className="jp-info-prose">
               It covered exactly the credits I needed, my financial aid fully covered the
-              cost of the trip, and — most importantly — it let me check off a goal I had
+              cost of the trip, and most importantly, it let me check off a goal I had
               set before I even started college: do a study abroad at some point. Japan
               had always been at the top of my list.
             </p>
@@ -386,7 +387,7 @@ class Japan2023 extends Component {
               >
                 UF in Japan Design
               </a>{' '}
-              program is based in Kyoto and is still active and growing — it has since
+              program is based in Kyoto and is still active and growing. It has since
               expanded to offer Fall and Spring cohorts beyond the original summer-only
               format. Our group of roughly 30 students was the second cohort.
             </p>
@@ -397,7 +398,7 @@ class Japan2023 extends Component {
               full partnership.
             </p>
             <p className="jp-info-prose">
-              A major theme from the instructor was independent exploration — he actively
+              A major theme from the instructor was independent exploration. He actively
               encouraged everyone to travel and experience as much of Japan as possible
               on their own outside of class.
             </p>
@@ -462,7 +463,7 @@ class Japan2023 extends Component {
                 <span className="jp-tag">Japan</span>
               </div>
               <p className="jp-course-location">
-                Held outdoors next to the Kamo River — we sat in the grass while the
+                Held outdoors next to the Kamo River. We sat in the grass while the
                 instructor used a karaoke-style mic setup to be heard over the cicadas.
               </p>
             </div>
@@ -480,7 +481,7 @@ class Japan2023 extends Component {
         {/* Cities */}
         <div className="jp-section-block">
           <h3 className="jp-section-block-title">Cities &amp; Destinations</h3>
-          <p className="jp-placeholder-note">Photos coming — add one per city when ready.</p>
+          <p className="jp-placeholder-note">Photos coming. Add one per city when ready.</p>
           <div className="jp-city-grid">
             {cities.map(city => (
               <div key={city.name} className="jp-city-card">
@@ -496,7 +497,7 @@ class Japan2023 extends Component {
         <div className="jp-info-footnote">
           <span className="jp-info-footnote-icon">&#9998;</span>
           <p>
-            This page was built in late 2026 — over three years after the trip. Most of
+            This page was built in late 2026, over three years after the trip. Most of
             the detail across the site comes from notes I kept in my phone every day I
             was there, along with photos and videos from the trip.
           </p>
@@ -516,7 +517,7 @@ class Japan2023 extends Component {
         <div className="jp-section-header">
           <h2 className="jp-section-heading">Trip Highlights</h2>
           <p className="jp-section-subheading">
-            A curated collection of the best experiences from the trip — the moments
+            A curated collection of the best experiences from the trip, the moments
             that stood out the most.
           </p>
         </div>
@@ -589,6 +590,34 @@ class Japan2023 extends Component {
      TAB: WEATHERVIZ
      ══════════════════════════════════════════════════════════ */
   renderWeatherVizTab() {
+    const team = [
+      {
+        name: 'Ryan Campisi',
+        github: 'campisir',
+        avatar: 'https://avatars.githubusercontent.com/u/68626778?s=80',
+      },
+      {
+        name: 'Nancy Lucy',
+        github: 'nancylucy01',
+        avatar: 'https://avatars.githubusercontent.com/u/16230296?s=80',
+      },
+      {
+        name: 'Aidan Winney',
+        github: 'aidan-winney',
+        avatar: 'https://avatars.githubusercontent.com/u/104330835?s=80',
+      },
+      {
+        name: 'Matthew Darrow',
+        github: 'zCriminalArtist',
+        avatar: 'https://avatars.githubusercontent.com/u/73550679?s=80',
+      },
+      {
+        name: 'Nic Butakow',
+        github: 'butakow',
+        avatar: 'https://avatars.githubusercontent.com/u/15271479?s=80',
+      },
+    ];
+
     return (
       <div className="jp-content jp-weatherviz">
 
@@ -598,13 +627,23 @@ class Japan2023 extends Component {
             <div className="jp-wv-badge">Python Class Project · Summer 2023</div>
             <h2 className="jp-wv-title">WeatherViz</h2>
             <p className="jp-wv-subtitle">
-              A weather data visualization tool built as the final project for the
-              Python Programming course during the UF study abroad program in Japan.
-              Developed collaboratively with a small group.
+              A desktop application for displaying historical weather data on an
+              interactive map with heatmap interpolation and smooth timelapse playback.
+              Built as the final project for the Performant Python Programming course
+              during the UF study abroad program in Japan.
             </p>
             <div className="jp-wv-links">
-              <a href="#" className="jp-wv-link primary">GitHub</a>
-              <a href="#" className="jp-wv-link secondary">Live Demo</a>
+              <a
+                href="https://github.com/aidan-winney/WeatherViz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="jp-wv-link primary"
+              >
+                GitHub
+              </a>
+              <span className="jp-wv-link secondary" style={{ opacity: 0.45, cursor: 'default' }}>
+                Live Demo (coming soon)
+              </span>
             </div>
           </div>
           <div className="jp-wv-hero-visual">
@@ -614,12 +653,24 @@ class Japan2023 extends Component {
 
         <div className="jp-wv-body">
 
-          {/* Description */}
+          {/* About */}
           <div className="jp-wv-section">
             <h3 className="jp-wv-section-title">About the Project</h3>
             <p className="jp-wv-desc">
-              Add a full description of WeatherViz here — what it does, what data it uses,
-              how it works, and what you personally contributed to the project.
+              WeatherViz is a desktop application that lets users query historical weather
+              data (temperature, precipitation, wind) for any region and time frame, then
+              renders the results as an animated heatmap overlay on a map. The application
+              queries the Open-Meteo API for gridded weather data, caches results in a local
+              SQLite database, and renders smooth interpolated heatmaps using a Rust backend
+              that communicates with the Python frontend via PyO3.
+            </p>
+            <p className="jp-wv-desc">
+              A key constraint of the course was that <strong>no JavaScript was to be
+              used</strong>. The entire UI is built with PySide2 (Qt5), and all
+              performance-critical rendering is done in Rust compiled as a native Python
+              extension module. The map is rendered via folium with a custom overlay
+              system, and playback is controlled through a custom date range slider
+              with adjustable speed (1x through 8x).
             </p>
           </div>
 
@@ -628,7 +679,18 @@ class Japan2023 extends Component {
             <div className="jp-wv-section">
               <h3 className="jp-wv-section-title">Tech Stack</h3>
               <div className="jp-tech-list">
-                {['Python', 'matplotlib', 'pandas', 'Add more...'].map(t => (
+                {[
+                  'Python 3.8',
+                  'Rust (PyO3)',
+                  'PySide2 (Qt5)',
+                  'Raqote (Rust)',
+                  'ndarray (Rust)',
+                  'SQLite',
+                  'Open-Meteo API',
+                  'folium',
+                  'Pillow',
+                  'reqwest (Rust)',
+                ].map(t => (
                   <span key={t} className="jp-tech-badge">{t}</span>
                 ))}
               </div>
@@ -636,18 +698,27 @@ class Japan2023 extends Component {
             <div className="jp-wv-section">
               <h3 className="jp-wv-section-title">Team</h3>
               <div className="jp-team-list">
-                <div className="jp-team-member">
-                  <div className="jp-member-avatar" />
-                  <span className="jp-member-name">Ryan Campisi</span>
-                </div>
-                <div className="jp-team-member">
-                  <div className="jp-member-avatar placeholder" />
-                  <span className="jp-member-name">Add Teammate</span>
-                </div>
-                <div className="jp-team-member">
-                  <div className="jp-member-avatar placeholder" />
-                  <span className="jp-member-name">Add Teammate</span>
-                </div>
+                {team.map(member => (
+                  <a
+                    key={member.github}
+                    href={`https://github.com/${member.github}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="jp-team-member jp-team-clickable"
+                  >
+                    <img
+                      src={member.avatar}
+                      alt={member.name}
+                      className="jp-member-avatar-img"
+                      width="36"
+                      height="36"
+                    />
+                    <div>
+                      <span className="jp-member-name">{member.name}</span>
+                      <span className="jp-member-gh">@{member.github}</span>
+                    </div>
+                  </a>
+                ))}
               </div>
             </div>
           </div>
@@ -656,13 +727,60 @@ class Japan2023 extends Component {
           <div className="jp-wv-section">
             <h3 className="jp-wv-section-title">Key Features</h3>
             <div className="jp-features-grid">
-              {['Feature 1', 'Feature 2', 'Feature 3', 'Feature 4'].map((f, i) => (
-                <div key={i} className="jp-feature-card">
-                  <div className="jp-feature-icon-placeholder" />
-                  <h4 className="jp-feature-name">{f}</h4>
-                  <p className="jp-feature-desc">Describe this feature of WeatherViz.</p>
-                </div>
-              ))}
+              <div className="jp-feature-card">
+                <div className="jp-feature-category">Rendering</div>
+                <h4 className="jp-feature-name">Heatmap Interpolation</h4>
+                <p className="jp-feature-desc">
+                  Bilinear interpolation in Rust (powered by ndarray) that maps sparse
+                  weather station data onto a smooth pixel-level grid, producing clean
+                  gradient heatmaps at any zoom level.
+                </p>
+              </div>
+              <div className="jp-feature-card">
+                <div className="jp-feature-category">Playback</div>
+                <h4 className="jp-feature-name">Smooth Timelapse</h4>
+                <p className="jp-feature-desc">
+                  A custom date range slider with play/pause and adjustable speed
+                  (1x, 2x, 4x, 8x) lets you watch weather patterns evolve over time
+                  as animated heatmap frames.
+                </p>
+              </div>
+              <div className="jp-feature-card">
+                <div className="jp-feature-category">Data</div>
+                <h4 className="jp-feature-name">Real-Time Querying</h4>
+                <p className="jp-feature-desc">
+                  Select a time frame and parameter (temperature, rain, or wind),
+                  choose between hourly and daily granularity, and query live
+                  historical data from the Open-Meteo API.
+                </p>
+              </div>
+              <div className="jp-feature-card">
+                <div className="jp-feature-category">Performance</div>
+                <h4 className="jp-feature-name">Rust Rendering Backend</h4>
+                <p className="jp-feature-desc">
+                  All heatmap rendering runs in Rust via PyO3, with a custom
+                  configurable color gradient system and opacity controls. The
+                  rendering pipeline supports multithreaded frame generation.
+                </p>
+              </div>
+              <div className="jp-feature-card">
+                <div className="jp-feature-category">Storage</div>
+                <h4 className="jp-feature-name">Query Caching</h4>
+                <p className="jp-feature-desc">
+                  API results are cached in a local SQLite database. Saved queries
+                  persist across sessions, can be replayed instantly, and can be
+                  added or deleted from the cache at any time.
+                </p>
+              </div>
+              <div className="jp-feature-card">
+                <div className="jp-feature-category">UI</div>
+                <h4 className="jp-feature-name">Custom Resizable UI</h4>
+                <p className="jp-feature-desc">
+                  The entire interface scales dynamically with the window size,
+                  including a custom-built date range slider, calendar picker,
+                  map pan/zoom controls, and a collapsible query panel.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -670,13 +788,41 @@ class Japan2023 extends Component {
           <div className="jp-wv-section">
             <h3 className="jp-wv-section-title">Code Preview</h3>
             <div className="jp-code-preview">
-              <pre className="jp-code-block"><code>{`# Paste a representative WeatherViz snippet here
-import matplotlib.pyplot as plt
-import pandas as pd
+              <pre className="jp-code-block"><code>{`# Python: PySide2 UI + Rust rendering engine (main.py)
+from PySide2.QtWidgets import QApplication
+from WeatherViz.renderer import Renderer
+from WeatherViz.gui.mainwindow import MainWindow
 
-# Your WeatherViz code...
-`}</code></pre>
+# No JavaScript. The entire UI is Qt5 (PySide2)
+# All heatmap rendering runs in Rust, compiled as a native
+# Python extension via PyO3 + Maturin
+
+// Rust: Bilinear interpolation core (interp.rs)
+pub struct Interpolator {
+    xs: Vec<f64>,
+    ys: Vec<f64>,
+    z: Array2<f64>,    // ndarray-backed grid
+}
+
+// Maps a coordinate onto the 2D value grid using bilinear
+// interpolation. This is called for every pixel of the heatmap
+fn interpolate(&self, x: f64, y: f64) -> f64 {
+    let (ix1, ix2) = closest_indices(&self.xs, x);
+    let (iy1, iy2) = closest_indices(&self.ys, y);
+    // ... bilinear weighting across the 4 surrounding grid points
+}`}</code></pre>
             </div>
+            <p className="jp-placeholder-note" style={{ marginTop: '10px', marginBottom: 0 }}>
+              This snippet is illustrative. Browse the full source on{' '}
+              <a
+                href="https://github.com/aidan-winney/WeatherViz"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: 'var(--jp-blue)', textDecoration: 'none' }}
+              >
+                GitHub
+              </a>.
+            </p>
           </div>
 
         </div>
@@ -786,7 +932,7 @@ import pandas as pd
           <title>Japan 2023 | Ryan Campisi</title>
           <meta
             name="description"
-            content="Ryan Campisi's 63-day study abroad trip to Japan in Summer 2023 through the University of Florida — courses, travel, food, and the WeatherViz Python project."
+            content="Ryan Campisi's 63-day study abroad trip to Japan in Summer 2023 through the University of Florida: courses, travel, food, and the WeatherViz Python project."
           />
           <meta property="og:type"  content="website" />
           <meta property="og:title" content="Japan 2023 | Ryan Campisi" />
