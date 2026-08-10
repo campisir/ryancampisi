@@ -481,26 +481,32 @@
 }
 .jp-course-card {
   display: flex;
-  gap: 18px;
+  flex-direction: column;
   background: var(--jp-surface);
   border: 1px solid var(--jp-border);
   border-radius: 12px;
-  padding: 26px;
   transition: border-color 0.2s;
 }
 .jp-course-card:hover { border-color: var(--jp-gold-border); }
-.jp-course-icon {
-  flex-shrink: 0;
-  width: 50px;
-  height: 50px;
-  background: var(--jp-gold-dim);
-  border: 1px solid var(--jp-gold-border);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--jp-gold);
+.jp-course-photo {
+  margin: 0 26px 6px;
+  border-radius: 8px;
+  overflow: hidden;
 }
+.jp-course-photo img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+.jp-course-caption {
+  display: block;
+  margin: 0 26px 20px;
+  font-size: 11px;
+  color: var(--jp-text-dim);
+  font-style: italic;
+  line-height: 1.5;
+}
+.jp-course-body { padding: 26px; }
 .jp-course-title {
   font-size: 16px;
   font-weight: 700;
@@ -654,45 +660,62 @@
   border: 1px solid var(--jp-gold-border);
   color: var(--jp-gold);
 }
-.jp-course-location {
+
+.jp-course-grade {
   font-size: 12px;
-  color: var(--jp-text-dim);
-  font-style: italic;
-  margin: 10px 0 0;
-  padding-top: 10px;
+  font-weight: 600;
+  color: var(--jp-text-muted);
+  margin-top: 14px;
+  padding-top: 12px;
   border-top: 1px solid var(--jp-border);
-  line-height: 1.55;
+}
+.jp-course-grade span {
+  color: var(--jp-gold);
+  font-weight: 800;
+  font-size: 14px;
 }
 
-.jp-info-grade-callout {
+/* Three Rules */
+.jp-rules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.jp-rule-item {
+  display: flex;
+  gap: 16px;
+  background: var(--jp-surface-2);
+  border: 1px solid var(--jp-border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  transition: border-color 0.2s;
+}
+.jp-rule-item:hover { border-color: var(--jp-red-border); }
+.jp-rule-num {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--jp-red);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  background: rgba(200,168,76,0.07);
-  border: 1px solid var(--jp-gold-border);
-  border-radius: 10px;
-  padding: 14px 20px;
-  margin-bottom: 28px;
-}
-.jp-grade-a {
-  font-size: 26px;
-  font-weight: 900;
-  letter-spacing: -0.5px;
-  color: var(--jp-gold);
   line-height: 1;
 }
-.jp-grade-plus {
-  font-size: 18px;
-  color: rgba(200,168,76,0.5);
+.jp-rule-title {
+  font-size: 15px;
   font-weight: 700;
+  color: var(--jp-text);
+  margin: 0 0 5px;
 }
-.jp-grade-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--jp-gold);
-  margin-left: 4px;
-  opacity: 0.85;
+.jp-rule-desc {
+  font-size: 13px;
+  color: var(--jp-text-muted);
+  line-height: 1.6;
+  margin: 0;
 }
 
 .jp-info-footnote {
@@ -716,6 +739,25 @@
   line-height: 1.65;
   margin: 0;
   font-style: italic;
+}
+
+.jp-info-disclaimer {
+  margin-top: 12px;
+}
+.jp-info-disclaimer p {
+  font-style: normal;
+}
+.jp-info-disclaimer p + p {
+  margin-top: 8px;
+}
+.jp-info-disclaimer a {
+  color: var(--jp-gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(200,168,76,0.3);
+  transition: border-color 0.15s;
+}
+.jp-info-disclaimer a:hover {
+  border-color: var(--jp-gold);
 }
 
 /* =====================================================
@@ -1448,6 +1490,9 @@
   .jp-stat-value     { font-size: 28px; }
   .jp-section-block  { padding: 20px 16px; }
   .jp-course-card    { flex-direction: column; }
+  .jp-course-photo   { margin: 0 16px 4px; }
+  .jp-course-caption { margin: 0 16px 16px; }
+  .jp-course-body    { padding: 20px 16px; }
   .jp-city-grid      { grid-template-columns: repeat(2, 1fr); }
 
   /* Highlights */

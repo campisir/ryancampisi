@@ -318,8 +318,7 @@ class Japan2023 extends Component {
               A 63-day study abroad program in Kyoto, Japan through the University of
               Florida&#39;s <em>UF in Japan Design</em> initiative. As part of the second
               cohort, I spent the summer taking two computer engineering electives alongside
-              roughly 30 fellow students, with a constant emphasis on exploring Japan
-              independently beyond the classroom.
+              roughly 30 fellow students.
             </p>
             <div className="jp-info-dates-row">
               <span className="jp-info-date-chip">May 31, 2023</span>
@@ -397,24 +396,12 @@ class Japan2023 extends Component {
               Kyoto University as a field trip instead; other cohorts have had the
               full partnership.
             </p>
-            <p className="jp-info-prose">
-              A major theme from the instructor was independent exploration. He actively
-              encouraged everyone to travel and experience as much of Japan as possible
-              on their own outside of class.
-            </p>
           </div>
         </div>
 
         {/* Courses */}
         <div className="jp-courses-row">
           <div className="jp-course-card">
-            <div className="jp-course-icon">
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none"
-                stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="16 18 22 12 16 6"/>
-                <polyline points="8 6 2 12 8 18"/>
-              </svg>
-            </div>
             <div className="jp-course-body">
               <span className="jp-course-code">CEN4930</span>
               <h3 className="jp-course-title">
@@ -432,19 +419,19 @@ class Japan2023 extends Component {
                 <span className="jp-tag">Programming</span>
                 <span className="jp-tag">WeatherViz</span>
               </div>
-              <p className="jp-course-location">Held in a classroom in a private building in Kyoto.</p>
+              <div className="jp-course-grade">Final Grade: <span>A</span></div>
             </div>
+            <div className="jp-course-photo">
+              <img
+                src="https://dl.dropboxusercontent.com/scl/fi/gpcaxivpzn4gzq3g2mgpn/Photo-Jul-25-2023-9-27-49-AM.jpg?rlkey=ycqvf3xnq36itljyomr6jpqgh&st=4t5lpp4w&raw=1"
+                alt="Performant Python Programming classroom in Kyoto"
+                loading="lazy"
+              />
+            </div>
+            <span className="jp-course-caption">One of the graduate students giving a presentation in the classroom we used for Performant Python Programming.</span>
           </div>
 
           <div className="jp-course-card">
-            <div className="jp-course-icon">
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none"
-                stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-              </svg>
-            </div>
             <div className="jp-course-body">
               <span className="jp-course-code">CEN4930</span>
               <h3 className="jp-course-title">
@@ -462,20 +449,56 @@ class Japan2023 extends Component {
                 <span className="jp-tag">Design</span>
                 <span className="jp-tag">Japan</span>
               </div>
-              <p className="jp-course-location">
-                Held outdoors next to the Kamo River. We sat in the grass while the
-                instructor used a karaoke-style mic setup to be heard over the cicadas.
-              </p>
+              <div className="jp-course-grade">Final Grade: <span>A</span></div>
             </div>
+            <div className="jp-course-photo">
+              <img
+                src="https://dl.dropboxusercontent.com/scl/fi/emmhj865qsckwy4ct0eds/DSC_0488.JPG?rlkey=efr5nqi0axiy17qtjqu8joi6l&st=vwyx9i6j&raw=1"
+                alt="Cross Cultural Design class by the Kamo River in Kyoto"
+                loading="lazy"
+              />
+            </div>
+            <span className="jp-course-caption">Cross Cultural Design class by the Kamo River. The instructor used a karaoke mic so we could hear him over the cicadas (they were loud af).</span>
           </div>
         </div>
 
-        {/* Grade callout */}
-        <div className="jp-info-grade-callout">
-          <span className="jp-grade-a">A</span>
-          <span className="jp-grade-plus">+</span>
-          <span className="jp-grade-a">A</span>
-          <span className="jp-grade-label">Finished both courses with an A.</span>
+        {/* Three Rules */}
+        <div className="jp-section-block">
+          <h3 className="jp-section-block-title">Three Rules I Set for Myself</h3>
+          <div className="jp-rules-list">
+            <div className="jp-rule-item">
+              <span className="jp-rule-num">1</span>
+              <div className="jp-rule-content">
+                <h4 className="jp-rule-title">Say yes to everything on Teams</h4>
+                <p className="jp-rule-desc">
+                  If someone posted in the class Teams chat asking if anyone wanted to join them
+                  somewhere, I had to reach out. If someone shared a recommendation, I had to
+                  go check it out. As someone who thoroughly enjoys doing things solo, I made this rule to keep myself connected to the rest of the group on some level.
+                </p>
+              </div>
+            </div>
+            <div className="jp-rule-item">
+              <span className="jp-rule-num">2</span>
+              <div className="jp-rule-content">
+                <h4 className="jp-rule-title">Never eat at the same place twice</h4>
+                <p className="jp-rule-desc">
+                  Every single day, I had to find a new restaurant or food spot.
+                  This pushed me to explore areas I would have otherwise missed. This also helped keep me out of my comfort zone.
+                </p>
+              </div>
+            </div>
+            <div className="jp-rule-item">
+              <span className="jp-rule-num">3</span>
+              <div className="jp-rule-content">
+                <h4 className="jp-rule-title">Log everything in my notes app</h4>
+                <p className="jp-rule-desc">
+                  Every significant thing I did each day went into my phone. This is the only
+                  reason I am able to build this page over three years later. Without those
+                  notes, most of these details would have been forgotten within weeks (my memory lowkey sucks).
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Cities */}
@@ -501,6 +524,23 @@ class Japan2023 extends Component {
             the detail across the site comes from notes I kept in my phone every day I
             was there, along with photos and videos from the trip.
           </p>
+        </div>
+
+        {/* Photo disclaimer */}
+        <div className="jp-info-footnote jp-info-disclaimer">
+          <span className="jp-info-footnote-icon">&#9432;</span>
+          <div>
+            <p>
+              All photos on this page were taken by me unless otherwise credited.
+              If you appear in any photo and would prefer to be removed, please{' '}
+              <Link href="/#contact">reach out via my contact form</Link>.
+            </p>
+            <p>
+              Higher resolution versions of any image on this page are available upon
+              request. Feel free to{' '}
+              <Link href="/#contact">get in touch</Link>.
+            </p>
+          </div>
         </div>
 
       </div>
