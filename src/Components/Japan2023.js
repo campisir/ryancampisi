@@ -316,7 +316,6 @@ class Japan2023 extends Component {
         {/* Hero card */}
         <div className="jp-info-hero-card">
           <div className="jp-info-hero-card-left">
-            <div className="jp-info-badge">UF Study Abroad · Cohort #2</div>
             <h2 className="jp-info-title">Japan Summer 2023</h2>
             <p className="jp-info-lead">
               A 63-day study abroad program in Kyoto, Japan through the University of
@@ -343,20 +342,6 @@ class Japan2023 extends Component {
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="jp-stats-row">
-          {[
-            { value: '63',  label: 'Days Abroad'  },
-            { value: '6',   label: 'Credit Hours' },
-            { value: '#2',  label: 'Cohort'        },
-            { value: '6',   label: 'Destinations' },
-          ].map(s => (
-            <div key={s.label} className="jp-stat-card">
-              <span className="jp-stat-value">{s.value}</span>
-              <span className="jp-stat-label">{s.label}</span>
-            </div>
-          ))}
-        </div>
 
         {/* Why I Did It + The Program */}
         <div className="jp-courses-row">
@@ -400,6 +385,14 @@ class Japan2023 extends Component {
               Kyoto University as a field trip instead; other cohorts have had the
               full partnership.
             </p>
+            <div className="jp-course-photo" style={{ margin: '14px 0 4px' }}>
+              <img
+                src="https://dl.dropboxusercontent.com/scl/fi/f48rxd3tutm6hb0q5svv7/IMG_3330.JPG?rlkey=8hzddrbqhs34tqwj23o6lrrag&st=681iwlfg&raw=1"
+                alt="UF in Japan Design cohort group photo"
+                loading="lazy"
+              />
+            </div>
+            <span className="jp-course-caption" style={{ margin: '0 0 0' }}>A group photo of my cohort. I'm the short guy with their hands in their pockets (on the left).</span>
           </div>
         </div>
 
@@ -418,11 +411,6 @@ class Japan2023 extends Component {
                 before we flew to Japan. The final project was WeatherViz, a weather
                 data visualization tool built collaboratively with a small group.
               </p>
-              <div className="jp-course-tags">
-                <span className="jp-tag">Python</span>
-                <span className="jp-tag">Programming</span>
-                <span className="jp-tag">WeatherViz</span>
-              </div>
               <div className="jp-course-grade">Final Grade: <span>A</span></div>
             </div>
             <div className="jp-course-photo">
@@ -447,12 +435,6 @@ class Japan2023 extends Component {
                 norms differ across cultures, with a strong focus on Japan. CEN4930 is
                 the designated course code at UF for computer engineering electives.
               </p>
-              <div className="jp-course-tags">
-                <span className="jp-tag">Engineering</span>
-                <span className="jp-tag">Culture</span>
-                <span className="jp-tag">Design</span>
-                <span className="jp-tag">Japan</span>
-              </div>
               <div className="jp-course-grade">Final Grade: <span>A</span></div>
             </div>
             <div className="jp-course-photo">
@@ -520,16 +502,6 @@ class Japan2023 extends Component {
           </div>
         </div>
 
-        {/* Page footnote */}
-        <div className="jp-info-footnote">
-          <span className="jp-info-footnote-icon">&#9998;</span>
-          <p>
-            This page was built in late 2026, over three years after the trip. Most of
-            the detail across the site comes from notes I kept in my phone every day I
-            was there, along with photos and videos from the trip.
-          </p>
-        </div>
-
         {/* Photo disclaimer */}
         <div className="jp-info-footnote jp-info-disclaimer">
           <span className="jp-info-footnote-icon">&#9432;</span>
@@ -561,6 +533,7 @@ class Japan2023 extends Component {
       {
         id: 'day',
         title: 'Favorite Day',
+        name: 'Mount Atago Hike',
         subtitle: 'Saturday June 17th',
         date: this.findTripDate('2023-06-17'),
         image: 'https://dl.dropboxusercontent.com/scl/fi/luba4nqpmbpksavgck9bf/DSC_0198.NEF?rlkey=wk1fjjj5kndepbyzjqz1cth6q&st=e3u7kuh9&raw=1',
@@ -574,6 +547,7 @@ class Japan2023 extends Component {
       {
         id: 'thing',
         title: 'Favorite Thing I Did',
+        name: 'Maid Cafe',
         subtitle: 'Friday July 28',
         date: this.findTripDate('2023-07-28'),
         image: 'https://dl.dropboxusercontent.com/scl/fi/erhyrgilocfv82wtmp1mg/Photo-Jul-28-2023-6-33-03-PM.jpg?rlkey=7gdgdwc9s2gwnp2ffd5s3wmf4&st=qtklslo0&raw=1',
@@ -587,6 +561,7 @@ class Japan2023 extends Component {
       {
         id: 'excursion',
         title: 'Favorite Class Excursion',
+        name: 'Tea Ceremony',
         subtitle: 'Friday July 28',
         date: this.findTripDate('2023-07-28'),
         image: 'https://dl.dropboxusercontent.com/scl/fi/0eouo942fgqhjdh91mtya/DSC_0475.NEF?rlkey=0ehh34dgua23ag7tjb11ia6n7&st=xkcrmbsb&raw=1',
@@ -600,6 +575,7 @@ class Japan2023 extends Component {
       {
         id: 'stay',
         title: 'Favorite Place I Stayed',
+        name: 'Capsule Hotel',
         subtitle: 'Wednesday July 5',
         date: this.findTripDate('2023-07-05'),
         image: 'https://dl.dropboxusercontent.com/scl/fi/bxte82mr5bebl82dam47m/Photo-Jul-05-2023-10-45-02-PM.jpg?rlkey=vv42xku3vm26ec914rcfbdlwt&st=2b8o6oco&raw=1',
@@ -613,6 +589,7 @@ class Japan2023 extends Component {
       {
         id: 'food',
         title: 'Favorite Food',
+        name: 'Namaste',
         subtitle: 'Wednesday July 12',
         date: this.findTripDate('2023-07-12'),
         image: 'https://dl.dropboxusercontent.com/scl/fi/wyt16kuw2ogmqfk7vwnkq/Photo-Jul-12-2023-11-32-03-AM.jpg?rlkey=fe5b6rktc4f9yax5knu7wgvus&st=9aao9bdt&raw=1',
@@ -635,6 +612,7 @@ class Japan2023 extends Component {
       {
         id: 'work',
         title: 'Favorite Place to Work on Assignments',
+        name: 'Koe Donuts',
         subtitle: null,
         date: null,
         dates: [
@@ -683,6 +661,7 @@ class Japan2023 extends Component {
               )}
               <div className="jp-highlight-body">
                 <h3 className="jp-highlight-title">{h.title}</h3>
+                {h.name && <span className="jp-highlight-name">{h.name}</span>}
                 {h.date && (
                   <button
                     className="jp-highlight-date jp-highlight-date-clickable"
@@ -694,7 +673,7 @@ class Japan2023 extends Component {
                 {h.dates && h.dates.length > 0 && (
                   <div className="jp-highlight-dates-row">
                     {h.dates.map((d, i) => (
-                      <span key={d.dateStr}>
+                      <React.Fragment key={d.dateStr}>
                         <button
                           className="jp-highlight-date jp-highlight-date-clickable"
                           onClick={() => this.handleDateSelect(d)}
@@ -702,7 +681,7 @@ class Japan2023 extends Component {
                           {d.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                         </button>
                         {i < h.dates.length - 1 && <span className="jp-highlight-date-sep">, </span>}
-                      </span>
+                      </React.Fragment>
                     ))}
                   </div>
                 )}
@@ -1151,7 +1130,6 @@ fn interpolate(&self, x: f64, y: f64) -> f64 {
               <div className="jp-hero-eyebrow">University of Florida · Study Abroad</div>
               <h1 className="jp-hero-title">Japan 2023</h1>
               <p className="jp-hero-subtitle">
-                63 days exploring Japan through food, culture, code, and adventure.
               </p>
               <div className="jp-hero-meta">
                 <span className="jp-hero-meta-item">May 31 – August 1, 2023</span>

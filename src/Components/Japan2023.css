@@ -831,15 +831,28 @@
   color: var(--jp-gold);
   font-weight: 600;
   margin-bottom: 8px;
-  line-height: 1.7;
+  line-height: 2;
+  display: flex;
+  flex-wrap: wrap;
 }
 .jp-highlight-date-sep { color: var(--jp-text-dim); }
 
 .jp-highlight-title {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--jp-text);
-  margin: 0 0 7px;
+  margin: 0 0 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  opacity: 0.55;
+}
+.jp-highlight-name {
+  display: block;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--jp-text);
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
 }
 .jp-highlight-desc {
   font-size: 13px;
@@ -852,12 +865,15 @@
 .jp-rule-inline {
   background: none;
   border: none;
-  padding: 1px 5px;
+  padding: 0 3px;
+  margin: 0;
   font-family: inherit;
   font-size: inherit;
   font-weight: 700;
   color: var(--jp-red);
   cursor: pointer;
+  line-height: inherit;
+  vertical-align: baseline;
   text-decoration: underline;
   text-decoration-color: rgba(197,53,59,0.3);
   text-underline-offset: 2px;
