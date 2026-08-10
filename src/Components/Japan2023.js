@@ -46,6 +46,7 @@ class Japan2023 extends Component {
       showCalendar:  false,
       calMonth:      5,      // June (0-indexed), initial calendar view
       calYear:       2023,
+      showRule2Popup: false,
     };
     this.dateBarRef = React.createRef();
     // Pre-create a ref for every trip date so scrollIntoView works
@@ -88,6 +89,9 @@ class Japan2023 extends Component {
       return { calMonth: m, calYear: y };
     });
   }
+
+  /* ── lookup a trip date by dateStr ── */
+  findTripDate = (dateStr) => TRIP_DATES.find(d => d.dateStr === dateStr) || null;
 
   /* ── scroll helpers ── */
   scrollDateBar = (dir) => {
@@ -551,31 +555,181 @@ class Japan2023 extends Component {
      TAB: HIGHLIGHTS
      ══════════════════════════════════════════════════════════ */
   renderHighlightsTab() {
-    const items = Array.from({ length: 6 }, (_, i) => ({ id: i + 1 }));
+    const { showRule2Popup } = this.state;
+
+    const highlights = [
+      {
+        id: 'day',
+        title: 'Favorite Day',
+        subtitle: 'Saturday June 17th',
+        date: this.findTripDate('2023-06-17'),
+        image: 'https://dl.dropboxusercontent.com/scl/fi/luba4nqpmbpksavgck9bf/DSC_0198.NEF?rlkey=wk1fjjj5kndepbyzjqz1cth6q&st=e3u7kuh9&raw=1',
+        desc: (
+          <>
+            The day I went hiking with a few of the students on the program and one of
+            them got air lifted off the mountain.
+          </>
+        ),
+      },
+      {
+        id: 'thing',
+        title: 'Favorite Thing I Did',
+        subtitle: 'Friday July 28',
+        date: this.findTripDate('2023-07-28'),
+        image: 'https://dl.dropboxusercontent.com/scl/fi/erhyrgilocfv82wtmp1mg/Photo-Jul-28-2023-6-33-03-PM.jpg?rlkey=7gdgdwc9s2gwnp2ffd5s3wmf4&st=qtklslo0&raw=1',
+        desc: (
+          <>
+            This is a wacky staple of Japan and I still pat myself on the back for
+            going in there by myself.
+          </>
+        ),
+      },
+      {
+        id: 'excursion',
+        title: 'Favorite Class Excursion',
+        subtitle: 'Friday July 28',
+        date: this.findTripDate('2023-07-28'),
+        image: 'https://dl.dropboxusercontent.com/scl/fi/0eouo942fgqhjdh91mtya/DSC_0475.NEF?rlkey=0ehh34dgua23ag7tjb11ia6n7&st=xkcrmbsb&raw=1',
+        desc: (
+          <>
+            A Japanese monk showed us how to whisk our own green tea and perform a
+            traditional Japanese tea ceremony.
+          </>
+        ),
+      },
+      {
+        id: 'stay',
+        title: 'Favorite Place I Stayed',
+        subtitle: 'Wednesday July 5',
+        date: this.findTripDate('2023-07-05'),
+        image: 'https://dl.dropboxusercontent.com/scl/fi/bxte82mr5bebl82dam47m/Photo-Jul-05-2023-10-45-02-PM.jpg?rlkey=vv42xku3vm26ec914rcfbdlwt&st=2b8o6oco&raw=1',
+        desc: (
+          <>
+            This is another Japanese staple. I stayed here for one night during my
+            week in Tokyo. It is super cheap and super interesting.
+          </>
+        ),
+      },
+      {
+        id: 'food',
+        title: 'Favorite Food',
+        subtitle: 'Wednesday July 12',
+        date: this.findTripDate('2023-07-12'),
+        image: 'https://dl.dropboxusercontent.com/scl/fi/wyt16kuw2ogmqfk7vwnkq/Photo-Jul-12-2023-11-32-03-AM.jpg?rlkey=fe5b6rktc4f9yax5knu7wgvus&st=9aao9bdt&raw=1',
+        desc: (
+          <>
+            So many students on the program would talk about how they were regularly
+            eating the nearby Indian food. I never understood it until I tried it
+            myself. It was insanely good. I only ate at Namaste once due to{' '}
+            <button
+              className="jp-rule-inline"
+              onClick={(e) => { e.stopPropagation(); this.setState({ showRule2Popup: true }); }}
+            >
+              Rule 2
+            </button>
+            , however, I ate at numerous other Indian places because of how much I
+            enjoyed it.
+          </>
+        ),
+      },
+      {
+        id: 'work',
+        title: 'Favorite Place to Work on Assignments',
+        subtitle: null,
+        date: null,
+        dates: [
+          this.findTripDate('2023-06-07'),
+          this.findTripDate('2023-06-08'),
+          this.findTripDate('2023-06-10'),
+          this.findTripDate('2023-06-12'),
+          this.findTripDate('2023-06-22'),
+          this.findTripDate('2023-07-20'),
+        ].filter(Boolean),
+        image: 'https://dl.dropboxusercontent.com/scl/fi/abtkzbtgerqlwubngwy0u/Photo-Jun-12-2023-10-48-18-AM.jpg?rlkey=92vcvfdckot2uzm3679a39ua4&st=recb02mu&raw=1',
+        desc: (
+          <>
+            This place had a lot of table space to chill out and work on assignments.
+            They also had a great bathroom. Oh, and donuts too.
+          </>
+        ),
+      },
+    ];
+
     return (
       <div className="jp-content jp-highlights">
         <div className="jp-section-header">
           <h2 className="jp-section-heading">Trip Highlights</h2>
           <p className="jp-section-subheading">
             A curated collection of the best experiences from the trip, the moments
-            that stood out the most.
+            that stood out the most. Click a date to jump to that day.
           </p>
         </div>
         <div className="jp-highlights-grid">
-          {items.map(h => (
+          {highlights.map(h => (
             <div key={h.id} className="jp-highlight-card">
-              <div className="jp-highlight-image-placeholder">
-                <span className="jp-placeholder-icon">+</span>
-                <span className="jp-placeholder-text">Add Photo</span>
-              </div>
+              {h.image ? (
+                <div className="jp-highlight-image-placeholder">
+                  <img
+                    src={h.image}
+                    alt={h.title}
+                    loading="lazy"
+                  />
+                </div>
+              ) : (
+                <div className="jp-highlight-image-placeholder">
+                  <span className="jp-placeholder-icon">+</span>
+                  <span className="jp-placeholder-text">Add Photo</span>
+                </div>
+              )}
               <div className="jp-highlight-body">
-                <span className="jp-highlight-date">Add date</span>
-                <h3 className="jp-highlight-title">Highlight Title</h3>
-                <p className="jp-highlight-desc">Add a description of this highlight...</p>
+                <h3 className="jp-highlight-title">{h.title}</h3>
+                {h.date && (
+                  <button
+                    className="jp-highlight-date jp-highlight-date-clickable"
+                    onClick={() => this.handleDateSelect(h.date)}
+                  >
+                    {h.subtitle}
+                  </button>
+                )}
+                {h.dates && h.dates.length > 0 && (
+                  <div className="jp-highlight-dates-row">
+                    {h.dates.map((d, i) => (
+                      <span key={d.dateStr}>
+                        <button
+                          className="jp-highlight-date jp-highlight-date-clickable"
+                          onClick={() => this.handleDateSelect(d)}
+                        >
+                          {d.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                        </button>
+                        {i < h.dates.length - 1 && <span className="jp-highlight-date-sep">, </span>}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <p className="jp-highlight-desc">{h.desc}</p>
               </div>
             </div>
           ))}
         </div>
+
+        {/* Rule 2 popup */}
+        {showRule2Popup && (
+          <div className="jp-rule-popup-overlay" onClick={() => this.setState({ showRule2Popup: false })}>
+            <div className="jp-rule-popup" onClick={e => e.stopPropagation()}>
+              <h4 className="jp-rule-popup-title">Rule 2: Never eat at the same place twice</h4>
+              <p className="jp-rule-popup-desc">
+                Every single day, I had to find a new restaurant or food spot.
+                  This pushed me to explore areas I would have otherwise missed. This also helped keep me out of my comfort zone.
+              </p>
+              <button
+                className="jp-rule-popup-close"
+                onClick={() => this.setState({ showRule2Popup: false })}
+              >
+                Got it
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

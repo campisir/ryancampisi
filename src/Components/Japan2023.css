@@ -773,7 +773,6 @@
   border: 1px solid var(--jp-border);
   border-radius: 12px;
   overflow: hidden;
-  cursor: pointer;
   transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 .jp-highlight-card:hover {
@@ -791,6 +790,13 @@
   gap: 8px;
   color: var(--jp-text-dim);
   transition: background 0.2s;
+  overflow: hidden;
+}
+.jp-highlight-image-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .jp-highlight-card:hover .jp-highlight-image-placeholder {
   background: linear-gradient(135deg, var(--jp-surface-3) 0%, rgba(197,53,59,0.09) 100%);
@@ -802,8 +808,33 @@
   font-weight: 700;
   letter-spacing: 0.5px;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
+.jp-highlight-date-clickable {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: rgba(200,168,76,0.25);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s, color 0.15s;
+}
+.jp-highlight-date-clickable:hover {
+  text-decoration-color: var(--jp-gold);
+  color: var(--jp-gold);
+}
+.jp-highlight-dates-row {
+  font-size: 11px;
+  color: var(--jp-gold);
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+.jp-highlight-date-sep { color: var(--jp-text-dim); }
+
 .jp-highlight-title {
   font-size: 15px;
   font-weight: 700;
@@ -816,6 +847,73 @@
   line-height: 1.6;
   margin: 0;
 }
+
+/* Inline rule link inside highlights */
+.jp-rule-inline {
+  background: none;
+  border: none;
+  padding: 1px 5px;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  color: var(--jp-red);
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(197,53,59,0.3);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.15s;
+}
+.jp-rule-inline:hover { text-decoration-color: var(--jp-red); }
+
+/* Rule popup */
+.jp-rule-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.jp-rule-popup {
+  background: var(--jp-surface);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 26px 28px 22px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 20px 52px rgba(0,0,0,0.65);
+  animation: jp-fade-in 0.15s ease;
+}
+.jp-rule-popup-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--jp-text);
+  margin: 0 0 10px;
+}
+.jp-rule-popup-desc {
+  font-size: 14px;
+  color: var(--jp-text-muted);
+  line-height: 1.7;
+  margin: 0 0 20px;
+}
+.jp-rule-popup-close {
+  padding: 8px 20px;
+  background: var(--jp-red);
+  border: none;
+  border-radius: 7px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  margin: 0;
+  transition: background 0.15s;
+}
+.jp-rule-popup-close:hover { background: #a82d32; }
 
 /* =====================================================
    Food Tab
