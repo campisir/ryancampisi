@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { logEvent } from '../utils/logging';
+import JAPAN_DAY_COMPONENTS from './Japan2023Days';
 
 /* ─── Date helpers ──────────────────────────────────────────── */
 const TRIP_START = new Date(2023, 4, 31); // May 31
@@ -46,7 +47,7 @@ class Japan2023 extends Component {
       showCalendar:  false,
       calMonth:      5,      // June (0-indexed), initial calendar view
       calYear:       2023,
-      showRule2Popup: false,
+      rulePopup:     null,   // 'rule1' | 'rule2' | null
     };
     this.dateBarRef = React.createRef();
     // Pre-create a ref for every trip date so scrollIntoView works
@@ -392,7 +393,7 @@ class Japan2023 extends Component {
                 loading="lazy"
               />
             </div>
-            <span className="jp-course-caption" style={{ margin: '0 0 0' }}>A group photo of my cohort. I'm the short guy with their hands in their pockets (on the left).</span>
+            <span className="jp-course-caption" style={{ margin: '0 0 0' }}>A group photo of my cohort. I'm the short guy with their hands in their pockets (on the left). I did not take this picture and I am not sure who did. Reach out if you took this picture so I can credit you.</span>
           </div>
         </div>
 
@@ -527,8 +528,6 @@ class Japan2023 extends Component {
      TAB: HIGHLIGHTS
      ══════════════════════════════════════════════════════════ */
   renderHighlightsTab() {
-    const { showRule2Popup } = this.state;
-
     const highlights = [
       {
         id: 'day',
@@ -600,7 +599,7 @@ class Japan2023 extends Component {
             myself. It was insanely good. I only ate at Namaste once due to{' '}
             <button
               className="jp-rule-inline"
-              onClick={(e) => { e.stopPropagation(); this.setState({ showRule2Popup: true }); }}
+              onClick={(e) => { e.stopPropagation(); this.setState({ rulePopup: 'rule2' }); }}
             >
               Rule 2
             </button>
@@ -690,25 +689,6 @@ class Japan2023 extends Component {
             </div>
           ))}
         </div>
-
-        {/* Rule 2 popup */}
-        {showRule2Popup && (
-          <div className="jp-rule-popup-overlay" onClick={() => this.setState({ showRule2Popup: false })}>
-            <div className="jp-rule-popup" onClick={e => e.stopPropagation()}>
-              <h4 className="jp-rule-popup-title">Rule 2: Never eat at the same place twice</h4>
-              <p className="jp-rule-popup-desc">
-                Every single day, I had to find a new restaurant or food spot.
-                  This pushed me to explore areas I would have otherwise missed. This also helped keep me out of my comfort zone.
-              </p>
-              <button
-                className="jp-rule-popup-close"
-                onClick={() => this.setState({ showRule2Popup: false })}
-              >
-                Got it
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     );
   }
@@ -1006,7 +986,21 @@ fn interpolate(&self, x: f64, y: f64) -> f64 {
   /* ══════════════════════════════════════════════════════════
      DAY VIEW
      ══════════════════════════════════════════════════════════ */
-  renderDayView({ date, dayNum }) {
+  renderDayView(dateObj) {
+    const CustomDay = JAPAN_DAY_COMPONENTS[dateObj.dateStr];
+    if (CustomDay) {
+      return (
+        <CustomDay
+          date={dateObj.date}
+          dayNum={dateObj.dayNum}
+          tripLength={TRIP_DATES.length}
+          onBack={this.handleClearDate}
+          onGoToFood={() => this.handleTabSelect('food')}
+          onShowRule={(rule) => this.setState({ rulePopup: rule })}
+        />
+      );
+    }
+    const { date, dayNum } = dateObj;
     const formatted = date.toLocaleDateString('en-US', {
       weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
     });
@@ -1095,6 +1089,39 @@ fn interpolate(&self, x: f64, y: f64) -> f64 {
   }
 
   /* ══════════════════════════════════════════════════════════
+     RULE POPUPS (shared across tabs and custom day views)
+     ══════════════════════════════════════════════════════════ */
+  renderRulePopup() {
+    const { rulePopup } = this.state;
+    if (!rulePopup) return null;
+
+    const rules = {
+      rule1: {
+        title: 'Rule 1: Say yes to everything on Teams',
+        desc: 'If someone posted in the class Teams chat asking if anyone wanted to join them somewhere, I had to reach out. If someone shared a recommendation, I had to go check it out. As someone who thoroughly enjoys doing things solo, I made this rule to keep myself connected to the rest of the group on some level.',
+      },
+      rule2: {
+        title: 'Rule 2: Never eat at the same place twice',
+        desc: 'Every single day, I had to find a new restaurant or food spot. This pushed me to explore areas I would have otherwise missed. This also helped keep me out of my comfort zone.',
+      },
+    };
+    const rule = rules[rulePopup];
+    if (!rule) return null;
+
+    return (
+      <div className="jp-rule-popup-overlay" onClick={() => this.setState({ rulePopup: null })}>
+        <div className="jp-rule-popup" onClick={e => e.stopPropagation()}>
+          <h4 className="jp-rule-popup-title">{rule.title}</h4>
+          <p className="jp-rule-popup-desc">{rule.desc}</p>
+          <button className="jp-rule-popup-close" onClick={() => this.setState({ rulePopup: null })}>
+            Got it
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  /* ══════════════════════════════════════════════════════════
      ROOT RENDER
      ══════════════════════════════════════════════════════════ */
   render() {
@@ -1152,6 +1179,9 @@ fn interpolate(&self, x: f64, y: f64) -> f64 {
 
           {/* Calendar overlay (portal-style) */}
           {this.renderCalendar()}
+
+          {/* Shared rule popups */}
+          {this.renderRulePopup()}
 
         </div>
       </>

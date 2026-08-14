@@ -1633,3 +1633,328 @@
   .jp-calendar-modal { padding: 12px 10px; }
   .jp-cal-cell    { font-size: 11px; }
 }
+
+/* =====================================================
+   Story View (June 17 and future special day pages)
+   ===================================================== */
+
+.jp-story-intro {
+  background: var(--jp-surface);
+  border: 1px solid var(--jp-border);
+  border-radius: 14px;
+  padding: 28px 32px;
+  margin-bottom: 32px;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+}
+.jp-story-intro::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--jp-red) 0%, rgba(197,53,59,0.15) 100%);
+}
+.jp-story-intro-tag {
+  display: inline-block;
+  padding: 3px 11px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  background: var(--jp-red-dim);
+  color: var(--jp-red);
+  border: 1px solid var(--jp-red-border);
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.jp-story-intro-title {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: var(--jp-text);
+  margin: 0 0 8px;
+}
+.jp-story-intro-desc {
+  font-size: 15px;
+  color: var(--jp-text-muted);
+  line-height: 1.68;
+  margin: 0;
+}
+
+/* Centered narrative column */
+.jp-story-body {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Story beats */
+.jp-story-beat {
+  padding: 30px 0;
+  border-bottom: 1px solid var(--jp-border);
+}
+.jp-story-beat:last-child {
+  border-bottom: none;
+  padding-bottom: 4px;
+}
+
+.jp-story-beat-header { margin-bottom: 12px; }
+.jp-story-beat-title {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: var(--jp-text);
+  margin: 0 0 2px;
+}
+.jp-story-beat-sub {
+  font-size: 12px;
+  color: var(--jp-text-muted);
+  font-style: italic;
+}
+
+/* Prose */
+.jp-story-prose {
+  font-size: 15.5px;
+  color: rgba(240,236,232,0.72);
+  line-height: 1.82;
+  margin: 0 0 16px;
+}
+.jp-story-prose:last-child { margin-bottom: 0; }
+
+/* Caption */
+.jp-story-caption {
+  font-size: 12px;
+  color: var(--jp-text-dim);
+  font-style: italic;
+  line-height: 1.6;
+  margin: 8px 0 0;
+  padding-left: 2px;
+}
+
+/* Media: single slot with caption below */
+.jp-story-media-single { margin-top: 16px; }
+
+/* Image placeholder */
+.jp-story-img-placeholder {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--jp-surface-2);
+  border: 1px dashed rgba(255,255,255,0.09);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--jp-text-dim);
+}
+.jp-story-img-wide { aspect-ratio: 16 / 9; }
+.jp-story-img-filled {
+  border-style: solid;
+  border-color: var(--jp-border);
+}
+.jp-story-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.jp-story-placeholder-text {
+  font-size: 11px;
+  color: var(--jp-text-dim);
+  font-style: italic;
+  opacity: 0.4;
+}
+
+/* Video placeholder */
+.jp-story-video-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #060610;
+  border: 1px solid var(--jp-border);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+}
+.jp-story-video-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(197,53,59,0.05) 0%, transparent 70%);
+}
+.jp-story-play-btn {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.22);
+  position: relative;
+  z-index: 1;
+  padding-left: 3px;
+}
+
+/* Image grids */
+.jp-story-img-grid {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+.jp-story-img-grid-2 { grid-template-columns: 1fr 1fr; }
+.jp-story-img-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.jp-story-img-grid-4 { grid-template-columns: 1fr 1fr; }
+
+.jp-story-grid-cell { display: flex; flex-direction: column; }
+.jp-story-grid-captioned .jp-story-caption { margin: 6px 0 0; }
+
+/* Map placeholder */
+.jp-story-map-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 5;
+  background: var(--jp-surface-2);
+  border: 1px solid var(--jp-border);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.jp-story-map-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 45% 70% at 45% 50%, rgba(59,130,246,0.08) 0%, transparent 70%);
+}
+.jp-story-map-pin {
+  color: rgba(59,130,246,0.45);
+  position: relative;
+  z-index: 1;
+}
+.jp-story-map-coords {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(240,236,232,0.4);
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
+}
+.jp-story-map-note {
+  font-size: 11px;
+  color: var(--jp-text-dim);
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+/* Chapter breaks */
+.jp-story-chapter-break {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 38px 0 28px;
+}
+.jp-story-chapter-rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(197,53,59,0.4) 100%);
+}
+.jp-story-chapter-rule-right {
+  background: linear-gradient(90deg, rgba(197,53,59,0.4) 0%, transparent 100%);
+}
+.jp-chapter-airlift-rule {
+  background: linear-gradient(90deg, transparent 0%, rgba(200,168,76,0.4) 100%);
+}
+.jp-chapter-airlift-rule.jp-story-chapter-rule-right {
+  background: linear-gradient(90deg, rgba(200,168,76,0.4) 0%, transparent 100%);
+}
+
+.jp-story-chapter-text {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.jp-chapter-tragedy {
+  color: var(--jp-red);
+  text-shadow: 0 0 28px rgba(197,53,59,0.55);
+}
+.jp-chapter-airlift {
+  color: var(--jp-gold);
+  text-shadow: 0 0 28px rgba(200,168,76,0.55);
+  font-size: 16px;
+  letter-spacing: 3px;
+}
+
+/* Inline food tab link */
+.jp-story-food-link {
+  background: none;
+  border: none;
+  padding: 0 2px;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--jp-gold);
+  cursor: pointer;
+  line-height: inherit;
+  vertical-align: baseline;
+  text-decoration: underline;
+  text-decoration-color: rgba(200,168,76,0.3);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.15s;
+}
+.jp-story-food-link:hover { text-decoration-color: var(--jp-gold); }
+
+/* Food block (dinner recap card) */
+.jp-story-food-block {
+  background: var(--jp-surface);
+  border: 1px solid var(--jp-border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-top: 16px;
+}
+.jp-story-food-restaurant {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--jp-gold);
+  letter-spacing: 0.2px;
+  margin-bottom: 12px;
+}
+.jp-story-food-block .jp-story-media-single { margin-top: 0; }
+
+/* ── Story view responsive ──────────────────────── */
+@media (max-width: 960px) {
+  .jp-story-intro { max-width: 100%; }
+  .jp-story-body  { max-width: 100%; }
+}
+@media (max-width: 600px) {
+  .jp-story-intro  { padding: 20px 18px; }
+  .jp-story-intro-title { font-size: 22px; }
+  .jp-story-img-grid-3 { grid-template-columns: 1fr 1fr; }
+  .jp-story-img-grid-4 { grid-template-columns: 1fr 1fr; }
+  .jp-story-chapter-text { font-size: 14px; letter-spacing: 2.5px; }
+  .jp-chapter-airlift    { font-size: 13px; letter-spacing: 2px; }
+  .jp-story-map-placeholder { aspect-ratio: 16 / 7; }
+}
