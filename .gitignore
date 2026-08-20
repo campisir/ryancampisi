@@ -25,3 +25,7 @@ yarn-debug.log*
 yarn-error.log*
 
 /.vscode
+/jun4temp
+/jun17temp
+*/jun4temp
+*/jun17temp

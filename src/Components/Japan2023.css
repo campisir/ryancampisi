@@ -1944,6 +1944,72 @@
 }
 .jp-story-food-block .jp-story-media-single { margin-top: 0; }
 
+/* ── Embedded video ─────────────────────────────── */
+.jp-story-video-embed {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 1px solid var(--jp-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.jp-story-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 10px;
+}
+
+/* ── June 4 chapter break variants ─────────────── */
+.jp-chapter-excursion {
+  color: var(--jp-text);
+  text-shadow: 0 0 24px rgba(255,255,255,0.08);
+}
+.jp-chapter-umeda {
+  color: #6ec6f5;
+  text-shadow: 0 0 24px rgba(110,198,245,0.35);
+}
+.jp-chapter-verdict {
+  color: var(--jp-text-dim);
+  letter-spacing: 3px;
+}
+
+/* ── Excursion rating block ─────────────────────── */
+.jp-story-rating-block {
+  background: var(--jp-surface);
+  border: 1px solid var(--jp-border);
+  border-radius: 10px;
+  padding: 20px 22px;
+}
+.jp-story-rating-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+.jp-story-rating-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--jp-text-dim);
+}
+.jp-story-rating-grade {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+}
+.jp-rating-low {
+  color: #e05c5c;
+  text-shadow: 0 0 20px rgba(224,92,92,0.45);
+}
+.jp-story-rating-reason {
+  font-size: 14px;
+  color: var(--jp-text-dim);
+  line-height: 1.6;
+  margin: 0;
+}
+
 /* ── Story view responsive ──────────────────────── */
 @media (max-width: 960px) {
   .jp-story-intro { max-width: 100%; }
