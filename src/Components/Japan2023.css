@@ -1944,6 +1944,93 @@
 }
 .jp-story-food-block .jp-story-media-single { margin-top: 0; }
 
+/* Food entry (image + caption with Location / About tabs) */
+.jp-story-food-entry {
+  margin-top: 16px;
+  background: var(--jp-surface);
+  border: 1px solid var(--jp-border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.jp-story-food-entry .jp-story-media-single { margin-top: 0; }
+
+.jp-food-entry-tabs {
+  display: flex;
+  gap: 4px;
+  margin-top: 14px;
+  border-bottom: 1px solid var(--jp-border);
+}
+.jp-food-entry-tab {
+  padding: 8px 14px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--jp-text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  margin-bottom: -1px;
+}
+.jp-food-entry-tab:hover { color: var(--jp-text); }
+.jp-food-entry-tab.active {
+  color: var(--jp-gold);
+  border-bottom-color: var(--jp-gold);
+}
+
+.jp-food-entry-panel {
+  padding: 14px 2px 2px;
+}
+.jp-food-entry-about {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--jp-text-muted);
+  font-style: italic;
+}
+
+.jp-food-entry-location {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.jp-food-entry-map {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--jp-surface-2);
+  border: 1px solid var(--jp-border);
+  border-radius: 8px;
+  color: rgba(59,130,246,0.65);
+}
+.jp-food-entry-map-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--jp-text);
+}
+.jp-food-entry-map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--jp-blue-border);
+  background: var(--jp-blue-dim);
+  color: var(--jp-text);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.jp-food-entry-map-link:hover {
+  border-color: var(--jp-blue);
+  color: #fff;
+}
+
 /* ── Embedded video ─────────────────────────────── */
 .jp-story-video-embed {
   width: 100%;
@@ -1972,6 +2059,34 @@
 .jp-chapter-verdict {
   color: var(--jp-text-dim);
   letter-spacing: 3px;
+}
+
+/* ── May 31 chapter break variants ─────────────── */
+.jp-chapter-arrival {
+  color: var(--jp-text);
+  text-shadow: 0 0 24px rgba(255,255,255,0.08);
+}
+.jp-chapter-hellokitty {
+  color: #f78fb3;
+  text-shadow: 0 0 24px rgba(247,143,179,0.35);
+}
+.jp-chapter-sakura {
+  color: #f0b8c8;
+  text-shadow: 0 0 24px rgba(240,184,200,0.35);
+}
+
+/* ── June 1 chapter break variants ─────────────── */
+.jp-chapter-exploring {
+  color: #6ec6f5;
+  text-shadow: 0 0 24px rgba(110,198,245,0.35);
+}
+.jp-chapter-freewill {
+  color: #a78bfa;
+  text-shadow: 0 0 24px rgba(167,139,250,0.35);
+}
+.jp-chapter-dinner {
+  color: var(--jp-gold);
+  text-shadow: 0 0 24px rgba(200,168,76,0.35);
 }
 
 /* ── Excursion rating block ─────────────────────── */

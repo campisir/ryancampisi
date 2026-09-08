@@ -1,8 +1,7 @@
 import React from 'react';
-import { imgSlot, withCaption, chapterBreak } from './storyHelpers';
+import { imgSlot, withCaption, chapterBreak, FoodEntry } from './storyHelpers';
 
 const VIDEO_URLS = {
-  overlook:   'https://dl.dropboxusercontent.com/scl/fi/z6acaqt2wpq7rac3ex1wl/DSC_0039.MOV?rlkey=z5uiihkafe65z4xgis6981sbf&st=jzv5zo5a&dl=0',
   profExplan: 'https://dl.dropboxusercontent.com/scl/fi/1bkb99b65byg8uszsj9yv/DSC_0040.MOV?rlkey=j80ddsyk7negoukj5ywbiiiau&st=4f82p1ac&dl=0',
   umeda:      'https://dl.dropboxusercontent.com/scl/fi/m7cn1ujhu1s81mpmgda31/DSC_0043.MOV?rlkey=d79xgqduyrhvrgrctayo55nb3&st=riil8rwk&dl=0',
   arcade1:    'https://dl.dropboxusercontent.com/scl/fi/wsepxvbnlmzgfxfjveoiw/DSC_0052.MOV?rlkey=otskpwr7hlezzlg7it4edyvik&st=2t90kyif&dl=0',
@@ -66,11 +65,11 @@ export default function June4({ date, dayNum, tripLength, onBack, onGoToFood, on
           </p>
           <div className="jp-story-img-grid jp-story-img-grid-2">
             <div className="jp-story-grid-cell jp-story-grid-captioned">
-              {imgSlot('', '/jun4temp/pizzachips.jpeg', 'The chips I bought from Daiso')}
+              {imgSlot('', 'https://dl.dropboxusercontent.com/scl/fi/qvrmjtfrjp0e2bwihfis8/june4_chips.jpg?rlkey=9jar12vp2u2oky4thhy1sefl4&st=7gupvh6h&dl=0', 'The chips I bought from Daiso')}
               <p className="jp-story-caption">The chips I bought from Daiso. They were pretty good.</p>
             </div>
             <div className="jp-story-grid-cell jp-story-grid-captioned">
-              {imgSlot('', '/jun4temp/demonslayercurry.jpeg', 'The Demon Slayer curry I bought from Daiso')}
+              {imgSlot('', 'https://dl.dropboxusercontent.com/scl/fi/pa2w5hqyw4zi45491obv9/june4_demonslayercurry.jpg?rlkey=lkem85rcr2dn8xva4j42u7f0f&st=8ovnkp8j&dl=0', 'The Demon Slayer curry I bought from Daiso')}
               <p className="jp-story-caption">
                 The Demon Slayer curry I bought from Daiso. I ate it on{' '}
                 <button
@@ -91,7 +90,7 @@ export default function June4({ date, dayNum, tripLength, onBack, onGoToFood, on
             I actually still have it to this day.
           </p>
           {withCaption(
-            imgSlot('jp-story-img-wide'),
+            imgSlot('jp-story-img-wide', 'https://dl.dropboxusercontent.com/scl/fi/p7dhee0midz7qmpn219ry/june4_iccard.jpg?rlkey=ndkb894qqndldfzucdg0t3dqe&st=m1vmg2nv&dl=0', 'The IC card.'),
             'The IC card.'
           )}
         </div>
@@ -109,10 +108,9 @@ export default function June4({ date, dayNum, tripLength, onBack, onGoToFood, on
             We traveled to Osaka Castle as one big group.
           </p>
           {withCaption(
-            imgSlot('jp-story-img-wide', '/jun4temp/osakacastle.jpeg', 'A view of Osaka Castle, as we were walking up to it'),
+            imgSlot('jp-story-img-wide', 'https://dl.dropboxusercontent.com/scl/fi/0wrt4cvwfoowqxv618jlz/june4_osakacastle.jpg?rlkey=qsn5gbfus4mh4xqsytp03erb5&st=k7vo7l1s&dl=0', 'A view of Osaka Castle, as we were walking up to it'),
             'A view of Osaka Castle, as we were walking up to it.'
           )}
-          {embeddedVideo(VIDEO_URLS.overlook, 'Me, at an overlook near Osaka Castle.')}
         </div>
 
         {/* ── Prof Dips ──────────────────────────── */}
@@ -148,16 +146,10 @@ export default function June4({ date, dayNum, tripLength, onBack, onGoToFood, on
           <p className="jp-story-prose">
             We went inside of this building where I saw my first Jump store.
           </p>
-          <div className="jp-story-img-grid jp-story-img-grid-2">
-            <div className="jp-story-grid-cell jp-story-grid-captioned">
-              {imgSlot('', '/jun4temp/jumppole.png', 'An advertisement for the Jump store')}
-              <p className="jp-story-caption">An advertisement for the Jump store.</p>
-            </div>
-            <div className="jp-story-grid-cell jp-story-grid-captioned">
-              {imgSlot('', '/jun4temp/jumpstatues.jpeg', 'Statues of Luffy and Goku at the Jump store')}
-              <p className="jp-story-caption">Statues of Luffy and Goku at the Jump store.</p>
-            </div>
-          </div>
+          {withCaption(
+            imgSlot('jp-story-img-wide', 'https://dl.dropboxusercontent.com/scl/fi/ef99yay6jbqepooni2n3a/june4_jumpstatues.JPG?rlkey=5hdzbz26g1zwu0ptrvhmddgbk&st=uq1f9nah&dl=0', 'Statues of Luffy and Goku at the Jump store'),
+            'Statues of Luffy and Goku at the Jump store.'
+          )}
         </div>
 
         {/* ── Omurice ────────────────────────────── */}
@@ -167,15 +159,17 @@ export default function June4({ date, dayNum, tripLength, onBack, onGoToFood, on
           </div>
           <p className="jp-story-prose">
             We ended up eating at an Omurice place. I ordered Omurice in mushroom/spinach soup.
-            Another student joined us while we were sat down, making it five of us. I did not
-            have location tagging on my photos at the time, but using photos/videos before/after
-            the event + my menu item note + my memory, I have high confidence that the place we
-            ate at was Pomme&#39;s LINKS Umeda, 8F.
+            Another student joined us while we were sat down, making it five of us.
           </p>
-          {withCaption(
-            imgSlot('jp-story-img-wide', '/jun4temp/omurice.jpeg', 'Omurice in spinach/mushroom soup'),
-            <>Omurice in spinach/mushroom soup. It was good. See also:{' '}<button className="jp-story-food-link" onClick={onGoToFood}>Food</button></>
-          )}
+          <FoodEntry
+            src="https://dl.dropboxusercontent.com/scl/fi/nmwml1a25tf8m1opccgvb/june4_omurice.jpg?rlkey=sjrw633s5ew6lozdw07obf5sj&st=sn5rtnpo&dl=0"
+            alt="Omurice in spinach/mushroom soup"
+            caption="Omurice in spinach/mushroom soup. It was good."
+            locationUrl="https://maps.app.goo.gl/HAkYrrNkWUU6SiHp8"
+            locationName="Pomme's LINKS Umeda, 8F"
+            about="I didn't have location tagging enabled on my photos at the time, so I pieced the location together using photos and videos from before and after the meal, my menu item note, and my memory. That gave me high confidence that this was Pomme's LINKS Umeda, 8F. After having come to that conclusion, I found the old receipt from Pomme's, confirming my theory."
+            onGoToFood={onGoToFood}
+          />
         </div>
 
         {/* ── Arcades ────────────────────────────── */}
