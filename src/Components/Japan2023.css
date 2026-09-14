@@ -2089,6 +2089,28 @@
   text-shadow: 0 0 24px rgba(200,168,76,0.35);
 }
 
+/* ── June 2 chapter break variants ─────────────── */
+.jp-chapter-teramachi {
+  color: #5fd0a8;
+  text-shadow: 0 0 24px rgba(95,208,168,0.35);
+}
+
+/* ── June 3 chapter break variants ─────────────── */
+.jp-chapter-round1 {
+  color: #ff8a5c;
+  text-shadow: 0 0 24px rgba(255,138,92,0.35);
+}
+.jp-chapter-bookoff {
+  color: #7fc4e8;
+  text-shadow: 0 0 24px rgba(127,196,232,0.35);
+}
+
+/* ── June 5 chapter break variants ─────────────── */
+.jp-chapter-pitch {
+  color: #e06464;
+  text-shadow: 0 0 24px rgba(224,100,100,0.35);
+}
+
 /* ── Excursion rating block ─────────────────────── */
 .jp-story-rating-block {
   background: var(--jp-surface);
