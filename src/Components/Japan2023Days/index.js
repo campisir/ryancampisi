@@ -4,6 +4,8 @@ import June2  from './June2';
 import June3  from './June3';
 import June4  from './June4';
 import June5  from './June5';
+import June6  from './June6';
+import June7  from './June7';
 import June17 from './June17';
 
 /* Registry of custom day breakdowns.
@@ -16,6 +18,8 @@ const JAPAN_DAY_COMPONENTS = {
   '2023-06-03': June3,
   '2023-06-04': June4,
   '2023-06-05': June5,
+  '2023-06-06': June6,
+  '2023-06-07': June7,
   '2023-06-17': June17,
 };
 

@@ -2031,6 +2031,38 @@
   color: #fff;
 }
 
+/* Google Maps embed (standalone) */
+.jp-story-map-embed-frame {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--jp-border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--jp-surface-2);
+}
+.jp-story-map-embed-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Google Maps embed inside food entry */
+.jp-food-entry-map-embed {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--jp-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--jp-surface-2);
+}
+.jp-food-entry-map-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
 /* ── Embedded video ─────────────────────────────── */
 .jp-story-video-embed {
   width: 100%;
@@ -2109,6 +2141,16 @@
 .jp-chapter-pitch {
   color: #e06464;
   text-shadow: 0 0 24px rgba(224,100,100,0.35);
+}
+
+/* ── June 7 chapter break variants ─────────────── */
+.jp-chapter-koe {
+  color: #e8b05c;
+  text-shadow: 0 0 24px rgba(232,176,92,0.35);
+}
+.jp-chapter-study {
+  color: #8aa9e8;
+  text-shadow: 0 0 24px rgba(138,169,232,0.35);
 }
 
 /* ── Excursion rating block ─────────────────────── */

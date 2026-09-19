@@ -55,6 +55,7 @@ export const FoodEntry = ({
   alt = '',
   caption,
   locationUrl,
+  mapEmbed,
   locationName = 'Location',
   about,
   onGoToFood,
@@ -97,30 +98,44 @@ export const FoodEntry = ({
       <div className="jp-food-entry-panel">
         {tab === 'location' ? (
           <div className="jp-food-entry-location">
-            <div className="jp-food-entry-map">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="2"
-                strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-              <span className="jp-food-entry-map-name">{locationName}</span>
-            </div>
-            <a
-              className="jp-food-entry-map-link"
-              href={locationUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Open in Google Maps
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="2.5"
-                strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                <polyline points="15 3 21 3 21 9"/>
-                <line x1="10" y1="14" x2="21" y2="3"/>
-              </svg>
-            </a>
+            {mapEmbed ? (
+              <div className="jp-food-entry-map-embed">
+                <iframe
+                  src={mapEmbed}
+                  title={`${locationName} on Google Maps`}
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+              </div>
+            ) : (
+              <div className="jp-food-entry-map">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2"
+                  strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span className="jp-food-entry-map-name">{locationName}</span>
+              </div>
+            )}
+            {locationUrl && (
+              <a
+                className="jp-food-entry-map-link"
+                href={locationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open in Google Maps
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2.5"
+                  strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+            )}
           </div>
         ) : (
           <p className="jp-food-entry-about">{about}</p>
@@ -129,3 +144,19 @@ export const FoodEntry = ({
     </div>
   );
 };
+
+/* Google Maps embed frame (standalone) */
+export const MapEmbed = ({ src, title = 'Google Map', caption }) => (
+  <div className="jp-story-media-single">
+    <div className="jp-story-map-embed-frame">
+      <iframe
+        src={src}
+        title={title}
+        loading="lazy"
+        allowFullScreen
+        referrerPolicy="strict-origin-when-cross-origin"
+      />
+    </div>
+    {caption ? <p className="jp-story-caption">{caption}</p> : null}
+  </div>
+);

@@ -996,6 +996,7 @@ fn interpolate(&self, x: f64, y: f64) -> f64 {
           tripLength={TRIP_DATES.length}
           onBack={this.handleClearDate}
           onGoToFood={() => this.handleTabSelect('food')}
+          onGoToWeatherViz={() => this.handleTabSelect('weatherviz')}
           onShowRule={(rule) => this.setState({ rulePopup: rule })}
           onGoToDay={(dateStr) => {
             const d = this.findTripDate(dateStr);
