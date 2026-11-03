@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap');
+
+/* =====================================================
+   Japan 2023 day pages — "Journal" design
+   Shared base: .jpd    Journal: .jpa-*
+   (Archived Scrapbook / Route styles: designs/archive/archive.css)
+   ===================================================== */
+
+/* ── Shared base ────────────────────────────────── */
+.jpd { box-sizing: border-box; width: 100%; animation: jp-fade-in 0.22s ease; }
+.jpd *, .jpd *::before, .jpd *::after { box-sizing: border-box; }
+.jpd button { font-family: inherit; cursor: pointer; }
+.jpd img, .jpd video { display: block; }
+
+/* Neutralise the legacy template's global element styles (zero specificity so classes win) */
+:where(.jpd) h2, :where(.jpd) h3 { line-height: 1.15; margin-bottom: 0; color: inherit; }
+:where(.jpd) li { line-height: inherit; margin-bottom: 0; }
+:where(.jpd) p { margin-bottom: 0; }
+
+[data-reveal] { transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.2,.7,.2,1); }
+.jpd-js [data-reveal]:not(.is-visible) { opacity: 0; transform: translateY(22px); }
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { transition: none; }
+  .jpd-js [data-reveal]:not(.is-visible) { opacity: 1; transform: none; }
+}
+
+
+/* =====================================================
+   JOURNAL
+   ===================================================== */
+.jpa {
+  --a-ink: #ece6dc;
+  --a-muted: #9a9387;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 28px 140px;
+  font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+  color: var(--a-ink);
+}
+.jpa-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  background: none;
+  border: 0;
+  color: var(--a-muted);
+  font-size: 15px;
+  font-style: italic;
+  transition: color 0.15s;
+}
+.jpa-back:hover { color: var(--a-ink); }
+
+.jpa-masthead {
+  max-width: 680px;
+  margin: 36px auto 84px;
+  text-align: center;
+}
+.jpa-seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  height: 58px;
+  padding: 0 6px;
+  border-radius: 29px;
+  border: 2px solid var(--jp-red);
+  color: var(--jp-red);
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 26px;
+  font-weight: 600;
+  transform: rotate(-8deg);
+  box-shadow: inset 0 0 0 3px var(--jp-bg), inset 0 0 0 4px rgba(197, 53, 59, 0.45);
+  margin-bottom: 22px;
+}
+.jpa-kicker {
+  margin: 0 0 14px;
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--a-muted);
+}
+.jpa-date {
+  margin: 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(36px, 7vw, 60px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--a-ink);
+}
+.jpa-weekday {
+  display: block;
+  margin-bottom: 4px;
+  font-style: italic;
+  color: var(--jp-gold);
+}
+
+.jpa-p {
+  max-width: 640px;
+  margin: 0 auto 1.45em;
+  font-size: 21px;
+  line-height: 1.8;
+  color: rgba(236, 230, 220, 0.88);
+}
+.jpa-p-first::first-letter {
+  float: left;
+  margin: 0.06em 0.12em 0 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 4.7em;
+  font-weight: 600;
+  line-height: 0.8;
+  color: var(--jp-red);
+}
+
+/* Inline links/buttons inside prose and captions */
+.jpa .jp-story-food-link,
+.jpa .jp-rule-inline {
+  font-family: inherit;
+  font-weight: 600;
+  padding: 0;
+  text-underline-offset: 3px;
+}
+.jpa .jp-story-food-link { text-decoration-color: rgba(200, 168, 76, 0.5); }
+.jpa .jp-rule-inline { text-decoration-color: rgba(197, 53, 59, 0.55); }
+
+.jpa-figure { max-width: 880px; margin: 3.2em auto; }
+.jpa-figure figure { margin: 0; }
+.jpa-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #090912;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.8);
+}
+.jpa-frame img {
+  width: 100%;
+  height: auto;
+  max-height: 78vh;
+  object-fit: contain;
+}
+.jpa-frame-video { aspect-ratio: 16 / 9; background: #000; }
+.jpa-video { width: 100%; height: 100%; }
+.jpa-figure figcaption {
+  max-width: 640px;
+  margin: 14px auto 0;
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--a-muted);
+}
+.jpa-photos { display: grid; gap: 20px; align-items: start; }
+.jpa-photos-2 { grid-template-columns: 1fr 1fr; }
+.jpa-photos-3 { grid-template-columns: repeat(3, 1fr); }
+.jpa-photos-4 { grid-template-columns: 1fr 1fr; }
+.jpa-photos figcaption { font-size: 14.5px; }
+
+/* "Coming soon" placeholders */
+.jpa-placeholder {
+  aspect-ratio: 4 / 3;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(236, 230, 220, 0.18);
+  box-shadow: none;
+}
+.jpa-placeholder-wide { aspect-ratio: 16 / 9; }
+.jpa-placeholder span,
+.jpa-placeholder-text {
+  font-size: 15px;
+  font-style: italic;
+  color: rgba(154, 147, 135, 0.7);
+}
+.jpa-frame-empty {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(236, 230, 220, 0.18);
+  box-shadow: none;
+}
+.jpa-frame-location {
+  flex-direction: column;
+  gap: 8px;
+  aspect-ratio: 16 / 6;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(236, 230, 220, 0.18);
+  box-shadow: none;
+}
+.jpa-location-coords {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 19px;
+  color: var(--jp-gold);
+}
+
+/* Food entry (photo + Location / About tabs) */
+.jpa-food { max-width: 760px; }
+.jpa .jp-story-food-entry {
+  margin-top: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+.jpa .jp-story-food-entry .jp-story-img-placeholder {
+  aspect-ratio: auto;
+  min-height: 0;
+  background: #090912;
+  border: 0;
+  border-radius: 3px;
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.8);
+}
+.jpa .jp-story-food-entry .jp-story-img {
+  position: static;
+  width: 100%;
+  height: auto;
+  max-height: 78vh;
+  object-fit: contain;
+}
+.jpa .jp-story-caption {
+  margin: 14px 0 0;
+  padding: 0;
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--a-muted);
+}
+.jpa .jp-food-entry-tabs { justify-content: center; margin-top: 22px; border-bottom-color: rgba(236, 230, 220, 0.12); }
+.jpa .jp-food-entry-tab { font-family: inherit; font-size: 12px; letter-spacing: 0.18em; }
+.jpa .jp-food-entry-panel { padding-top: 18px; }
+.jpa .jp-food-entry-about {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.65;
+  text-align: center;
+  color: var(--a-muted);
+}
+.jpa .jp-food-entry-location { align-items: center; }
+.jpa .jp-food-entry-map { width: 100%; justify-content: center; }
+.jpa .jp-food-entry-map-name { font-family: inherit; font-size: 16px; }
+.jpa .jp-food-entry-map-link { font-family: inherit; font-size: 14px; }
+
+/* Standalone map embed */
+.jpa-map { max-width: 760px; }
+.jpa .jp-story-media-single { margin-top: 0; }
+.jpa .jp-story-map-embed-frame { border-radius: 3px; border: 0; box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.8); }
+
+/* Rating */
+.jpa-rating {
+  max-width: 640px;
+  margin: 3.2em auto;
+  padding: 2em 0;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.jpa-rating-label {
+  margin: 0 0 6px;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--a-muted);
+}
+.jpa-rating-grade {
+  margin: 0 0 12px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 72px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--jp-red);
+}
+.jpa-rating-reason {
+  margin: 0;
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.65;
+  color: rgba(236, 230, 220, 0.8);
+}
+
+.jpa-break {
+  margin: 3.6em 0;
+  text-align: center;
+  color: var(--jp-red);
+  font-size: 12px;
+  letter-spacing: 1.1em;
+  padding-left: 1.1em;
+}
+.jpa-break::before { content: '\25CF\25CF\25CF'; }
+
+.jpa-recap {
+  max-width: 640px;
+  margin: 7em auto 0;
+  padding-top: 2.6em;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+}
+.jpa-recap-label {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  color: var(--a-muted);
+}
+.jpa-recap-title {
+  margin: 0 0 14px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 38px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--a-ink);
+}
+.jpa-recap-list {
+  margin: 0 0 32px;
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--jp-gold);
+}
+.jpa-recap-list b { font-weight: inherit; white-space: nowrap; }
+.jpa-recap-list i { margin: 0 0.35em; font-style: normal; color: var(--a-muted); }
+.jpa-next {
+  padding: 12px 26px;
+  background: transparent;
+  border: 1px solid rgba(236, 230, 220, 0.35);
+  border-radius: 999px;
+  color: var(--a-ink);
+  font-family: inherit;
+  font-size: 17px;
+  transition: all 0.2s;
+}
+.jpa-next:hover { background: var(--jp-red); border-color: var(--jp-red); color: #fff; }
+
+@media (max-width: 700px) {
+  .jpa { padding: 24px 20px 90px; }
+  .jpa-p { font-size: 19px; line-height: 1.75; }
+  .jpa-masthead { margin-bottom: 56px; }
+  .jpa-photos-2, .jpa-photos-3 { grid-template-columns: 1fr; }
+  .jpa-photos-4 { gap: 12px; }
+  .jpa-frame-location { aspect-ratio: 16 / 9; }
+  .jpa-rating-grade { font-size: 56px; }
+}

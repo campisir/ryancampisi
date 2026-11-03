@@ -393,7 +393,7 @@ class Japan2023 extends Component {
                 loading="lazy"
               />
             </div>
-            <span className="jp-course-caption" style={{ margin: '0 0 0' }}>A group photo of my cohort. I'm the short guy with their hands in their pockets (on the left). I did not take this picture and I am not sure who did. Reach out if you took this picture so I can credit you.</span>
+            <span className="jp-course-caption" style={{ margin: '0 0 0' }}>A group photo of my cohort. I'm the short guy with their hands in their pockets (on the left).</span>
           </div>
         </div>
 
@@ -513,8 +513,7 @@ class Japan2023 extends Component {
               <Link href="/#contact">reach out via my contact form</Link>.
             </p>
             <p>
-              Higher resolution versions of any image on this page are available upon
-              request. Feel free to{' '}
+              If you have any other questions or concerns, feel free to{' '}
               <Link href="/#contact">get in touch</Link>.
             </p>
           </div>
@@ -989,12 +988,14 @@ fn interpolate(&self, x: f64, y: f64) -> f64 {
   renderDayView(dateObj) {
     const CustomDay = JAPAN_DAY_COMPONENTS[dateObj.dateStr];
     if (CustomDay) {
+      const nextDate = TRIP_DATES[TRIP_DATES.findIndex(d => d.dateStr === dateObj.dateStr) + 1];
       return (
         <CustomDay
           date={dateObj.date}
           dayNum={dateObj.dayNum}
           tripLength={TRIP_DATES.length}
           onBack={this.handleClearDate}
+          onNextDay={nextDate ? () => this.handleDateSelect(nextDate) : undefined}
           onGoToFood={() => this.handleTabSelect('food')}
           onGoToWeatherViz={() => this.handleTabSelect('weatherviz')}
           onShowRule={(rule) => this.setState({ rulePopup: rule })}

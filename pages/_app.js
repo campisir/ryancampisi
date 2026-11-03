@@ -7,6 +7,7 @@ import '../src/Components/Resume.css';
 import '../src/Components/Travel.css';
 import '../src/Components/Trophies.css';
 import '../src/Components/Japan2023.css';
+import '../src/Components/Japan2023Days/designs/journal.css';
 import Script from 'next/script';
 
 function MyApp({ Component, pageProps }) {
